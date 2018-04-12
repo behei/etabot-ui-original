@@ -1,0 +1,18 @@
+.form-group input[type=text]:focus {
+     border-bottom: 1px solid #1a237e;
+     box-shadow: 0 1px 0 0 #1a237e;
+}
+
+.form-group input[type=password]:focus {
+     border-bottom: 1px solid #1a237e;
+     box-shadow: 0 1px 0 0 #1a237e;
+}
+
+h1 {
+  font-family: 'Julius Sans One', sans-serif;
+}
+
+.new-font {
+	font-family: 'Josefin Sans', sans-serif;
+	font-size: 20px;
+}

@@ -1,0 +1,17 @@
+/*.work-hour-time-card {
+	display: flex;
+	flex-direction: column;
+	/*box-shadow: inset 0 0 10px #000000;
+}
+*/
+.new-font {
+	font-family: 'Josefin Sans', sans-serif;
+}
+
+h5, h6 {
+	font-family: 'Josefin Sans', sans-serif;
+}
+
+.days {
+	font-size: 18px;
+}

@@ -1,0 +1,29 @@
+/*.container {
+	display: flex;
+}
+
+.PeriodInfo {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 13;
+}
+
+.settings-button {
+	display: flex;
+	flex-grow: 1;
+}
+
+.grace-period {
+	display: flex;
+	flex-direction: row;
+}
+
+.open-tasks {
+	display: flex;
+	flex-direction: row;
+}
+*/
+
+.new-font {
+	font-family: 'Josefin Sans', sans-serif;
+}

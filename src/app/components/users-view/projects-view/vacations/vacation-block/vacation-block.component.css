@@ -1,0 +1,15 @@
+.new-font {
+	font-family: 'Josefin Sans', sans-serif;
+}
+
+.mat-input-underline {
+    display: none;
+}
+
+.mat-input-wrapper {
+	width: 100px;
+}
+
+.mat-form-field-infix {
+	width: 100px;
+}

@@ -1,0 +1,19 @@
+<div fxLayout="row wrap"> <!-- fxLayout="row" fxLayoutAlign="space-between center" -->
+  <div style="margin-right: 59px; margin-top: 16px;">
+    Vacations
+  </div>
+<div *ngFor="let vacation of vacationData">
+  <div class="vacation_days">
+    <mat-card style="padding: 24px; width: 149px; height: 120px;">
+    <h5 class="new-font" style="font-size: 22px;">{{ vacation.start | date: 'y'}}</h5>
+    <div fxLayout="row" style="position: relative; bottom: 35px;"> 
+      <app-vacation-block style="width: 60px;" [vacationStart]="vacation.start"></app-vacation-block>   <!-- style="margin: 10px; margin-top: 0px; margin-right: 5px; -->
+      <app-vacation-block-end style="margin-left: -5px;" [vacationEnd]="vacation.end"></app-vacation-block-end>
+    </div>
+  </mat-card>
+
+ </div>
+</div>
+  <a mat-mini-fab color="basic" (click)="addVacationField()" style="margin-left: 20px; "><mat-icon>add</mat-icon></a>
+</div>
+

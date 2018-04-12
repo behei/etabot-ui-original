@@ -1,0 +1,12 @@
+.fill-the-space {
+	flex: 1 1 auto;
+}
+
+.space-between-buttons {
+	flex: 0.008 0.008 auto;
+}
+
+.new-font {
+	font-family: 'Josefin Sans', sans-serif;
+	font-size: 20px;
+}

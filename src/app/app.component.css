@@ -1,0 +1,26 @@
+body {
+  margin: 0;
+}
+.containerComponents {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+app-header-component {
+  flex: 0.99 0.99 0;                   
+  background: whitesmoke;
+}
+app-content-component {
+  flex: 8.21 8.21 0;                   
+  background: whitesmoke;
+  overflow: auto;
+}
+app-footer-component {
+  flex: 0.80 0.80 0;                   
+  background: whitesmoke;
+}
+
+h1 {
+  font-family: 'Julius Sans One', sans-serif;
+}

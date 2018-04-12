@@ -1,0 +1,41 @@
+h1 {
+  font-family: 'Julius Sans One', sans-serif;
+}
+.new-font {
+	font-family: 'Josefin Sans', sans-serif;
+	font-size: 24px;
+}
+
+.header-image {
+  background-image: url('../../../../assets/launchpadme.png');
+  background-size: cover;
+}
+
+.card-header {
+	display: flex;
+	flex-flow: row wrap;
+	flex-grow: 1;
+}
+.card-title-subtitle {
+	order: 2;
+	flex-grow: 0.2;
+}
+
+.card-update-button {
+	order: 3;
+	flex-grow: 3;
+}
+
+.wrapper {
+	display: grid;
+}
+
+.mat-card-avatar {
+	min-height: 55px;
+	min-width: 55px;
+}
+
+/*.mat-raised-button {
+	background-color: #d9edf7; border-color: #bce8f1;
+}*/
+

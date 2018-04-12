@@ -1,0 +1,42 @@
+/*.hours-content {
+	display: flex;
+	align-items: center;
+	flex-grow: 1;
+}
+
+.static-text-work-hours {
+	flex-grow: 1;
+
+}
+
+.work-hours-view-card {
+	flex-grow: 2;
+}
+*/
+/*
+.vacation_days {
+	width:70%;
+	height:200px;
+	background:#FFF;
+	margin:40px auto;
+	box-shadow: 0 10px 6px -6px #777;
+}
+
+.vacation_days h3 {
+		text-align:center;
+	position:relative;
+	top:80px;
+}*/
+
+.mat-button.mat-mini-fab {
+    min-width: 1%;
+}
+
+/*.mat-card {
+	padding: 24px;
+	width: 137px;
+}*/
+
+.new-font {
+	font-family: 'Josefin Sans', sans-serif;
+}

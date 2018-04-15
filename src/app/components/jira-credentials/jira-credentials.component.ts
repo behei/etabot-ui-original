@@ -12,6 +12,7 @@ export class JiraCredentialsComponent {
 	username: string;
 	team: string;
   constructor(public dialog: MatDialog) {
+    this.team = ".atlassian.net";
   	if(localStorage.getItem('username'))
   		this.username = localStorage.getItem('username');
   }
@@ -21,12 +22,6 @@ export class JiraCredentialsComponent {
     let dialogRef = this.dialog.open(TermsConditionsFullComponent, {
       width: '800px',
       height: '500px',
-      //data: { isAcceptedTerms: this.isAcceptedTerms}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      //this.isAcceptedTerms = result;
     });
   }
 

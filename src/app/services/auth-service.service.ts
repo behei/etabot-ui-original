@@ -26,7 +26,6 @@ export class AuthService {
   		headers: headers
 		});
 
-		headers.append('X-CSRFToken', this.getCookie('csrftoken'));
     return this.http.post(this.service_api_end_point + 'get-token/', JSON.stringify({ username: username, password: password }), options)
 			.map((response: Response) => {
 				
@@ -50,13 +49,6 @@ export class AuthService {
 
 
 	}
-  getCookie(name) {
-      let value = "; " + document.cookie;
-      let parts = value.split("; " + name + "=");
-      if (parts.length == 2) {
-        return parts.pop().split(";").shift();
-      }
-  }
 
 	logout() {
 		this.token = null;

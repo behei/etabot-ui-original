@@ -25,7 +25,6 @@ import { VacationsComponent } from './components/users-view/projects-view/vacati
 import { AuthGuard} from './auth_guard/auth.guard';
 import { AuthService } from './services/auth-service.service';
 import { EtabotApiService } from './services/etabot-api.service';
-import { Auth0Service} from './services/auth.service';
 import { SignUpService } from './services/sign-up.service';
 import { routing } from './routes/app.routing';
 import { VacationBlockComponent } from './components/users-view/projects-view/vacations/vacation-block/vacation-block.component';
@@ -71,7 +70,7 @@ import { TermsConditionsFullComponent } from './components/register-page/terms-c
     FlexLayoutModule,
   ],
   exports: [RouterModule],
-  providers: [EtabotApiService, AuthService, Auth0Service, SignUpService, AuthGuard, WorkHoursViewComponent],
+  providers: [EtabotApiService, AuthService, SignUpService, AuthGuard, WorkHoursViewComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

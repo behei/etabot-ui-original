@@ -34,7 +34,7 @@ export class RegisterPageComponent implements OnInit {
 
   ngOnInit() {
     this.returnUrl = '/jira';
-    if (localStorage.getItem('currentUser')) {
+    if (localStorage.getItem('username')) {
       this.router.navigate([this.returnUrl]);
     }
   }
@@ -43,13 +43,6 @@ export class RegisterPageComponent implements OnInit {
     let dialogRef = this.dialog.open(TermsConditionsFullComponent, {
       width: '800px',
       height: '500px',
-      //data: { isAcceptedTerms: this.isAcceptedTerms}
-    });
-
-    //dialogRef.updatePosition({ top: '50px', left: '50px'});
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      //this.isAcceptevdTerms = result;
     });
   }
 
@@ -57,11 +50,9 @@ export class RegisterPageComponent implements OnInit {
     this.signUpService.signup(this.model.username, this.model.email, this.model.password)
     .subscribe(
       success => {
-        console.log("user successfully created");
         this.router.navigate([this.returnUrl]);
       },
       error => {
-        console.log("error");
         this.userFailure = true;
       }
     );

@@ -2,7 +2,6 @@ import { Injectable, EventEmitter, Output } from '@angular/core';
 import { Http, Response, Request, RequestMethod, Headers, RequestOptions } from '@angular/http';
 import { Observable}     from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
-import Cookies from 'js-cookie';
 
 @Injectable()
 export class SignUpService {
@@ -26,7 +25,7 @@ export class SignUpService {
 
     var userObject = JSON.stringify({username: username, password: password, email: email});
    
-    headers.append('X-CSRFToken', Cookies.get('csrftoken'));
+    headers.append('X-CSRFToken', 'csrftoken');
     return this.http.post(this.service_api_end_point +'users/', userObject, options)
         .map((response: Response) => {
           if (String(response.status) == "201")

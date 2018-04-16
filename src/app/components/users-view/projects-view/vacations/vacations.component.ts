@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { EtabotApiService } from '../../../../services/etabot-api.service';
-// import { MatDatepickerModule } from '@angular/material';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-vacations',
@@ -25,15 +25,15 @@ export class VacationsComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.vacationData);
-    this.vacationData.sort( function(field1, field2) {
-      if ( field1.start < field2.end ){
-        return -1;
-      }else if( field1.start > field2.end ){
-          return 1;
-      }else{
-        return 0;  
-      }
-  });
+  //   this.vacationData.sort( function(field1, field2) {
+  //     if ( field1.start < field2.end ){
+  //       return -1;
+  //     }else if( field1.start > field2.end ){
+  //         return 1;
+  //     }else{
+  //       return 0;  
+  //     }
+  // });
     //console.log(this.vacationData[0].start.toString().split('.'));
     //this.splitData = this.vacationData;//.split("");
     //this.splitData = JSON.parse(this.vacationData);
@@ -57,18 +57,14 @@ export class VacationsComponent implements OnInit {
 
 
   addVacationField() {
-    //var start = "2017-03-02";
-    //var end = "2017-05-07";
-    //console.log(this.vacationData.length);
-    var todayDate = new Date();
-    var endingDate = new Date(+new Date + 12096e5);
+    var todayDate = moment().format('YYYY-MM-DD');
+    var endingDate = moment().add(14, 'days').format('YYYY-MM-DD');
     var newVacation = 
       {
         start: todayDate, 
         end: endingDate
-      }
+      };
     this.vacationData.push(newVacation);
-    //console.log(this.vacationData);
   }
 
 

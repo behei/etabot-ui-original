@@ -1,5 +1,8 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { ViewEncapsulation } from '@angular/core';
+
+
+
 @Component({
   selector: 'app-vacation-block',
   templateUrl: './vacation-block.component.html',
@@ -20,9 +23,9 @@ export class VacationBlockComponent implements OnInit {
   	this.calendarField = false;
     this.vacations = this.vacationStart.toString().split("-");
     //console.log(this.vacations);
-    if (parseInt(this.vacations[1]) < 10) {
-      this.vacations[1] = this.zero.concat(this.vacations[1]);
-    }
+    // if (parseInt(this.vacations[1]) < 10) {
+    //   this.vacations[1] = this.zero.concat(this.vacations[1]);
+    // }
     this.date = new Date(parseInt(this.vacations[0]), parseInt(this.vacations[1]), parseInt(this.vacations[2]) );
     //console.log(this.date);
   }

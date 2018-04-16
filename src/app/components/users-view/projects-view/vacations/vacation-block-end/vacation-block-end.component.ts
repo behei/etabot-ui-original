@@ -19,9 +19,9 @@ export class VacationBlockEndComponent implements OnInit {
   	this.calendarField = false;
     this.vacations = this.vacationEnd.toString().split("-");
     //console.log(this.vacations);
-    if (parseInt(this.vacations[1]) < 10) {
-      this.vacations[1] = this.zero.concat(this.vacations[1]);
-    }
+    // if (parseInt(this.vacations[1]) < 10) {
+    //   this.vacations[1] = this.zero.concat(this.vacations[1]);
+    // }
     this.date = new Date(parseInt(this.vacations[0]), parseInt(this.vacations[1]), parseInt(this.vacations[2] ));
   }
 

@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Directive } from '@angular/core';
 import { EtabotApiService } from '../../../services/etabot-api.service'
-// import { MatDialog } from '@angular/material';
 import { AuthService } from '../../../services/auth-service.service';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-projects-view',
@@ -24,7 +24,8 @@ export class ProjectsViewComponent implements OnInit {
   constructor(
     private etabotAPI: EtabotApiService,
     private authService: AuthService,
-    private http: Http) {
+    private http: Http,
+    private titleService: Title) {
     this.defaultTimeZone = "GMT +7";
     //this.projects = etabotAPI.get_fake_projects();
     //this.realProjects = etabotAPI.get_real_projects();
@@ -48,7 +49,7 @@ export class ProjectsViewComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.titleService.setTitle('Your JIRA Projects');
   }
 
   setTimeZone(receivedTimeZone) {

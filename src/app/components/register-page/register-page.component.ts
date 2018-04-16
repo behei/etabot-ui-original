@@ -6,6 +6,7 @@ import { SignUpService } from '../../services/sign-up.service';
 import 'rxjs/add/observable/throw';
 import { Router } from '@angular/router';
 import { TermsConditionsFullComponent } from './terms-conditions-full/terms-conditions-full.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register-page',
@@ -23,7 +24,8 @@ export class RegisterPageComponent implements OnInit {
     private etabotAPI: EtabotApiService, 
     private router: Router, 
     private signUpService: SignUpService,  
-    public dialog: MatDialog) 
+    public dialog: MatDialog,
+    private titleService: Title) 
   {
     this.isAcceptedTerms = false;
     this.passwordMatched = false;
@@ -37,6 +39,7 @@ export class RegisterPageComponent implements OnInit {
     if (localStorage.getItem('username')) {
       this.router.navigate([this.returnUrl]);
     }
+    this.titleService.setTitle("ETAbot Sign Up");
   }
 
   openDialog(): void {

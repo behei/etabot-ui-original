@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EtabotApiService } from '../../services/etabot-api.service';
 import { AuthService } from '../../services/auth-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Title }     from '@angular/platform-browser';
 
 @Component({
   selector: 'app-users-view',
@@ -19,7 +20,8 @@ export class UsersViewComponent implements OnInit {
   constructor(
     private etabotAPI: EtabotApiService, 
     private router: Router, 
-    private authService: AuthService) {
+    private authService: AuthService,
+    private titleService: Title) {
    }
 
 
@@ -27,6 +29,7 @@ export class UsersViewComponent implements OnInit {
 
   ngOnInit() {
     this.returnUrl = '/jira';
+    this.titleService.setTitle('ETAbot Log In');
   }
 
   login() {

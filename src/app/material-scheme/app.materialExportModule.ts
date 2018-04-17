@@ -5,11 +5,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { 
 		MatButtonModule, 
 		MatCheckboxModule,
-		//MatInputModule,
 		MatSelectModule,
 		MatDatepickerModule,
 		MatNativeDateModule,
-		//MdFormFieldModule,
 		MatToolbarModule,
 		MatGridListModule,
 		MatCardModule,
@@ -30,12 +28,10 @@ import 'hammerjs';
 		MatSelectModule,
 		MatDatepickerModule,
 		MatNativeDateModule,
-		//MdFormFieldModule,
 		MatToolbarModule,
 		MatGridListModule,
 		MatCardModule,
 		MatIconModule
-		//MdFormFieldModule,
 		],
 	exports: [
 		BrowserAnimationsModule,

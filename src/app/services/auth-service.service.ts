@@ -1,7 +1,8 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map';
+// import { Observable } from 'rxjs';
+// import 'rxjs/add/operator/map';
+import { map } from "rxjs/operators";
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 
@@ -17,7 +18,7 @@ export class AuthService {
 
 
 
-	login(username: string, password: string): Observable<boolean> {
+	login(username: string, password: string) {
 		let headers = new Headers({
   		'Accept': 'application/json',
   		'Content-Type': 'application/json'
@@ -27,7 +28,7 @@ export class AuthService {
 		});
 
     return this.http.post(this.service_api_end_point + 'get-token/', JSON.stringify({ username: username, password: password }), options)
-			.map((response: Response) => {
+			.pipe(map((response: Response) => {
 				
       
       		let user = response.json();
@@ -45,7 +46,7 @@ export class AuthService {
             return false;
 
           }
-    });
+    }));
 
 
 	}

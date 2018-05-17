@@ -1,6 +1,7 @@
 import { Injectable, EventEmitter, Output } from '@angular/core';
 import { Http, Response, Request, RequestMethod, Headers, RequestOptions } from '@angular/http';
-import { Observable}     from 'rxjs/Observable';
+//import { Observable}     from 'rxjs/Observable';
+import { map } from "rxjs/operators";
 import { environment } from '../../environments/environment';
 
 @Injectable()
@@ -14,7 +15,7 @@ export class SignUpService {
   }
 
   
-  signup(username: string, email: string, password: string): Observable<boolean> {
+  signup(username: string, email: string, password: string) {
     let headers = new Headers({
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -27,7 +28,7 @@ export class SignUpService {
    
     headers.append('X-CSRFToken', 'csrftoken');
     return this.http.post(this.service_api_end_point +'users/', userObject, options)
-        .map((response: Response) => {
+        .pipe(map((response: Response) => {
           if (String(response.status) == "201")
             {
               console.log(response);
@@ -39,7 +40,7 @@ export class SignUpService {
               this.getRegisteredStatus.emit(false);
               return false;
           }
-        });
+        }));
   }
 
 

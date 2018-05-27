@@ -3,6 +3,7 @@ import { EtabotApiService } from '../../services/etabot-api.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NgForm } from '@angular/forms';
 import { SignUpService } from '../../services/sign-up.service';
+import { JiraService } from '../../services/jira.service';
 import 'rxjs/add/observable/throw';
 import { Router } from '@angular/router';
 import { TermsConditionsFullComponent } from './terms-conditions-full/terms-conditions-full.component';
@@ -23,8 +24,9 @@ export class RegisterPageComponent implements OnInit {
   constructor(
     private etabotAPI: EtabotApiService, 
     private router: Router, 
-    private signUpService: SignUpService,  
-    public dialog: MatDialog,
+    private signUpService: SignUpService, 
+    private jiraService: JiraService,
+    private dialog: MatDialog,
     private titleService: Title) 
   {
     this.isAcceptedTerms = false;
@@ -60,6 +62,7 @@ export class RegisterPageComponent implements OnInit {
       }
     );
   }
+
 
 }
 

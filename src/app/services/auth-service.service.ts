@@ -32,11 +32,9 @@ export class AuthService {
 				
       
       		let user = response.json();
-          console.log(JSON.stringify(user));
           if (user && user.token) {
             localStorage.setItem('currentUser', JSON.stringify(user));
             localStorage.setItem('username', username);
-            console.log("username is " + localStorage.getItem('username'));
             this.getLoggedIn.emit(true);
             return true;
 
@@ -53,7 +51,6 @@ export class AuthService {
 
 	logout() {
 		this.token = null;
-    console.log("LOGGING OUT");
 		localStorage.removeItem('currentUser');
     localStorage.removeItem('username');
     this.getLoggedIn.emit(false);

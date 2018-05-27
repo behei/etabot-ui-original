@@ -1,6 +1,5 @@
 import { Injectable, EventEmitter, Output } from '@angular/core';
 import { Http, Response, Request, RequestMethod, Headers, RequestOptions } from '@angular/http';
-//import { Observable}     from 'rxjs/Observable';
 import { map } from "rxjs/operators";
 import { environment } from '../../environments/environment';
 

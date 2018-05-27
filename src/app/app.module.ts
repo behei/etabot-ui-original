@@ -26,6 +26,7 @@ import { AuthGuard} from './auth_guard/auth.guard';
 import { AuthService } from './services/auth-service.service';
 import { EtabotApiService } from './services/etabot-api.service';
 import { SignUpService } from './services/sign-up.service';
+import { JiraService } from './services/jira.service';
 import { routing } from './routes/app.routing';
 import { VacationBlockComponent } from './components/users-view/projects-view/vacations/vacation-block/vacation-block.component';
 import { VacationBlockEndComponent } from './components/users-view/projects-view/vacations/vacation-block-end/vacation-block-end.component';
@@ -70,7 +71,7 @@ import { TermsConditionsFullComponent } from './components/register-page/terms-c
     FlexLayoutModule,
   ],
   exports: [RouterModule],
-  providers: [EtabotApiService, AuthService, SignUpService, AuthGuard, WorkHoursViewComponent],
+  providers: [EtabotApiService, AuthService, SignUpService, AuthGuard, WorkHoursViewComponent, JiraService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

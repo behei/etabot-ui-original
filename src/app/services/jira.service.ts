@@ -28,13 +28,35 @@ export class JiraService {
     return this.http.post(this.service_api_end_point +'tms/', jiraObject, options)
         .pipe(map((response: Response) => {
           if (String(response.status) == "201")
-            {
-              console.log(response);
-              return true;
-            }
-          else {
-              return false;
-          }
+            return true;
+          else 
+          	return false;
         }));
+  }
+
+  get_tms() {
+  	var loggedIn = JSON.parse(localStorage.getItem('currentUser'));
+  	this.token = loggedIn && loggedIn.token;
+  	let headers = new Headers({
+  		'Accept': 'application/json',
+  		'Content-Type': 'application/json'
+  	});
+  	headers.append('Authorization', `Token ${this.token}`);
+  	let options = new RequestOptions({
+  		headers: headers
+  	});
+
+  	return this.http.get(this.service_api_end_point + 'tms/', options)
+  		.pipe(map((response: Response) => {
+  				let res = response.json();
+  				if (res.length == 0) {
+  					console.log("length in true" + res.length);
+  					return true;
+  				}
+  				else {
+  					console.log("length in false" + res.length);
+  					throw new Error('user already has TMS accounts');
+  				}
+  		}))
   }
 }

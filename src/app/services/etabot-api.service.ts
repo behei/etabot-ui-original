@@ -43,8 +43,6 @@ export class EtabotApiService {
            let res = response.json();
            this.projects.emit(res);
            this.projectsReceived.emit(true);
-           console.log("the projects ");
-           console.log(res);
            return true;
          }
          else {

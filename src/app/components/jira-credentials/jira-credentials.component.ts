@@ -15,6 +15,8 @@ export class JiraCredentialsComponent implements OnInit{
 	username: string;
 	team: string;
   type: 'JIRA';
+  error: boolean;
+  loading: boolean;
   constructor(
     public dialog: MatDialog, 
     private titleService: Title,
@@ -27,6 +29,8 @@ export class JiraCredentialsComponent implements OnInit{
 
   ngOnInit() {
     this.titleService.setTitle('JIRA Credentials');
+    this.error = false;
+    this.loading = false;
   }
 
   openDialog(): void {
@@ -37,29 +41,17 @@ export class JiraCredentialsComponent implements OnInit{
   }
 
   jira() {
+    this.loading = true;
     this.jiraService.jira(this.username, this.model.jira_url, this.model.email, this.model.password)
     .subscribe(
       success => {
+        this.loading = false;
         this.router.navigate(['/projects'])
       },
       error => {
-        console.log(error);
+        this.loading = false;
+        this.error = true;
       }
       )
   }
-     tms() {
-    this.jiraService.get_tms()
-    .subscribe(
-      success => {
-
-        //this.router.navigate([this.returnUrl]);
-      },
-      error => {
-        //this.userFailure = true;
-      }
-    );
-  }
-
- 
-
 }

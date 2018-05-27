@@ -27,21 +27,14 @@ export class ProjectsViewComponent implements OnInit {
     private http: Http,
     private titleService: Title) {
     this.defaultTimeZone = "GMT +7";
-    //this.projects = etabotAPI.get_fake_projects();
-    //this.realProjects = etabotAPI.get_real_projects();
-    //console.log("REAL PROJECTS" + this.realProjects);
     this.showAdvancedSetting = false;
     this.etabotAPI.get_real_projects();
     etabotAPI.projects.subscribe(data => this.setProjects(data));
     etabotAPI.projects.subscribe(change => this.setGotProjects());
-        //etabotAPI.projects.subscribe(response => this.setUpProjects(response));
-    //authService.getLoggedIn.subscribe(response => this.changeLogInStatus());
   }
   //token: string;
   setProjects(data) {
     this.realProjects = data;
-    //console.log(Object.keys(this.realProjects));
-    console.log(this.realProjects);
   }
 
   setGotProjects() {
@@ -54,11 +47,6 @@ export class ProjectsViewComponent implements OnInit {
 
   setTimeZone(receivedTimeZone) {
     this.timeZone = receivedTimeZone;
-    console.log('time zone in settimezone' + this.timeZone);
-  }
-
-  private changeLogInStatus() {
-    console.log("changing login status in project view...");
   }
 
 }

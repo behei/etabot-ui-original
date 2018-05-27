@@ -50,11 +50,9 @@ export class JiraService {
   		.pipe(map((response: Response) => {
   				let res = response.json();
   				if (res.length == 0) {
-  					console.log("length in true" + res.length);
   					return true;
   				}
   				else {
-  					console.log("length in false" + res.length);
   					throw new Error('user already has TMS accounts');
   				}
   		}))

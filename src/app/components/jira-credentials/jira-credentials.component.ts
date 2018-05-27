@@ -47,5 +47,19 @@ export class JiraCredentialsComponent implements OnInit{
       }
       )
   }
+     tms() {
+    this.jiraService.get_tms()
+    .subscribe(
+      success => {
+
+        //this.router.navigate([this.returnUrl]);
+      },
+      error => {
+        //this.userFailure = true;
+      }
+    );
+  }
+
+ 
 
 }

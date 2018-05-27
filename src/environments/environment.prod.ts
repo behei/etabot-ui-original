@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://54.183.252.119:8000/api/'
+  apiUrl: 'http://app.etabot.ai:8000/api/'
 };

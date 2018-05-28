@@ -35,6 +35,8 @@ import { RouterModule } from '@angular/router';
 import { JiraCredentialsComponent } from './components/jira-credentials/jira-credentials.component';
 import { WorkHourStartComponent } from './components/users-view/projects-view/work-hours-view/work-hour-card/work-hour-start/work-hour-start.component';
 import { TermsConditionsFullComponent } from './components/register-page/terms-conditions-full/terms-conditions-full.component';
+import { DeviceDetectorModule } from 'ngx-device-detector';
+import { MobileWarningComponent } from './components/mobile-warning/mobile-warning.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,7 @@ import { TermsConditionsFullComponent } from './components/register-page/terms-c
     JiraCredentialsComponent,
     WorkHourStartComponent,
     TermsConditionsFullComponent,
+    MobileWarningComponent,
   ],
   entryComponents: [
     TermsConditionsFullComponent,
@@ -69,6 +72,7 @@ import { TermsConditionsFullComponent } from './components/register-page/terms-c
     FormsModule,  
     ReactiveFormsModule,
     FlexLayoutModule,
+    DeviceDetectorModule.forRoot()
   ],
   exports: [RouterModule],
   providers: [EtabotApiService, AuthService, SignUpService, AuthGuard, WorkHoursViewComponent, JiraService],

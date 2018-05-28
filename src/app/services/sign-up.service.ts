@@ -25,7 +25,6 @@ export class SignUpService {
 
     var userObject = JSON.stringify({username: username, password: password, email: email});
    
-    headers.append('X-CSRFToken', 'csrftoken');
     return this.http.post(this.service_api_end_point +'users/', userObject, options)
         .pipe(map((response: Response) => {
           if (String(response.status) == "201")

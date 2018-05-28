@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EtabotApiService } from '../../services/etabot-api.service';
 import { AuthService } from '../../services/auth-service.service';
+import { JiraService } from '../../services/jira.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title }     from '@angular/platform-browser';
 
@@ -21,7 +22,8 @@ export class UsersViewComponent implements OnInit {
     private etabotAPI: EtabotApiService, 
     private router: Router, 
     private authService: AuthService,
-    private titleService: Title) {
+    private titleService: Title,
+    private jiraService: JiraService) {
    }
 
 
@@ -39,7 +41,16 @@ export class UsersViewComponent implements OnInit {
     this.authService.login(this.model.username, this.model.password)
       .subscribe(
         success => {
-          this.router.navigate([this.returnUrl]);
+          this.jiraService.get_tms()
+          .subscribe(
+            success => {
+              console.log('redirecting to projects')
+              this.router.navigate([this.returnUrl]);
+            },
+            error => {
+              this.router.navigate(['/projects'])
+            }
+          );
         },
         error => {
           console.log("error");

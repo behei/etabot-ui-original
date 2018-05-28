@@ -24,7 +24,7 @@ export class EtabotApiService {
 
 
    get_real_projects() {
-     var loggedIn = JSON.parse(localStorage.getItem('currentUser'))
+    var loggedIn = JSON.parse(localStorage.getItem('currentUser'))
     this.token = loggedIn && loggedIn.token;
 
      let headers = new Headers({
@@ -32,7 +32,7 @@ export class EtabotApiService {
       'Content-Type': 'application/json'
     });
 
-     headers.append('Authorization', `Token ${this.token}`);
+    headers.append('Authorization', `Token ${this.token}`);
     let options = new RequestOptions({
       headers: headers
     });
@@ -43,8 +43,6 @@ export class EtabotApiService {
            let res = response.json();
            this.projects.emit(res);
            this.projectsReceived.emit(true);
-           console.log("the projects ");
-           console.log(res);
            return true;
          }
          else {

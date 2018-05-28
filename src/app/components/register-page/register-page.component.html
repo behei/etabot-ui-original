@@ -25,7 +25,7 @@
         </div> -->
     <div style="margin-bottom: 10px;">
       <input type="checkbox" [checked]="isAcceptedTerms" (change)="isAcceptedTerms = !isAcceptedTerms" id="terms" class="filled-in">
-      <label for="terms" style="font-size: 16px; margin-left: 3px;">I agree with</label> <a (click)="openDialog()" style="font-size: 16px;">Terms and Conditions.</a>
+      <label for="terms" style="font-size: 16px; margin-left: 3px;">I agree with</label> <a (click)="openDialog()" style="font-size: 16px;"> Terms and Conditions.</a>
     </div>
     <div class="form-group" style="font-size: 16px;">
       <button mat-raised-button [disabled]="!isAcceptedTerms && !passwordMatched" color="accent" class="new-font" style="margin-right: 10px; margin-bottom: 5px; margin-left: 3px; font-size: 20px; font-size: 20px; width: 120px; height: 44px;">Sign up

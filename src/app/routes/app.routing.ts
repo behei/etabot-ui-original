@@ -5,6 +5,7 @@ import { UsersViewComponent } from '../components/users-view/users-view.componen
 import { AboutViewComponent } from '../components/about-view/about-view.component';
 import { ContactViewComponent } from '../components/contact-view/contact-view.component';
 import { JiraCredentialsComponent } from '../components/jira-credentials/jira-credentials.component';
+import { MobileWarningComponent } from '../components/mobile-warning/mobile-warning.component';
 import { AuthGuard } from '../auth_guard/auth.guard';
 
 
@@ -34,6 +35,10 @@ const appRoutes: Routes = [
     path: 'jira',
     canActivate: [AuthGuard],
     component: JiraCredentialsComponent
+  },
+  {
+    path: 'mobile',
+    component: MobileWarningComponent
   },
   {
   	path: '**',

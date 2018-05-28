@@ -7,11 +7,11 @@ body {
   height: 100vh;
 }
 
-app-header-component {
+/*app-header-component {
   flex: 0.99 0.99 0;                   
   background: whitesmoke;
 }
-app-content-component {
+router-outlet {
   flex: 8.21 8.21 0;                   
   background: whitesmoke;
   overflow: auto;
@@ -19,7 +19,7 @@ app-content-component {
 app-footer-component {
   flex: 0.80 0.80 0;                   
   background: whitesmoke;
-}
+}*/
 
 h1 {
   font-family: 'Julius Sans One', sans-serif;

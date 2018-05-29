@@ -55,9 +55,11 @@ export class RegisterPageComponent implements OnInit {
     this.signUpService.signup(this.model.username, this.model.email, this.model.password)
     .subscribe(
       success => {
+        console.log('signup success! redirecting...')
         this.router.navigate([this.returnUrl]);
       },
       error => {
+        console.log('signup error')
         this.userFailure = true;
       }
     );

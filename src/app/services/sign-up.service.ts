@@ -8,6 +8,7 @@ export class SignUpService {
   private signUpSuccess: any;
   private service_api_end_point: string;
   @Output() getRegisteredStatus: EventEmitter<boolean> = new EventEmitter(); 
+  
   constructor(private http: Http) {
     this.signUpSuccess = true;
     this.service_api_end_point = environment.apiUrl;
@@ -29,12 +30,15 @@ export class SignUpService {
         .pipe(map((response: Response) => {
           if (String(response.status) == "201")
             {
+              console.log('users/ POST response is 201:')
               console.log(response);
               this.getRegisteredStatus.emit(true);
               localStorage.setItem('username', username);
               return true;
             }
           else {
+              console.log('users/ POST response is not 201:')
+              console.log(response);              
               this.getRegisteredStatus.emit(false);
               return false;
           }
@@ -49,7 +53,9 @@ export class SignUpService {
 
     private handleError(error: Response) {
         //this.signUpSuccess = false;
-        console.error("error" + error);
+        console.error("error:");
+        console.error(error)
+        console.error("end of error");
         //return Observable.throw(error.json().error || 'Server error');
     }
 

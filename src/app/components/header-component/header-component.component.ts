@@ -24,7 +24,7 @@ export class HeaderComponentComponent implements OnInit {
       private router: Router,
     ) {
     logInService.getLoggedIn.subscribe(response => this.changeLogInStatus());
-    signUpService.getRegisteredStatus.subscribe(response => this.changeLogInStatus());
+    //signUpService.getRegisteredStatus.subscribe(response => this.changeLogInStatus());
   }
 
   ngOnInit() {

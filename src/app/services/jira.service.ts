@@ -14,6 +14,7 @@ export class JiraService {
   jira(owner: string, team_name: string, email: string, password: string) {
   	var loggedIn = JSON.parse(localStorage.getItem('currentUser'))
     this.token = loggedIn && loggedIn.token;
+    console.log("token is " + this.token)
   	let type = 'JI';
   	let headers = new Headers({
       'Accept': 'application/json',

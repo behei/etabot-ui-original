@@ -29,9 +29,13 @@ export class SignUpService {
         .pipe(map((response: Response) => {
           if (String(response.status) == "201")
             {
-              console.log(response);
+              //let user = response.json();
+              //console.log("sign up token is " + user.token);
+
               this.getRegisteredStatus.emit(true);
-              localStorage.setItem('username', username);
+              let newUser = true;
+              localStorage.setItem('newUser', String(newUser))
+              localStorage.setItem('email', email);
               return true;
             }
           else {

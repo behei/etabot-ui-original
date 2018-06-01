@@ -18,6 +18,7 @@ export class UsersViewComponent implements OnInit {
   users: any;
   projects: any;
   returnUrl: string;
+  newUser = false;
   constructor(
     private etabotAPI: EtabotApiService, 
     private router: Router, 
@@ -32,6 +33,11 @@ export class UsersViewComponent implements OnInit {
   ngOnInit() {
     this.returnUrl = '/jira';
     this.titleService.setTitle('ETAbot Log In');
+    if (localStorage.getItem('newUser') == 'true')
+      {
+        this.newUser = true;
+        localStorage.removeItem('newUser');
+      }
   }
 
   login() {

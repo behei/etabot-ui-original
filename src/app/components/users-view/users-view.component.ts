@@ -51,15 +51,16 @@ export class UsersViewComponent implements OnInit {
           .subscribe(
             success => {
               console.log('redirecting to projects')
-              this.router.navigate([this.returnUrl]);
+              this.router.navigate(['/projects']);
             },
             error => {
-              this.router.navigate(['/projects'])
+              console.log('get_tms() error occurred - redirecting to: ' + this.returnUrl)
+              this.router.navigate([this.returnUrl])
             }
           );
         },
         error => {
-          console.log("error");
+          console.log("authService.login error");
           this.loading = false;
         }
       );

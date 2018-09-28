@@ -24,6 +24,7 @@ export class JiraService {
     let options = new RequestOptions({
       headers: headers
     });
+    console.log('team_name:' + team_name)
     var jiraObject = JSON.stringify({endpoint: 'https://' + team_name + '.atlassian.net', username: email, password: password, type: type});
    
     return this.http.post(this.service_api_end_point +'tms/', jiraObject, options)
@@ -51,10 +52,11 @@ export class JiraService {
   		.pipe(map((response: Response) => {
   				let res = response.json();
   				if (res.length == 0) {
-  					return true;
+  					throw new Error('user does not have TMS accounts');
   				}
   				else {
-  					throw new Error('user already has TMS accounts');
+                    console.log('number of TMS accounts found: ' + res.length)
+                    return res.length;
   				}
   		}))
   }

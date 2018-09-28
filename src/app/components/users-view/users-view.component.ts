@@ -27,9 +27,6 @@ export class UsersViewComponent implements OnInit {
     private jiraService: JiraService) {
    }
 
-
-  
-
   ngOnInit() {
     this.returnUrl = '/jira';
     this.titleService.setTitle('ETAbot Log In');

@@ -33,7 +33,11 @@ export class SignUpService {
               console.log('users/ POST response is 201:')
               console.log(response);
               this.getRegisteredStatus.emit(true);
-              localStorage.setItem('username', username);
+              //let user = response.json();
+              //console.log("sign up token is " + user.token);              
+              let newUser = true;
+              localStorage.setItem('newUser', String(newUser))
+              localStorage.setItem('email', email);
               return true;
             }
           else {

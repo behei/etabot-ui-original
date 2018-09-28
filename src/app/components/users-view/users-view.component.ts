@@ -18,6 +18,7 @@ export class UsersViewComponent implements OnInit {
   users: any;
   projects: any;
   returnUrl: string;
+  newUser = false;
   constructor(
     private etabotAPI: EtabotApiService, 
     private router: Router, 
@@ -32,6 +33,11 @@ export class UsersViewComponent implements OnInit {
   ngOnInit() {
     this.returnUrl = '/jira';
     this.titleService.setTitle('ETAbot Log In');
+    if (localStorage.getItem('newUser') == 'true')
+      {
+        this.newUser = true;
+        localStorage.removeItem('newUser');
+      }
   }
 
   login() {
@@ -45,15 +51,16 @@ export class UsersViewComponent implements OnInit {
           .subscribe(
             success => {
               console.log('redirecting to projects')
-              this.router.navigate([this.returnUrl]);
+              this.router.navigate(['/projects']);
             },
             error => {
-              this.router.navigate(['/projects'])
+              console.log('get_tms() error occurred - redirecting to: ' + this.returnUrl)
+              this.router.navigate([this.returnUrl])
             }
           );
         },
         error => {
-          console.log("error");
+          console.log("authService.login error");
           this.loading = false;
         }
       );

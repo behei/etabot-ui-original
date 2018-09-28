@@ -37,7 +37,7 @@ export class RegisterPageComponent implements OnInit {
 
 
   ngOnInit() {
-    this.returnUrl = '/jira';
+    this.returnUrl = '/login';
     if (localStorage.getItem('username')) {
       this.router.navigate([this.returnUrl]);
     }

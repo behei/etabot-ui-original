@@ -45,7 +45,7 @@ export class HeaderComponentComponent implements OnInit {
   logout() {
     console.log("logging out...");
     this.logInService.logout();
-    //window.location.href = "http://etabot.ai";
+    //window.location.href = "https://etabot.ai";
   }
 
 

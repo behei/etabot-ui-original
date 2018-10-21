@@ -16,6 +16,13 @@ export class JiraService {
     this.token = loggedIn && loggedIn.token;
     console.log("token is " + this.token)
   	let type = 'JI';
+// todo: check type from url         
+//         if 'atlassian.net' in self.server:
+//             self.TMS_type = TMSTypes.JIRA
+//         else:
+//             raise NameError('cannot recognize Task Management System \
+// based on server name {}'.format(server))
+
   	let headers = new Headers({
       'Accept': 'application/json',
       'Content-Type': 'application/json'

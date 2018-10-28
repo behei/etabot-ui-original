@@ -20,7 +20,7 @@
             <!--<mat-card-subtitle>{{ project.work_hours.time_zone}}</mat-card-subtitle>-->
           </div>
           <div class="card-update-button new-font">
-            <button (click)="estimate()" mat-raised-button color="primary" class="new-font julius-font" style="font-size: 22px; width: 150px; height: 50px; margin-left: 12px;">Update ETA</button>
+            <button (click)="estimate(project.project_tms_id, project.id)" mat-raised-button color="primary" class="new-font julius-font" style="font-size: 22px; width: 150px; height: 50px; margin-left: 12px;">Update ETA</button>
           </div>
         </mat-card-header>
       </div>

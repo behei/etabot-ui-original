@@ -47,11 +47,16 @@ export class EtabotApiService {
        .subscribe((response: Response) => {
          if (response.status === 200) {
            const res = response.json();
+           console.log(
+               'get_real_projects 200 response status: '
+               + response.status
+               + 'json: '
+               + JSON.stringify(res));
            this.projects.emit(res);
            this.projectsReceived.emit(true);
            return true;
          } else {
-           console.log('response status ' + response.status);
+           console.log('get_real_projects non-200 response status ' + response.status);
            return false;
          }
        })

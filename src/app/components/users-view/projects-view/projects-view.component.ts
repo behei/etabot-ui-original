@@ -49,9 +49,9 @@ export class ProjectsViewComponent implements OnInit {
     this.timeZone = receivedTimeZone;
   }
 
-  estimate() {
+  estimate(tms_id, project_id) {
       // this.etabotAPI.estimate('16', '51')
-      this.etabotAPI.estimate(null, null)
+      this.etabotAPI.estimate(tms_id, project_id)
   }
 
 }

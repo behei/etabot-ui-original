@@ -33,7 +33,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'jira',
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
     component: JiraCredentialsComponent
   },
   {

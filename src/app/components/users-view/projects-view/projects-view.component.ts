@@ -11,7 +11,7 @@ import { Title } from '@angular/platform-browser';
 })
 
 export class ProjectsViewComponent implements OnInit {
-  //projects : any;
+  // projects : any;
   realProjects: any;
   showAdvancedSetting: boolean;
   isSession: any;
@@ -20,19 +20,19 @@ export class ProjectsViewComponent implements OnInit {
   projectsReceived: boolean;
   timeZone: string;
   public defaultTimeZone: string;
-  //isLoggedInStatus = false;
+  // isLoggedInStatus = false;
   constructor(
     private etabotAPI: EtabotApiService,
     private authService: AuthService,
     private http: Http,
     private titleService: Title) {
-    this.defaultTimeZone = "GMT +7";
+    this.defaultTimeZone = 'GMT +7';
     this.showAdvancedSetting = false;
     this.etabotAPI.get_real_projects();
     etabotAPI.projects.subscribe(data => this.setProjects(data));
     etabotAPI.projects.subscribe(change => this.setGotProjects());
   }
-  //token: string;
+  // token: string;
   setProjects(data) {
     this.realProjects = data;
   }
@@ -47,6 +47,11 @@ export class ProjectsViewComponent implements OnInit {
 
   setTimeZone(receivedTimeZone) {
     this.timeZone = receivedTimeZone;
+  }
+
+  estimate(tms_id, project_id) {
+      // this.etabotAPI.estimate('16', '51')
+      this.etabotAPI.estimate(tms_id, project_id)
   }
 
 }

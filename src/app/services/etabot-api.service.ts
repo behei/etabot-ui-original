@@ -4,54 +4,99 @@ import 'rxjs/add/operator/map';
 // import {Observable} from 'rxjs/Rx';
 import { environment } from '../../environments/environment';
 import { AuthService } from './auth-service.service';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class EtabotApiService {
-	private service_api_end_point: string;	
+
   public loginCheck = false;
   private token: string;
   @Output() projects: EventEmitter<any> = new EventEmitter();
   @Output() projectsReceived: EventEmitter<boolean> = new EventEmitter();
-  constructor(private http:Http, private authService: AuthService) {
-  	// depending on the environment (e.g. production or local) api end point could be different
-  	this.service_api_end_point = environment.apiUrl;
-    authService.getLoggedIn.subscribe(response => this.logInChange());
+
+  constructor(private http: Http, private authService: AuthService) {
+    // depending on the environment (e.g. production or local) api end point could be different
+    // this.service_api_end_point = environment.apiUrl;
+
+    authService.getLoggedIn.subscribe(
+        response => this.logInChange(response));
    }
 
-   logInChange() {
+   logInChange(response) {
      this.loginCheck = true;
+     console.log('logInChange response: ' + response)
+     console.log('authService.token: ' + this.authService.token)
    }
 
 
    get_real_projects() {
-    var loggedIn = JSON.parse(localStorage.getItem('currentUser'))
+    const loggedIn = JSON.parse(localStorage.getItem('currentUser'))
     this.token = loggedIn && loggedIn.token;
 
-     let headers = new Headers({
+    const headers = new Headers({
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     });
 
     headers.append('Authorization', `Token ${this.token}`);
-    let options = new RequestOptions({
+    const options = new RequestOptions({
       headers: headers
     });
 
-     return this.http.get(this.service_api_end_point + 'projects/', options)
+     return this.http.get(environment.apiUrl + 'projects/', options)
        .subscribe((response: Response) => {
-         if (response.status == 200) {
-           let res = response.json();
+         if (response.status === 200) {
+           const res = response.json();
+           console.log(
+               'get_real_projects 200 response status: '
+               + response.status
+               + 'json: '
+               + JSON.stringify(res));
            this.projects.emit(res);
            this.projectsReceived.emit(true);
            return true;
-         }
-         else {
-           console.log("response status " + response.status);
+         } else {
+           console.log('get_real_projects non-200 response status ' + response.status);
            return false;
          }
        })
    };
 
+  estimate(tms_id: string, project_id: string) {
+    // var loggedIn = JSON.parse(localStorage.getItem('currentUser'));
+    // this.token = loggedIn && loggedIn.token;
+    console.log('estimate method started with tms_id ="' + tms_id + '", project_id="' + project_id + '"')
+    console.log('this.authService.token=' + this.authService.token)
+    const headers = new Headers({
+        'Authorization': `Token ${this.authService.token}`
+    });
+    const options = new RequestOptions({
+        headers: headers
+    });
+
+    let url = environment.apiUrl + 'estimate/'
+    if (tms_id != null) {
+        url = url + '?tms=' + tms_id
+        if (project_id != null) {
+            url = url + '&project_id=' + project_id
+        }
+    }
+    console.log('url: ' + url)
+    return this.http.get(
+        url,
+        options)
+            .pipe(map((response: Response) => {
+                      console.log('Response: ' + Response)
+                      if (String(response.status) === '201') {
+                          console.log('estimate get returns 201')
+                          return true
+                      } else {
+                        console.log('estimate get returns not 201');
+                        return false;
+                      }
+
+                    })).subscribe()
+  }
 
 }
 

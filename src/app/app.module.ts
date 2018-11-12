@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http'
+import { HttpModule, XSRFStrategy, CookieXSRFStrategy} from '@angular/http'
 import { materialExportModule } from './material-scheme/app.materialExportModule';
 
 import {  
@@ -75,7 +75,12 @@ import { MobileWarningComponent } from './components/mobile-warning/mobile-warni
     DeviceDetectorModule.forRoot()
   ],
   exports: [RouterModule],
-  providers: [EtabotApiService, AuthService, SignUpService, AuthGuard, WorkHoursViewComponent, JiraService],
+  providers: [EtabotApiService, AuthService, SignUpService, AuthGuard, WorkHoursViewComponent, JiraService,
+       {
+            provide: XSRFStrategy,
+            useValue: new CookieXSRFStrategy('csrftoken', 'X-CSRFToken')
+        }  
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

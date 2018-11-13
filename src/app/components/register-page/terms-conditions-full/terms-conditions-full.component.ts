@@ -10,7 +10,7 @@ export class TermsConditionsFullComponent {
   constructor(
     public dialogRef: MatDialogRef<TermsConditionsFullComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-  	//console.log("data " + data.isAcceptedTerms);
+      // console.log("data " + data.isAcceptedTerms);
   }
 
   onNoClick(): void {

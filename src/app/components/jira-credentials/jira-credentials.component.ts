@@ -12,8 +12,8 @@ import { Router } from '@angular/router';
 
 export class JiraCredentialsComponent implements OnInit{
   model: any = {};
-	username: string;
-	team: string;
+    username: string;
+    team: string;
   type: 'JIRA';
   error: boolean;
   loading: boolean;
@@ -23,8 +23,8 @@ export class JiraCredentialsComponent implements OnInit{
     private jiraService: JiraService,
     private router: Router) {
     this.team = ".atlassian.net";
-  	if(localStorage.getItem('username'))
-  		this.username = localStorage.getItem('username');
+      if(localStorage.getItem('username'))
+          this.username = localStorage.getItem('username');
   }
 
   ngOnInit() {

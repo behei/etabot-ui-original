@@ -1,0 +1,13 @@
+<mat-toolbar color="primary" style="min-height: 90px;">
+        <span style="margin-left: 10px; "><img [routerLink]="['/']" src="https://etabot.ai/wp-content/uploads/2017/09/cropped-ETAbot-1.png"  alt="etabot homepage" /></span>
+        <span class="fill-the-space"></span>
+        <span class="space-between-log-in-sign-up"></span>
+
+        <a mat-button [routerLink]="['/signup']" *ngIf="!isLoggedIn" style="margin-top: 10px; " class="new-font">Sign up</a>
+        <span class="space-between-log-in-sign-up"></span>
+        <a mat-button [routerLink] = "['/login']" *ngIf="!isLoggedIn" style="margin-top: 10px;" class="new-font">Log in</a>
+        <i *ngIf="isLoggedIn" class="material-icons" style="font-size: 48px;">account_circle</i>
+        <i *ngIf="isLoggedIn" (click)="logout()"  class="material-icons" style="font-size: 48px; margin-left: 5px;  ">power_settings_new</i>
+        <span *ngIf="isLoggedIn" class="space-between-log-in-sign-up"></span>
+        <span class="space-between-log-in-sign-up"></span>
+</mat-toolbar>

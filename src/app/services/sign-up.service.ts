@@ -1,20 +1,19 @@
 import { Injectable, EventEmitter, Output } from '@angular/core';
 import { Http, Response, Request, RequestMethod, Headers, RequestOptions } from '@angular/http';
-import { map } from "rxjs/operators";
+import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 @Injectable()
 export class SignUpService {
   private signUpSuccess: any;
   private service_api_end_point: string;
-  @Output() getRegisteredStatus: EventEmitter<boolean> = new EventEmitter(); 
-  
+  @Output() getRegisteredStatus: EventEmitter<boolean> = new EventEmitter();
+
   constructor(private http: Http) {
     this.signUpSuccess = true;
     this.service_api_end_point = environment.apiUrl;
   }
 
-  
   signup(username: string, email: string, password: string) {
     let headers = new Headers({
       'Accept': 'application/json',

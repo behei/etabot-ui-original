@@ -9,10 +9,12 @@
 }
 
 h1 {
-  font-family: 'Julius Sans One', sans-serif;
+    font-family: 'Julius Sans One', sans-serif;
+    font-weight: normal;
 }
 
 .new-font {
-	font-family: 'Josefin Sans', sans-serif;
-	font-size: 20px;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 20px;
 }
+

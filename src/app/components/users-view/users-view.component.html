@@ -1,7 +1,9 @@
 <!-- <mat-card style="margin-left:500px; margin-top: 82px; margin-right: 500px;"> -->
 <mat-card class="sign-login-card">
-  <mat-card-title style="text-align: center; margin-bottom: 70px; ">
-    <h1>Log in</h1></mat-card-title>
+  <mat-card-title style="text-align: left; margin-bottom: 70px; ">
+    <h1>Log in</h1>
+  </mat-card-title>
+  <mat-card-content>
   <div *ngIf="newUser == true" class="alert alert-success">Thank you for signing up! We have sent you a confirmation email. Please follow the instructions to gain full access to the site.</div>
   <div *ngIf="loading == false" class="alert alert-danger">Error occurred {{ error_message }}</div>
   <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
@@ -19,4 +21,17 @@
       <button [disabled]="loading" mat-raised-button color="accent" class="new-font" style="font-size: 20px; width: 100px; height: 44px;">Log in</button>
     </div>
   </form>
+  </mat-card-content>
+  <mat-card-content>
+    <div class="container">
+        <div fxFlex>
+            <label style="font-size: 16px;">Dont have an account?</label><br>
+            <a [routerLink]="['/signup']">Sign Up</a>
+        </div>
+        <div fxFlex> 
+            <a href = '/account/password_reset/'>Forgot password?</a>
+        </div>
+      </div>
+
+    </mat-card-content>
 </mat-card>

@@ -18,3 +18,9 @@ h1 {
     font-size: 20px;
 }
 
+.container {
+  display: flex; /* or inline-flex */
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 16px;
+}

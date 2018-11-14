@@ -10,6 +10,12 @@ $custom-typography: mat-typography-config(
 
 @include angular-material-theme($etabot-theme);
 
+h1 {
+    font-family: 'Julius Sans One', sans-serif;
+    font-weight: normal;
+    font-size: 28px;
+}
+
 .sign-login-card {
     max-width: 400px;
     display: block;

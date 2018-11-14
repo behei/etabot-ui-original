@@ -38,9 +38,9 @@ export class RegisterPageComponent implements OnInit {
 
   ngOnInit() {
     this.returnUrl = '/login';
-    if (localStorage.getItem('username')) {
-      this.router.navigate([this.returnUrl]);
-    }
+    // if (localStorage.getItem('username')) {
+    //   this.router.navigate([this.returnUrl]);
+    // }
     this.titleService.setTitle('ETAbot Sign Up');
   }
 
@@ -54,7 +54,7 @@ export class RegisterPageComponent implements OnInit {
   }
 
   signup() {
-    this.signUpService.signup(this.model.username, this.model.email, this.model.password)
+    this.signUpService.signup(this.model.email, this.model.email, this.model.password)
     .subscribe(
       success => {
         console.log('signup success! redirecting...');

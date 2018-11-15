@@ -3,6 +3,8 @@ import { IntroductionComponent } from '../components/introduction/introduction.c
 import { ProjectsViewComponent } from '../components/users-view/projects-view/projects-view.component';
 import { UsersViewComponent } from '../components/users-view/users-view.component';
 import { RegisterPageComponent } from '../components/register-page/register-page.component';
+import { VerificationPendingComponent } from '../components/register-page/verification-view/verification-pending/verification-pending.component';
+import { VerificationActivateComponent } from '../components/register-page/verification-view/verification-activate/verification-activate.component';
 // import { AboutViewComponent } from '../components/about-view/about-view.component';
 // import { ContactViewComponent } from '../components/contact-view/contact-view.component';
 import { JiraCredentialsComponent } from '../components/jira-credentials/jira-credentials.component';
@@ -28,6 +30,14 @@ const appRoutes: Routes = [
   {
     path: 'signup',
     component: RegisterPageComponent
+  },
+  {
+    path: 'verification/pending',
+    component: VerificationPendingComponent
+  },
+  {
+    path: 'verification/activate/:token',
+    component: VerificationActivateComponent
   },
   // {
   //   path: 'about',

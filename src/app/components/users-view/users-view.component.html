@@ -4,7 +4,7 @@
     <h1>Log in</h1>
   </mat-card-title>
   <mat-card-content>
-  <div *ngIf="newUser == true" class="alert alert-success">Thank you for signing up! We have sent you a confirmation email. Please follow the instructions to gain full access to the site.</div>
+  <div *ngIf="newUser == true" class="alert alert-success">Your account has been confirmed.</div>
   <div *ngIf="loading == false" class="alert alert-danger">Error occurred {{ error_message }}</div>
   <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">

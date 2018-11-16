@@ -32,6 +32,7 @@ export class VerificationActivateComponent implements OnInit {
             console.log('verificationResponse (' + typeof(res) + '):' + res);
             console.log('verification reponse message:' + res['message']);
             this.setMessage(res);
+            this.router.navigate(['/login']);
             },
         err => {
             console.log(err);

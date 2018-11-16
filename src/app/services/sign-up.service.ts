@@ -32,12 +32,10 @@ export class SignUpService {
             {
               console.log('users/ POST response is 201:')
               console.log(response);
+              localStorage.setItem('email', email);              
               this.getRegisteredStatus.emit(true);
               //let user = response.json();
               //console.log("sign up token is " + user.token);
-              let newUser = true;
-              localStorage.setItem('newUser', String(newUser))
-              localStorage.setItem('email', email);
               return true;
             }
           else {
@@ -71,6 +69,10 @@ export class SignUpService {
                   response.status +
                   'json: ' +
                   JSON.stringify(res));
+              const newUser = true;
+              localStorage.setItem('newUser', String(newUser));
+
+
               this.verificationResponse.emit(res);
               return true;
             } else {

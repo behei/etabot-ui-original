@@ -40,13 +40,13 @@ export class AuthService {
               if (user && user.token) {
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 localStorage.setItem('username', username);
-                this.token = user.token
+                this.token = user.token;
                 this.getLoggedIn.emit(true);
                 return true;
 
               } else {
-                console.log('get-token response: ' + response)
-                console.log('get-token response json: ' + response.json())
+                console.log('get-token response: ' + response);
+                console.log('get-token response json: ' + response.json());
                  this.getLoggedIn.emit(false);
                 return false;
 

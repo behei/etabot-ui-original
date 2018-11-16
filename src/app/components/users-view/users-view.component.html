@@ -8,9 +8,9 @@
   <div *ngIf="loading == false" class="alert alert-danger">Error occurred {{ error_message }}</div>
   <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-      <label for="username" class="new-font" style="font-size: 20px;">Username</label>
+      <label for="username" class="new-font" style="font-size: 20px;">Email</label>
       <input type="text" name="username" [(ngModel)]="model.username" #username="ngModel" required style="font-size: 18px;" class="new-font" />
-      <div *ngIf="f.submitted && !username.valid" class="help-block new-font">Username is required</div>
+      <div *ngIf="f.submitted && !username.valid" class="help-block new-font">Email is required</div>
     </div>
     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
       <label for="password" class="new-font" style="font-size: 20px;">Password</label>

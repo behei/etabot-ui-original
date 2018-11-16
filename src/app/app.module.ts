@@ -41,6 +41,8 @@ import {
 } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
 import { RegisterPageComponent } from './components/register-page/register-page.component';
+import { VerificationPendingComponent } from './components/register-page/verification-view/verification-pending/verification-pending.component';
+import { VerificationActivateComponent } from './components/register-page/verification-view/verification-activate/verification-activate.component';
 import { TermsConditionsFullComponent } from './components/register-page/terms-conditions-full/terms-conditions-full.component';
 import { JiraCredentialsComponent } from './components/jira-credentials/jira-credentials.component';
 import { ProjectsViewComponent } from './components/users-view/projects-view/projects-view.component';
@@ -55,7 +57,9 @@ import { ProjectsViewComponent } from './components/users-view/projects-view/pro
     RegisterPageComponent,
     TermsConditionsFullComponent,
     JiraCredentialsComponent,
-    ProjectsViewComponent
+    ProjectsViewComponent,
+    VerificationPendingComponent,
+    VerificationActivateComponent
   ],
   entryComponents: [
     TermsConditionsFullComponent,

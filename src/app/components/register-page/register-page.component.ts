@@ -37,7 +37,7 @@ export class RegisterPageComponent implements OnInit {
 
 
   ngOnInit() {
-    this.returnUrl = '/login';
+    this.returnUrl = '/verification/pending';
     // if (localStorage.getItem('username')) {
     //   this.router.navigate([this.returnUrl]);
     // }

@@ -3,7 +3,7 @@
   <mat-card-title style="text-align: center;">
     <h1>Sign up</h1></mat-card-title>
   <form #f="ngForm" (ngSubmit)="f.form.valid && signup()">
-    <div *ngIf="userFailure" class="alert alert-danger" style="font-size: 16px;">Server Error has occured</div>
+    <div *ngIf="userFailure" class="alert alert-danger" style="font-size: 16px;">Server Error has occured: {{ error_message }}</div>
 <!--     <div class="form-group">
       <label for="username" style="font-size: 20px;">Username:</label>
       <input type="text" id="username" class="form-control" name="username" required [(ngModel)]="model.username" #username="ngModel" style="font-size: 20px;" />

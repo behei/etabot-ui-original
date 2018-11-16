@@ -4,13 +4,13 @@
     <h1>Log in</h1>
   </mat-card-title>
   <mat-card-content>
-  <div *ngIf="newUser == true" class="alert alert-success">Thank you for signing up! We have sent you a confirmation email. Please follow the instructions to gain full access to the site.</div>
+  <div *ngIf="newUser == true" class="alert alert-success">Your account has been confirmed.</div>
   <div *ngIf="loading == false" class="alert alert-danger">Error occurred {{ error_message }}</div>
   <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-      <label for="username" class="new-font" style="font-size: 20px;">Username</label>
+      <label for="username" class="new-font" style="font-size: 20px;">Email</label>
       <input type="text" name="username" [(ngModel)]="model.username" #username="ngModel" required style="font-size: 18px;" class="new-font" />
-      <div *ngIf="f.submitted && !username.valid" class="help-block new-font">Username is required</div>
+      <div *ngIf="f.submitted && !username.valid" class="help-block new-font">Email is required</div>
     </div>
     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
       <label for="password" class="new-font" style="font-size: 20px;">Password</label>
@@ -25,7 +25,7 @@
   <mat-card-content>
     <div class="container">
         <div fxFlex>
-            <label style="font-size: 16px;">Dont have an account?</label><br>
+            <label style="font-size: 16px;">Don't have an account?</label><br>
             <a [routerLink]="['/signup']">Sign Up</a>
         </div>
         <div fxFlex> 

@@ -83,8 +83,8 @@ export class EtabotApiService {
     console.log('url: ' + url);
     return this.http.get(
         url,
-        options)
-            .pipe(map((response: Response) => {
+        options).pipe(
+            map((response: Response) => {
                       console.log('Response: ' + Response);
                       if (String(response.status) === '201') {
                           console.log('estimate get returns 201');

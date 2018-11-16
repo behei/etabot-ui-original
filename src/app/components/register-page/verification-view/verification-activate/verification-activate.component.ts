@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EtabotApiService } from '../../../../services/etabot-api.service'
+import { EtabotApiService } from '../../../../services/etabot-api.service';
 import { AuthService } from '../../../../services/auth-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -26,11 +26,24 @@ export class VerificationActivateComponent implements OnInit {
     this.route.params.subscribe(params => {
         this.token = params['token'];
     });
+
+    this.signupService.verificationResponse.subscribe(
+        res => {
+            console.log('verificationResponse (' + typeof(res) + '):' + res);
+            console.log('verification reponse message:' + res['message']);
+            this.setMessage(res);
+            this.router.navigate(['/login']);
+            },
+        err => {
+            console.log(err);
+            this.setMessage(err._body);
+        });
     this.signupService.activate(this.token);
-    this.signupService.verificationResponse.subscribe(res => this.setMessage(res));
   }
 
   setMessage(data) {
-    this.message = data["message"];
+    console.log('data message: ' + data['message']);
+
+    this.message = data['message'];
   }
 }

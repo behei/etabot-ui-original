@@ -17,13 +17,14 @@ export class JiraCredentialsComponent implements OnInit{
   type: 'JIRA';
   error: boolean;
   loading: boolean;
+  error_message: string;
   constructor(
-    public dialog: MatDialog, 
+    public dialog: MatDialog,
     private titleService: Title,
     private jiraService: JiraService,
     private router: Router) {
     this.team = ".atlassian.net";
-      if(localStorage.getItem('username'))
+    if (localStorage.getItem('username'))
           this.username = localStorage.getItem('username');
   }
 
@@ -46,12 +47,13 @@ export class JiraCredentialsComponent implements OnInit{
     .subscribe(
       success => {
         this.loading = false;
-        this.router.navigate(['/projects'])
+        this.router.navigate(['/projects']);
       },
       error => {
+        this.error_message = error + '; \n' + error._body;
         this.loading = false;
         this.error = true;
       }
-      )
+      );
   }
 }

@@ -57,8 +57,8 @@ export class UsersViewComponent implements OnInit {
             );
           },
         error => {
-          console.log('authService.login error');
-          this.error_message = error;
+          console.log('authService.login error: ' + error);
+          this.error_message = error + '; \n' + error._body;
           this.loading = false;
         }
       );

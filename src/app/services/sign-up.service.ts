@@ -32,12 +32,10 @@ export class SignUpService {
             {
               console.log('users/ POST response is 201:')
               console.log(response);
+              localStorage.setItem('email', email);              
               this.getRegisteredStatus.emit(true);
               //let user = response.json();
               //console.log("sign up token is " + user.token);
-              let newUser = true;
-              localStorage.setItem('newUser', String(newUser))
-              localStorage.setItem('email', email);
               return true;
             }
           else {
@@ -50,27 +48,31 @@ export class SignUpService {
   }
 
   activate(token: string) {
-    let headers = new Headers({
+    const headers = new Headers({
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     });
-    let options = new RequestOptions({
+    const options = new RequestOptions({
       headers: headers
     });
 
-    var tokenObject = JSON.stringify({"token": token});
+    const tokenObject = JSON.stringify({'token': token});
 
     return this.http.post(this.service_api_end_point + 'verification/activate/', tokenObject, options)
         .subscribe(
-          err => console.log(err),
           (response: Response) => {
-            const res = response.json();
+              console.log(response);
+              const res = response.json();
             if (response.status === 200) {
               console.log(
                   'verfication/activate 200 response status: ' +
                   response.status +
                   'json: ' +
                   JSON.stringify(res));
+              const newUser = true;
+              localStorage.setItem('newUser', String(newUser));
+
+
               this.verificationResponse.emit(res);
               return true;
             } else {
@@ -78,6 +80,11 @@ export class SignUpService {
               this.verificationResponse.emit(res);
               return true;
             }
+          },
+          err => {
+              console.log('error in verification/activate/:' + err);
+              this.verificationResponse.emit(JSON.parse(err._body));
+              return false;
           });
   }
 

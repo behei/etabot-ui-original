@@ -21,7 +21,7 @@ export class RegisterPageComponent implements OnInit {
     userFailure: boolean;
     model: any = {};
     returnUrl = '';
-
+    error_message = '';
     constructor(
         private etabotAPI: EtabotApiService,
         private router: Router,
@@ -62,6 +62,7 @@ export class RegisterPageComponent implements OnInit {
       },
       error => {
         console.log('signup error');
+        this.error_message = error + '; \n' + error._body;
         this.userFailure = true;
       }
     );

@@ -51,7 +51,7 @@ export class ProjectsViewComponent implements OnInit {
 
   estimate(tms_id, project_id) {
       // this.etabotAPI.estimate('16', '51')
-      this.etabotAPI.estimate(tms_id, project_id)
+      this.etabotAPI.estimate(tms_id, project_id);
   }
 
 }

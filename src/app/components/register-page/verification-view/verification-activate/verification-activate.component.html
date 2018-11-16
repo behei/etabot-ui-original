@@ -1,3 +1,8 @@
 <div style="margin-top: 200px;">
   <div class="new-font"><strong>{{ message }}</strong></div>
+
+  <div *ngIf="message=='Thank you for your confirmation. Please login with your account!'" align="center">
+    <a [routerLink]="['/login']">Log in here</a>
+  </div>
+  
 </div>

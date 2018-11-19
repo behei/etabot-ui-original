@@ -54,8 +54,9 @@ export class SignUpService {
       headers: headers
     });
 
-    const tokenObject = JSON.stringify({'token': token});
-
+    console.log('generating http post request with token: "' + token + '"');
+    const tokenObject = JSON.stringify({'token': token });
+    console.log('generating http post request with tokenObject: "' + tokenObject + '"');
     return this.http.post(this.service_api_end_point + 'verification/activate/', tokenObject, options)
         .subscribe(
           (response: Response) => {

@@ -28,6 +28,7 @@ export class VerificationActivateComponent implements OnInit {
     this.message = 'Activating your account, please wait.';
     this.route.params.subscribe(params => {
         this.token = params['token'];
+        console.log('params[token]: ' + params['token']);
     });
 
     this.signupService.verificationResponse.subscribe(

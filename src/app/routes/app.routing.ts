@@ -57,7 +57,7 @@ const appRoutes: Routes = [
   //   component: MobileWarningComponent
   // },
   { path: '',
-    redirectTo: '/login',
+    redirectTo: '/intro',
     pathMatch: 'full'
   },
   {

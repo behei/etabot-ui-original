@@ -14,6 +14,7 @@ import { SignUpService } from '../../../../services/sign-up.service';
 export class VerificationActivateComponent implements OnInit {
   token: string;
   message: string;
+  show_login: boolean;
   constructor(private titleService: Title,
               private signupService: SignUpService,
               private etabotAPI: EtabotApiService,
@@ -23,6 +24,8 @@ export class VerificationActivateComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle('ETAbot Verification Processed Notification');
+    this.show_login = false;
+    this.message = 'Activating your account, please wait.';
     this.route.params.subscribe(params => {
         this.token = params['token'];
     });
@@ -32,7 +35,12 @@ export class VerificationActivateComponent implements OnInit {
             console.log('verificationResponse (' + typeof(res) + '):' + res);
             console.log('verification reponse message:' + res['message']);
             this.setMessage(res);
-            this.router.navigate(['/login']);
+            if (res['message'] === 'Thank you for your confirmation. Please login with your account!') {
+                console.log('successful activation -> redirecting to login page');
+                this.router.navigate(['/login']);
+            } else {
+                console.log('activation error: ' + res['message']);
+            }
             },
         err => {
             console.log(err);
@@ -45,5 +53,11 @@ export class VerificationActivateComponent implements OnInit {
     console.log('data message: ' + data['message']);
 
     this.message = data['message'];
+    if (this.message === 'Thank you for your confirmation. Please login with your account!' ||
+        this.message === 'You were already activated. Please login with your account!') {
+        this.show_login = true;
+    }
+
+
   }
 }

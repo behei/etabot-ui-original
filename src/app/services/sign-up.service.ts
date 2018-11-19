@@ -16,30 +16,28 @@ export class SignUpService {
   }
 
   signup(username: string, email: string, password: string) {
-    let headers = new Headers({
+    const headers = new Headers({
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     });
-    let options = new RequestOptions({
+    const options = new RequestOptions({
       headers: headers
     });
 
-    var userObject = JSON.stringify({username: username, password: password, email: email});
+    const userObject = JSON.stringify({username: username, password: password, email: email});
 
-    return this.http.post(this.service_api_end_point +'users/', userObject, options)
+    return this.http.post(this.service_api_end_point + 'users/', userObject, options)
         .pipe(map((response: Response) => {
-          if (String(response.status) == "201")
-            {
-              console.log('users/ POST response is 201:')
+          if (String(response.status) === '201') {
+              console.log('users/ POST response is 201:');
               console.log(response);
-              localStorage.setItem('email', email);              
+              localStorage.setItem('email', email);
               this.getRegisteredStatus.emit(true);
-              //let user = response.json();
-              //console.log("sign up token is " + user.token);
+              // let user = response.json();
+              // console.log("sign up token is " + user.token);
               return true;
-            }
-          else {
-              console.log('users/ POST response is not 201:')
+            } else {
+              console.log('users/ POST response is not 201:');
               console.log(response);
               this.getRegisteredStatus.emit(false);
               return false;
@@ -72,7 +70,6 @@ export class SignUpService {
               const newUser = true;
               localStorage.setItem('newUser', String(newUser));
 
-
               this.verificationResponse.emit(res);
               return true;
             } else {
@@ -93,11 +90,11 @@ export class SignUpService {
   }
 
   private handleError(error: Response) {
-    //this.signUpSuccess = false;
-    console.error("error:");
-    console.error(error)
-    console.error("end of error");
-    //return Observable.throw(error.json().error || 'Server error');
+
+    console.error('error:');
+    console.error(error);
+    console.error('end of error');
+
   }
 
 }

@@ -46,6 +46,7 @@ import { VerificationActivateComponent } from './components/register-page/verifi
 import { TermsConditionsFullComponent } from './components/register-page/terms-conditions-full/terms-conditions-full.component';
 import { JiraCredentialsComponent } from './components/jira-credentials/jira-credentials.component';
 import { ProjectsViewComponent } from './components/users-view/projects-view/projects-view.component';
+import { NeedSignUpTokenComponent } from './components/need-sign-up-token/need-sign-up-token.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { ProjectsViewComponent } from './components/users-view/projects-view/pro
     JiraCredentialsComponent,
     ProjectsViewComponent,
     VerificationPendingComponent,
-    VerificationActivateComponent
+    VerificationActivateComponent,
+    NeedSignUpTokenComponent
   ],
   entryComponents: [
     TermsConditionsFullComponent,

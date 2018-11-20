@@ -11,8 +11,8 @@ import { JiraCredentialsComponent } from '../components/jira-credentials/jira-cr
 // import { MobileWarningComponent } from '../components/mobile-warning/mobile-warning.component';
 import { PageNotFoundComponent } from '../components/page-not-found/page-not-found.component';
 import { AuthGuard } from '../auth_guard/auth.guard';
-
-
+import { NeedSignUpTokenComponent } from '../components/need-sign-up-token/need-sign-up-token.component';
+import { JiraIssueCollectorComponent } from '../components/jira-issue-collector/jira-issue-collector.component';
 const appRoutes: Routes = [
   {
     path: 'intro',
@@ -28,9 +28,14 @@ const appRoutes: Routes = [
     component: UsersViewComponent
   },
   {
+    path: 'signup/:token',
+    component: RegisterPageComponent
+  },
+  {
     path: 'signup',
     component: RegisterPageComponent
   },
+
   {
     path: 'verification/pending',
     component: VerificationPendingComponent
@@ -38,6 +43,14 @@ const appRoutes: Routes = [
   {
     path: 'verification/activate/:token',
     component: VerificationActivateComponent
+  },
+  {
+      path: 'need_sign_up_token',
+      component: NeedSignUpTokenComponent
+  },
+  {
+      path: 'issue_collector',
+      component: JiraIssueCollectorComponent
   },
   // {
   //   path: 'about',

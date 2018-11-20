@@ -5,7 +5,7 @@ import { NgForm } from '@angular/forms';
 import { SignUpService } from '../../services/sign-up.service';
 import { JiraService } from '../../services/jira.service';
 import { throwError } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute} from '@angular/router';
 import { TermsConditionsFullComponent } from './terms-conditions-full/terms-conditions-full.component';
 import { Title } from '@angular/platform-browser';
 
@@ -22,14 +22,15 @@ export class RegisterPageComponent implements OnInit {
     model: any = {};
     returnUrl = '';
     error_message = '';
+    token = 137;
     constructor(
         private etabotAPI: EtabotApiService,
         private router: Router,
         private signUpService: SignUpService,
         private jiraService: JiraService,
         private dialog: MatDialog,
-        private titleService: Title)
-    {
+        private route: ActivatedRoute,
+        private titleService: Title) {
         this.isAcceptedTerms = false;
         this.passwordMatched = false;
         this.userFailure = false;
@@ -37,6 +38,19 @@ export class RegisterPageComponent implements OnInit {
 
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+        this.token = params['token'];
+        console.log('params[token]: ' + params['token']);
+        try {
+            const int_token = Number(this.token);
+            if (int_token % 188748146801 !== 0) {
+                this.router.navigate(['/need_sign_up_token']);
+            }
+        } catch (e) {
+            this.router.navigate(['/need_sign_up_token']);
+        }
+    });
+
     this.returnUrl = '/verification/pending';
     // if (localStorage.getItem('username')) {
     //   this.router.navigate([this.returnUrl]);

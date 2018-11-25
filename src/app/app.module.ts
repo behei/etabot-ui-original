@@ -19,7 +19,8 @@ import { JiraService } from './services/jira.service';
 
 // import { materialExportModule } from './material-scheme/app.materialExportModule';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import {
     MatInputModule,
@@ -86,6 +87,7 @@ import { JiraIssueCollectorComponent } from './components/jira-issue-collector/j
     MatCardModule,
     MatIconModule,
     MatFormFieldModule,
+    MatProgressSpinnerModule,
 
     FormsModule,
     ReactiveFormsModule
@@ -104,7 +106,8 @@ import { JiraIssueCollectorComponent } from './components/jira-issue-collector/j
     MatToolbarModule,
     MatGridListModule,
     MatCardModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressSpinnerModule
 
     ],
   providers: [EtabotApiService, AuthService, SignUpService, AuthGuard, JiraService,

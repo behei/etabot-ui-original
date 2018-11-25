@@ -12,27 +12,73 @@
 }
 
 .card-header {
-    display: flex;
+/*    display: flex;
     flex-flow: row wrap;
     flex-grow: 1;
-}
+*/}
 .card-title-subtitle {
     order: 2;
     flex-grow: 0.2;
-}
-
-.card-update-button {
-    order: 3;
-    flex-grow: 3;
 }
 
 .wrapper {
     display: grid;
 }
 
+
 .mat-card-avatar {
     min-height: 55px;
     min-width: 55px;
+}
+
+.update_button_spinner_container{
+    vertical-align: middle;
+    align-items: center;
+}
+
+
+.card-update-button {
+    display:inline-block;
+    vertical-align: middle;
+    align-items: center;
+}
+
+
+.spinner {
+  margin: 0 10px;
+  align-items: right;
+  display:inline-block;
+  align-items: center;
+}
+
+.spinner_div {
+    vertical-align: middle;
+    display:inline-block;
+    align-items: center;
+}
+
+.eta_update_status {
+    margin: 10px;
+}
+
+
+.projects-container {
+  min-height: 100%;
+  width: 100%;    
+/*  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color:#F5F5F5;
+  padding-left: 5px;
+  padding-right: 5px;
+*/}
+
+
+.project-card {
+  width: 400px;
+  margin-bottom: 2%;
+  margin: 10px;
+  display:inline-block;
 }
 
 /*.mat-raised-button {

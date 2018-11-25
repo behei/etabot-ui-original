@@ -1,4 +1,5 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
+
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { map } from 'rxjs/operators';
 // import {Observable} from 'rxjs/Rx';
@@ -99,7 +100,8 @@ export class EtabotApiService {
                 success => {
                     console.log('estimate success');
                     project['error_message'] = null;
-                    project['result_message'] = 'ETAs updated at ' + Date.now().toString();
+                    project['last_updated'] = Date.now();
+                    project['result_message'] = 'ETAs have been generated!';
                 },
                 error => {
                     console.log('estimate error' + error);

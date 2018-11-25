@@ -43,7 +43,7 @@ export class ProjectsViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.titleService.setTitle('Your JIRA Projects');
+    this.titleService.setTitle('Your projects');
   }
 
   setTimeZone(receivedTimeZone) {

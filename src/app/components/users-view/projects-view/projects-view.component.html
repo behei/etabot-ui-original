@@ -7,8 +7,8 @@
 <hr>
 <div class="alert alert-info new-font" style="text-align: center; font-size: 20px;  "><p style="color: #1a237e;">All JIRA tasks will be updated daily at 11:59 pm, or click <a (click)="estimate()" style="cursor: pointer">here</a> to update ETA for all projects now.</p></div> 
 
-<div class="projects-container" fxLayout="row wrap" fxLayoutGap="0.5%" fxLayoutAlign="center">
-
+<div class="projects-container" fxLayout="row wrap"  fxLayoutAlign="space-evenly start">
+<!-- fxLayoutGap="0.5%" -->
   <mat-card class="project-card" *ngFor="let project of realProjects">
     <mat-card-header class="card-header" style="margin-bottom: 28px;">
       <mat-card-title class="new-font" style="margin-top: 8px; font-size: 24px;" class="julius-font">{{ project.name }}</mat-card-title>
@@ -17,7 +17,7 @@
       <mat-card-content>
         <div fxLayout="row wrap" class="update_button_spinner_container">
           <div fxFlex class="card-update-button new-font">
-              <button (click)="estimate(project)" mat-raised-button color="primary" class="new-font julius-font" style="font-size: 22px; width: 150px; height: 50px; margin-left: 12px;">Update ETA</button>
+              <button (click)="estimate(project)" mat-raised-button color="primary" class="update_eta_button new-font julius-font">Update ETAs</button>
           </div>
           <div fxFlex class="spinner_div">
              <mat-progress-spinner *ngIf="project.eta_in_progress" class="spinner" mode="indeterminate" [diameter]="35">
@@ -25,10 +25,25 @@
           </div>
         </div>
         <div class="eta_update_status">
-           <span *ngIf="project.eta_in_progress">Your JIRA tasks' summaries will be updated with ETA soon.</span>
-           <span *ngIf="project.error_message">Error: {{ project.error_message }}.</span>
-           <span *ngIf="project.result_message">Yay! {{ project.result_message }}.</span>
+           <div *ngIf="project.eta_in_progress">Your JIRA task summaries will be updated with ETAs soon. This could take a few minutes (and will continue even if the browser is closed).</div>
+           <div *ngIf="project.error_message" class="alert-danger">Error: {{ project.error_message }}.</div>
+           <div *ngIf="project.result_message" class="alert-success">{{ project.result_message }}</div>
+
         </div>
+        <div>
+          <table class="metrics_table">
+            <tr>
+              <td>Velocity</td>
+              <td>Coming soon</td>
+            </tr>
+            <tr>
+              <td>Issues on track</td>
+              <td>Coming soon</td>
+            </tr>            
+          </table>
+        </div>
+
+        <div *ngIf="project.last_updated">ETAs last updated {{ project.last_updated | date:'short' }}.</div>
     </mat-card-content>
 
   </mat-card>

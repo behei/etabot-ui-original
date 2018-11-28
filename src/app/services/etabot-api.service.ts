@@ -47,6 +47,13 @@ export class EtabotApiService {
        .subscribe((response: Response) => {
          if (response.status === 200) {
            const res = response.json();
+          // Object.entries(res).forEach(
+          //     ([key, value]) => {
+          //         // value['velocities'] = value['velocities']['mean'];
+          //         console.log(typeof(value['velocities']) + value['velocities']);
+          //         console.log(typeof(value['work_hours']) + value['work_hours']);
+          //         // console.log(key + typeof(JSON.parse(value['velocities'].replace("'","\""))));
+          //     });
            console.log(
                'get_real_projects 200 response status: '
                + response.status

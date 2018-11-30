@@ -58,8 +58,8 @@ export class AuthService {
     logout() {
         this.token = null;
         localStorage.removeItem('currentUser');
-    localStorage.removeItem('username');
-    this.getLoggedIn.emit(false);
-    this.router.navigate(['/']);
+        localStorage.removeItem('username');
+        this.getLoggedIn.emit(false);
+        this.router.navigate(['/']);
     }
 }

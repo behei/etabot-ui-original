@@ -17,6 +17,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 export class HeaderComponent implements OnInit {
   isLoggedIn = false;
   loggedOut = false;
+  username = '';
   constructor(
       private dialog: MatDialog,
       private signUpService: SignUpService,
@@ -30,6 +31,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     if (localStorage.getItem('username'))
       this.isLoggedIn = true;
+      this.username = localStorage.getItem('username')
   }
 
   redirectHomePage() {

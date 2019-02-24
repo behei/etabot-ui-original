@@ -1,10 +1,10 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
+
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
 // import {Observable} from 'rxjs/Rx';
 import { environment } from '../../environments/environment';
 import { AuthService } from './auth-service.service';
-import { map } from 'rxjs/operators';
 
 @Injectable()
 export class EtabotApiService {
@@ -24,13 +24,13 @@ export class EtabotApiService {
 
    logInChange(response) {
      this.loginCheck = true;
-     console.log('logInChange response: ' + response)
-     console.log('authService.token: ' + this.authService.token)
+     console.log('logInChange response: ' + response);
+     console.log('authService.token: ' + this.authService.token);
    }
 
 
    get_real_projects() {
-    const loggedIn = JSON.parse(localStorage.getItem('currentUser'))
+    const loggedIn = JSON.parse(localStorage.getItem('currentUser'));
     this.token = loggedIn && loggedIn.token;
 
     const headers = new Headers({
@@ -47,6 +47,13 @@ export class EtabotApiService {
        .subscribe((response: Response) => {
          if (response.status === 200) {
            const res = response.json();
+          // Object.entries(res).forEach(
+          //     ([key, value]) => {
+          //         // value['velocities'] = value['velocities']['mean'];
+          //         console.log(typeof(value['velocities']) + value['velocities']);
+          //         console.log(typeof(value['work_hours']) + value['work_hours']);
+          //         // console.log(key + typeof(JSON.parse(value['velocities'].replace("'","\""))));
+          //     });
            console.log(
                'get_real_projects 200 response status: '
                + response.status
@@ -59,14 +66,14 @@ export class EtabotApiService {
            console.log('get_real_projects non-200 response status ' + response.status);
            return false;
          }
-       })
-   };
+       });
+   }
 
-  estimate(tms_id: string, project_id: string) {
+  estimate(project) {
     // var loggedIn = JSON.parse(localStorage.getItem('currentUser'));
     // this.token = loggedIn && loggedIn.token;
-    console.log('estimate method started with tms_id ="' + tms_id + '", project_id="' + project_id + '"')
-    console.log('this.authService.token=' + this.authService.token)
+    console.log('estimate method started with tms_id ="' + project.project_tms_id + '", project_id="' + project.id + '"');
+    console.log('this.authService.token=' + this.authService.token);
     const headers = new Headers({
         'Authorization': `Token ${this.authService.token}`
     });
@@ -74,28 +81,42 @@ export class EtabotApiService {
         headers: headers
     });
 
-    let url = environment.apiUrl + 'estimate/'
-    if (tms_id != null) {
-        url = url + '?tms=' + tms_id
-        if (project_id != null) {
-            url = url + '&project_id=' + project_id
+    let url = environment.apiUrl + 'estimate/';
+    if (project.project_tms_id != null) {
+        url = url + '?tms=' + project.project_tms_id;
+        if (project.id != null) {
+            url = url + '&project_id=' + project.id;
         }
     }
-    console.log('url: ' + url)
+    console.log('url: ' + url);
     return this.http.get(
         url,
-        options)
-            .pipe(map((response: Response) => {
-                      console.log('Response: ' + Response)
-                      if (String(response.status) === '201') {
-                          console.log('estimate get returns 201')
-                          return true
-                      } else {
-                        console.log('estimate get returns not 201');
-                        return false;
-                      }
+        options).pipe(
+            map((response: Response) => {
+              console.log('Response: ' + Response);
+              project['eta_in_progress'] = false;
+              if (String(response.status) === '201') {
+                  console.log('estimate get returns 201');
+                  return true;
+              } else {
+                console.log('estimate get returns not 201');
+                return false;
+              }
 
-                    })).subscribe()
+             })).subscribe(
+                success => {
+                    console.log('estimate success');
+                    project['error_message'] = null;
+                    project['last_updated'] = Date.now();
+                    project['result_message'] = 'ETAs have been generated!';
+                },
+                error => {
+                    console.log('estimate error' + error);
+                    project['error_message'] = error;
+                    project['eta_in_progress'] = false;
+                    project['result_message'] = null;
+                }
+            );
   }
 
 }

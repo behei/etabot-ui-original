@@ -9,10 +9,18 @@
 }
 
 h1 {
-  font-family: 'Julius Sans One', sans-serif;
+    font-family: 'Julius Sans One', sans-serif;
+    font-weight: normal;
 }
 
 .new-font {
-	font-family: 'Josefin Sans', sans-serif;
-	font-size: 20px;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 20px;
+}
+
+.container {
+  display: flex; /* or inline-flex */
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 16px;
 }

@@ -47,18 +47,18 @@ export class UsersViewComponent implements OnInit {
           this.jiraService.get_tms()
             .subscribe(
               success => {
-                console.log('redirecting to projects')
+                console.log('redirecting to projects');
                 this.router.navigate(['/projects']);
               },
               error => {
-                console.log('get_tms() error occurred - redirecting to: ' + this.returnUrl)
-                this.router.navigate([this.returnUrl])
+                console.log('get_tms() error occurred - redirecting to: ' + this.returnUrl);
+                this.router.navigate([this.returnUrl]);
               }
             );
           },
         error => {
-          console.log('authService.login error');
-          this.error_message = error
+          console.log('authService.login error: ' + error);
+          this.error_message = error + '; \n' + error._body;
           this.loading = false;
         }
       );

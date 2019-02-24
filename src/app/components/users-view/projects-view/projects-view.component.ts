@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, Directive } from '@angular/core';
-import { EtabotApiService } from '../../../services/etabot-api.service'
+import { EtabotApiService } from '../../../services/etabot-api.service';
 import { AuthService } from '../../../services/auth-service.service';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Title } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-projects-view',
@@ -42,16 +43,26 @@ export class ProjectsViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.titleService.setTitle('Your JIRA Projects');
+    this.titleService.setTitle('Your projects');
   }
 
   setTimeZone(receivedTimeZone) {
     this.timeZone = receivedTimeZone;
   }
 
-  estimate(tms_id, project_id) {
+  estimate(project) {
       // this.etabotAPI.estimate('16', '51')
-      this.etabotAPI.estimate(tms_id, project_id)
+      if (project == null) {
+          console.log('updating all projects: ' + typeof(this.realProjects) + this.realProjects);
+          Object.entries(this.realProjects).forEach(
+              ([key, value]) => {
+                  value['eta_in_progress'] = true;
+                  this.etabotAPI.estimate(value);
+              });
+      } else {
+          project['eta_in_progress'] = true;
+          this.etabotAPI.estimate(project);
+      }
   }
 
 }

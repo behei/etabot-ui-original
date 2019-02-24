@@ -1,0 +1,33 @@
+.fill-the-space {
+    flex: 1 1 auto;
+}
+
+.space-between-log-in-sign-up {
+    flex: 0.008 0.008 auto;
+}
+
+img {
+    max-width: 55%;
+}
+
+.new-font {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 20px;
+    margin-top: 24px;
+}
+
+a.mat-button:hover {
+    background: #534bae;
+    color: #fff;
+    text-decoration: none;
+}
+
+.logout_button {
+    font-size: 20px;
+    margin-left: 5px;    
+    font-family: 'Josefin Sans';
+}
+
+.header_container{
+    
+}

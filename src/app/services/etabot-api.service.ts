@@ -108,7 +108,7 @@ export class EtabotApiService {
                     console.log('estimate success');
                     project['error_message'] = null;
                     project['last_updated'] = Date.now();
-                    project['result_message'] = 'ETAs have been generated!';
+                    project['result_message'] = 'ETAs update started!';
                 },
                 error => {
                     console.log('estimate error' + error);

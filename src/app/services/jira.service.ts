@@ -36,7 +36,7 @@ export class JiraService {
    
     return this.http.post(this.service_api_end_point +'tms/', jiraObject, options)
         .pipe(map((response: Response) => {
-          if (String(response.status) == "201")
+          if (String(response.status) === "201")
             return true;
           else 
             return false;

@@ -50,7 +50,17 @@ export class JiraCredentialsComponent implements OnInit{
         this.router.navigate(['/projects']);
       },
       error => {
-        this.error_message = error + '; \n' + error._body;
+        this.error_message = error;
+        if (String(error.status) === '400') {
+            if (error._body.includes('Unauthorized (401)')) {
+                this.error_message = 'Wrong combination of username/email and password. Please correct and try again.';
+            } else {
+                this.error_message = 'Cannot connnect to https://' + this.model.jira_url + '.atlassian.net - please check\
+                all inputs and try again. If the issue persists, please report the issue to \
+                hello@etabot.ai';
+            }
+        }
+        console.log(error);
         this.loading = false;
         this.error = true;
       }

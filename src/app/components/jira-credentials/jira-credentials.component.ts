@@ -55,9 +55,15 @@ export class JiraCredentialsComponent implements OnInit{
             if (error._body.includes('Unauthorized (401)')) {
                 this.error_message = 'Wrong combination of username/email and password. Please correct and try again.';
             } else {
-                this.error_message = 'Cannot connnect to https://' + this.model.jira_url + '.atlassian.net - please check\
-                all inputs and try again. If the issue persists, please report the issue to \
-                hello@etabot.ai';
+                if (error._body.includes('already exists for this user')) {
+                    this.error_message = 'This username and team name already exist in your account. \
+Please enter another one or edit your existing one in projects screen.';
+                } else {
+                    this.error_message = 'Bad request (4xx) - Cannot connnect to https://'
+                        + this.model.jira_url + '.atlassian.net - please check\
+                        all inputs and try again. If the issue persists, please report the issue to \
+                        hello@etabot.ai';
+                }
             }
         }
         console.log(error);

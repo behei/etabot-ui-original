@@ -22,6 +22,7 @@ export class ProjectsViewComponent implements OnInit {
   timeZone: string;
   public defaultTimeZone: string;
   // isLoggedInStatus = false;
+  // panelOpenState = false;
   constructor(
     private etabotAPI: EtabotApiService,
     private authService: AuthService,

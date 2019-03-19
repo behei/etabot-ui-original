@@ -36,6 +36,7 @@ import {
     MatGridListModule,
     MatCardModule,
     MatIconModule,
+    MatExpansionModule
 } from '@angular/material';
 
 import {
@@ -90,6 +91,7 @@ import { JiraIssueCollectorComponent } from './components/jira-issue-collector/j
     MatIconModule,
     MatFormFieldModule,
     MatProgressSpinnerModule,
+    MatExpansionModule,
 
     FormsModule,
     ReactiveFormsModule,

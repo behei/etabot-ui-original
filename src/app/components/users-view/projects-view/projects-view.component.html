@@ -68,9 +68,31 @@
               </mat-expansion-panel-header>
               <div *ngIf="(!!project.project_settings && !!project.project_settings.sprint_field_name)">Parsed correctly</div>
               <div *ngIf="!(!!project.project_settings && !!project.project_settings.sprint_field_name)">Sprint field name was not determined automatically. This can cause inaccurate predictions due to lack of data. Please contact us at <a href="mailto:hello@etabot.ai">hello@etabot.ai</a></div>
-
             </mat-expansion-panel>
 
+            <mat-expansion-panel >
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Account
+                </mat-panel-title>
+                <mat-panel-description>
+                  TMS ID {{ project.project_tms_id }}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div>
+                <button mat-raised-button (click)="delete_tms(project.project_tms_id)" color="accent" style="margin-right: 10px; margin-bottom: 5px; font-size: 20px; width: 340px; height: 44px;" class="new-font">Delete account (with all projects)</button>
+
+                <form #f="ngForm" (ngSubmit)="update_password(project.project_tms_id)" class="new-font">
+                  <div class="form-group">
+                    <label for="password" style="font-size: 20px; color: black;">New Password</label>
+                    <input class="form-control" type="password" id="password" class="form-control" name="password" required [(ngModel)]="new_password" #password="ngModel" style="font-size: 16px;" />
+                  </div>
+                  <div class="form-group">
+                    <button mat-raised-button color="accent" style="margin-right: 10px; margin-bottom: 5px; font-size: 20px; width: 120px; height: 44px;" class="new-font">Update</button>
+                  </div>                  
+                </form>                  
+              </div>
+            </mat-expansion-panel>
           </mat-accordion>          
         </div>
         <div *ngIf="project.last_updated">ETAs last triggered {{ project.last_updated | date:'short' }}.</div>

@@ -69,9 +69,39 @@
               </mat-expansion-panel-header>
               <div *ngIf="(!!project.project_settings && !!project.project_settings.sprint_field_name)">Parsed correctly</div>
               <div *ngIf="!(!!project.project_settings && !!project.project_settings.sprint_field_name)">Sprint field name was not determined automatically. This can cause inaccurate predictions due to lack of data. Please contact us at <a href="mailto:hello@etabot.ai">hello@etabot.ai</a></div>
-
             </mat-expansion-panel>
 
+            <mat-expansion-panel >
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Account
+                </mat-panel-title>
+                <mat-panel-description>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div>
+                <div *ngIf="error == true" class="alert alert-danger">An error has occured. Check the info you provided. {{ error_message }}</div>
+                <div *ngIf="updating_tms == true" class="alert alert-info">Hold tight! We are verifying your info with Atlassian...</div>
+
+                <div>
+                <button mat-raised-button (click)="delete_tms(project.project_tms_id)" color="accent" style="margin-right: 10px; margin-bottom: 5px; font-size: 20px; width: 340px; height: 44px;" class="new-font">Remove this JIRA account</button>
+                This will also remove all projects associated with this JIRA account
+                </div>
+                <hr>
+                <div style="margin-top: 35px;">
+                  <form #f="ngForm" (ngSubmit)="update_password(project.project_tms_id)">
+                    <div>
+                      <label for="password" style="font-size: 16px;">Change password for this JIRA account</label>
+                      <input type="password" id="password"  name="password" required [(ngModel)]="new_password" #password="ngModel" style="font-size: 16px;" />
+                    </div>
+                    <div class="form-group">
+                      <button mat-raised-button color="accent" style="margin-right: 10px; margin-bottom: 5px; font-size: 20px; width: 120px; height: 44px;" class="new-font">Save</button>
+                    </div>                  
+
+                  </form>   
+                </div>               
+              </div>
+            </mat-expansion-panel>
           </mat-accordion>          
         </div>
         <div *ngIf="project.last_updated">ETAs last triggered {{ project.last_updated | date:'short' }}.</div>

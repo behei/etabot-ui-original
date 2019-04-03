@@ -10,10 +10,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./jira-credentials.component.css']
 })
 
-export class JiraCredentialsComponent implements OnInit{
+export class JiraCredentialsComponent implements OnInit {
   model: any = {};
-    username: string;
-    team: string;
+  username: string;
+  team: string;
   type: 'JIRA';
   error: boolean;
   loading: boolean;
@@ -23,9 +23,10 @@ export class JiraCredentialsComponent implements OnInit{
     private titleService: Title,
     private jiraService: JiraService,
     private router: Router) {
-    this.team = ".atlassian.net";
-    if (localStorage.getItem('username'))
+    this.team = '.atlassian.net';
+    if (localStorage.getItem('username')) {
           this.username = localStorage.getItem('username');
+      }
   }
 
   ngOnInit() {
@@ -35,15 +36,19 @@ export class JiraCredentialsComponent implements OnInit{
   }
 
   openDialog(): void {
-    let dialogRef = this.dialog.open(TermsConditionsFullComponent, {
+    const dialogRef = this.dialog.open(TermsConditionsFullComponent, {
       width: '800px',
       height: '500px',
     });
   }
 
-  jira() {
+  add_tms_via_service() {
     this.loading = true;
-    this.jiraService.jira(this.username, this.model.jira_url, this.model.email, this.model.password)
+    this.jiraService.add_tms(
+        this.username,
+        this.model.jira_url,
+        this.model.email,
+        this.model.password)
     .subscribe(
       success => {
         this.loading = false;
@@ -70,6 +75,7 @@ Please enter another one or edit your existing one in projects screen.';
         this.loading = false;
         this.error = true;
       }
-      );
+    );
   }
+  
 }

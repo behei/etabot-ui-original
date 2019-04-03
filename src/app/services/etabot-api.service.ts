@@ -70,8 +70,8 @@ export class EtabotApiService {
    }
 
   estimate(project) {
-    // var loggedIn = JSON.parse(localStorage.getItem('currentUser'));
-    // this.token = loggedIn && loggedIn.token;
+    const loggedIn = JSON.parse(localStorage.getItem('currentUser'));
+    this.token = loggedIn && loggedIn.token;
     console.log('estimate method started with tms_id ="' + project.project_tms_id + '", project_id="' + project.id + '"');
     console.log('this.authService.token=' + this.authService.token);
     const headers = new Headers({

@@ -7,9 +7,10 @@ import { environment } from '../../environments/environment';
 export class JiraService {
     private service_api_end_point: string;
     private token: string;
-  constructor(private http: Http) {
-    this.service_api_end_point = environment.apiUrl;
-  }
+    @Output() tmss: EventEmitter<any> = new EventEmitter();
+    constructor(private http: Http) {
+        this.service_api_end_point = environment.apiUrl;
+    }
 
   construct_options() {
         const loggedIn = JSON.parse(localStorage.getItem('currentUser'));
@@ -38,6 +39,7 @@ export class JiraService {
          type: type});
 
     return this.http.post(this.service_api_end_point + 'tms/', jiraObject, this.construct_options())
+
         .pipe(map((response: Response) => {
           if (String(response.status) === '201') {
             return true;
@@ -51,6 +53,7 @@ export class JiraService {
     return this.http.get(this.service_api_end_point + 'tms/', this.construct_options())
         .pipe(map((response: Response) => {
                 const res = response.json();
+
                 if (res.length === 0) {
                     throw new Error('user does not have TMS accounts');
                 } else {
@@ -80,6 +83,8 @@ export class JiraService {
                     throw new Error('user does not have TMS accounts');
                 } else {
                     console.log('number of TMS accounts found: ' + res.length);
+                    this.tmss.emit(res);
+
                     return res.length;
                 }
         }));

@@ -52,6 +52,7 @@ import { JiraCredentialsComponent } from './components/jira-credentials/jira-cre
 import { ProjectsViewComponent } from './components/users-view/projects-view/projects-view.component';
 import { NeedSignUpTokenComponent } from './components/need-sign-up-token/need-sign-up-token.component';
 import { JiraIssueCollectorComponent } from './components/jira-issue-collector/jira-issue-collector.component';
+import { TmsListComponent } from './components/tms-list/tms-list.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { JiraIssueCollectorComponent } from './components/jira-issue-collector/j
     VerificationPendingComponent,
     VerificationActivateComponent,
     NeedSignUpTokenComponent,
-    JiraIssueCollectorComponent
+    JiraIssueCollectorComponent,
+    TmsListComponent
   ],
   entryComponents: [
     TermsConditionsFullComponent,

@@ -165,3 +165,42 @@ h1 {
 .alert-dark .alert-link {
   color: #040505;
 }
+
+
+
+.add_tms_link {
+    float: right;
+    margin: 10px;
+    display: block;
+}
+
+.projects-container {
+  min-height: 100%;
+  width: 100%;    
+/*  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color:#F5F5F5;
+  padding-left: 5px;
+  padding-right: 5px;
+*/}
+
+
+.project-card {
+  width: 400px;
+  margin-bottom: 2%;
+  margin: 10px;
+  display:inline-block;
+  /*display: flex;*/
+}
+
+
+.card-header {
+/*    display: flex;
+    flex-flow: row wrap;
+    flex-grow: 1;
+*/}
+.card-title-subtitle {
+    order: 2;
+    flex-grow: 0.2;
+}

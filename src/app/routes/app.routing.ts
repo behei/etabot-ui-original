@@ -13,6 +13,8 @@ import { PageNotFoundComponent } from '../components/page-not-found/page-not-fou
 import { AuthGuard } from '../auth_guard/auth.guard';
 import { NeedSignUpTokenComponent } from '../components/need-sign-up-token/need-sign-up-token.component';
 import { JiraIssueCollectorComponent } from '../components/jira-issue-collector/jira-issue-collector.component';
+import { TmsListComponent } from '../components/tms-list/tms-list.component';
+
 const appRoutes: Routes = [
   {
     path: 'intro',
@@ -23,6 +25,12 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard],
     component: ProjectsViewComponent
   },
+  {
+    path: 'tmss',
+    canActivate: [AuthGuard],
+    component: TmsListComponent
+  },
+
   {
     path: 'login',
     component: UsersViewComponent

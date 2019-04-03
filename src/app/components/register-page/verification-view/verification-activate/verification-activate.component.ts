@@ -38,6 +38,7 @@ export class VerificationActivateComponent implements OnInit {
             this.setMessage(res);
             if (res['message'] === 'Thank you for your confirmation. Please login with your account!') {
                 console.log('successful activation -> redirecting to login page');
+                localStorage.removeItem('email');
                 this.router.navigate(['/login']);
             } else {
                 console.log('activation error: ' + res['message']);

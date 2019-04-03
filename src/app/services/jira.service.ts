@@ -52,17 +52,19 @@ export class JiraService {
   get_tms() {
     console.log('started get_tms');
     return this.http.get(this.service_api_end_point + 'tms/', this.construct_options())
-        .subscribe((response: Response) => {
+        .pipe(map((response: Response) => {
                 const res = response.json();
                 console.log('get_tms response: ' + res);
                 if (res.length === 0) {
                     throw new Error('user does not have TMS accounts');
                 } else {
                     console.log('number of TMS accounts found: ' + res.length);
+                    console.log('emitting tmss');
                     this.tmss.emit(res);
+                    console.log('done emitting tmss');
                     return res.length;
                 }
-        });
+        }));
   }
 
   delete_tms(tms_id) {

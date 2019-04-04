@@ -14,7 +14,9 @@ export class EtabotApiService {
   @Output() projects: EventEmitter<any> = new EventEmitter();
   @Output() projectsReceived: EventEmitter<boolean> = new EventEmitter();
 
-  constructor(private http: Http, private authService: AuthService) {
+  constructor(
+      private http: Http,
+      private authService: AuthService) {
     // depending on the environment (e.g. production or local) api end point could be different
     // this.service_api_end_point = environment.apiUrl;
 
@@ -30,20 +32,8 @@ export class EtabotApiService {
 
 
    get_real_projects() {
-    const loggedIn = JSON.parse(localStorage.getItem('currentUser'));
-    this.token = loggedIn && loggedIn.token;
 
-    const headers = new Headers({
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    });
-
-    headers.append('Authorization', `Token ${this.token}`);
-    const options = new RequestOptions({
-      headers: headers
-    });
-
-     return this.http.get(environment.apiUrl + 'projects/', options)
+     return this.http.get(environment.apiUrl + 'projects/', this.authService.construct_options())
        .subscribe((response: Response) => {
          if (response.status === 200) {
            const res = response.json();
@@ -70,17 +60,6 @@ export class EtabotApiService {
    }
 
   estimate(project) {
-    const loggedIn = JSON.parse(localStorage.getItem('currentUser'));
-    this.token = loggedIn && loggedIn.token;
-    console.log('estimate method started with tms_id ="' + project.project_tms_id + '", project_id="' + project.id + '"');
-    console.log('this.authService.token=' + this.authService.token);
-    const headers = new Headers({
-        'Authorization': `Token ${this.authService.token}`
-    });
-    const options = new RequestOptions({
-        headers: headers
-    });
-
     let url = environment.apiUrl + 'estimate/';
     if (project.project_tms_id != null) {
         url = url + '?tms=' + project.project_tms_id;
@@ -91,7 +70,7 @@ export class EtabotApiService {
     console.log('url: ' + url);
     return this.http.get(
         url,
-        options).pipe(
+        this.authService.construct_options()).pipe(
             map((response: Response) => {
               console.log('Response: ' + Response);
               project['eta_in_progress'] = false;

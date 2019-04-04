@@ -1,0 +1,48 @@
+  <mat-card class="project-card">
+
+    <mat-card-header class="card-header" style="margin-bottom: 28px;">
+      <mat-card-title class="new-font" style="margin-top: 8px; font-size: 24px;" class="julius-font">{{  remove_protocol_from_string(tms.endpoint) }}</mat-card-title>
+
+    </mat-card-header>
+    <mat-card-content>
+        TMS ID {{ tms.id }}<br>
+        TMS URL {{ tms.endpoint }}
+        <br>
+        <button mat-raised-button (click)="parse_projects(tms.id)" color="accent" style="margin-right: 10px; margin-bottom: 5px; font-size: 20px; width: 340px; height: 44px;" class="new-font">Parse projects</button>
+
+
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Account
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div>
+            <div *ngIf="error == true" class="alert alert-danger">An error has occured. Check the info you provided. {{ error_message }}</div>
+            <div *ngIf="updating_tms == true" class="alert alert-info">Hold tight! We are verifying your info with Atlassian...</div>
+
+            <div>
+            <button mat-raised-button (click)="delete_tms(tms.id)" color="accent" style="margin-right: 10px; margin-bottom: 5px; font-size: 20px; width: 340px; height: 44px;" class="new-font">Remove this JIRA account</button>
+            This will also remove all projects associated with this JIRA account
+            </div>
+            <hr>
+            <div style="margin-top: 35px;">
+              <form #f="ngForm" (ngSubmit)="update_password(tms.id)">
+                <div>
+                  <label for="password" style="font-size: 16px;">Change password for this JIRA account</label>
+                  <input type="password" id="password"  name="password" required [(ngModel)]="new_password" #password="ngModel" style="font-size: 16px;" />
+                </div>
+                <div class="form-group">
+                  <button mat-raised-button color="accent" style="margin-right: 10px; margin-bottom: 5px; font-size: 20px; width: 120px; height: 44px;" class="new-font">Save</button>
+                </div>                  
+
+              </form>   
+            </div>               
+          </div>
+        </mat-expansion-panel>        
+    </mat-card-content>
+
+
+  </mat-card>

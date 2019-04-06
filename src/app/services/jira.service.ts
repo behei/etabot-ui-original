@@ -82,14 +82,7 @@ export class JiraService {
     return this.http.patch(this.service_api_end_point + 'tms/' + tms_id + '/', jiraObject, this.authService.construct_options())
         .pipe(map((response: Response) => {
                 const res = response.json();
-                if (res.length === 0) {
-                    throw new Error('user does not have TMS accounts');
-                } else {
-                    console.log('number of TMS accounts found: ' + res.length);
-                    this.tmss.emit(res);
-
-                    return res.length;
-                }
+                console.log(res);
         }));
   }
 }

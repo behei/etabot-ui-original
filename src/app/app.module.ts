@@ -54,6 +54,8 @@ import { NeedSignUpTokenComponent } from './components/need-sign-up-token/need-s
 import { JiraIssueCollectorComponent } from './components/jira-issue-collector/jira-issue-collector.component';
 import { TmsListComponent } from './components/tms-list/tms-list.component';
 import { TmsCardComponent } from './components/tms-card/tms-card.component';
+import { SettingsWindowComponent } from './components/settings-window/settings-window.component';
+import { ProjectCardComponent } from './components/project-card/project-card.component';
 
 @NgModule({
   declarations: [
@@ -71,10 +73,13 @@ import { TmsCardComponent } from './components/tms-card/tms-card.component';
     NeedSignUpTokenComponent,
     JiraIssueCollectorComponent,
     TmsListComponent,
-    TmsCardComponent
+    TmsCardComponent,
+    SettingsWindowComponent,
+    ProjectCardComponent
   ],
   entryComponents: [
     TermsConditionsFullComponent,
+    SettingsWindowComponent
   ],
   imports: [
     BrowserModule,

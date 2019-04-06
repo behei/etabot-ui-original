@@ -5,8 +5,8 @@
 
     </mat-card-header>
     <mat-card-content>
-        TMS ID {{ tms.id }}<br>
-        TMS URL {{ tms.endpoint }}
+        TMS ID {{ tms.id }} at URL {{ tms.endpoint }} <br>
+        TMS Connectivity: {{ tms.connectivity_status.status }} {{ tms.connectivity_status.description }}
         <br>
         <button mat-raised-button (click)="parse_projects(tms.id)" color="accent" style="margin-right: 10px; margin-bottom: 5px; font-size: 20px; width: 340px; height: 44px;" class="new-font">Parse projects</button>
 

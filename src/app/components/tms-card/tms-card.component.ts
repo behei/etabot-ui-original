@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { JiraService } from '../../services/jira.service';
+import { Router, ActivatedRoute} from '@angular/router';
 // import { EtabotApiService } from '../../services/etabot-api.service';
 
 @Component({
@@ -16,7 +17,8 @@ export class TmsCardComponent implements OnInit {
   error: boolean;
 
   constructor(
-      private jiraService: JiraService
+      private jiraService: JiraService,
+      private router: Router
       // private etabotAPI: EtabotApiService
     ) {
     this.updating_tms = false;
@@ -24,7 +26,7 @@ export class TmsCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('TmsCardComponent Init tms: ' + this.tms + this.tms.id);
+    console.log('TmsCardComponent Init tms: ' + this.tms + this.tms.id + JSON.stringify(this.tms));
   }
 
   remove_protocol_from_string(url) {
@@ -101,6 +103,8 @@ Please enter another one or edit your existing one in projects screen.';
           success => {
             this.updating_tms = false;
             this.error = false;
+            console.log('redirecting to /tmss');
+            this.router.navigate(['/projects']);
             // this.etabotAPI.get_real_projects();
           },
           error => {
@@ -122,6 +126,7 @@ Please enter another one or edit your existing one in projects screen.';
             console.log(error);
             this.error = true;
             this.updating_tms = false;
+
           }
         );
     }

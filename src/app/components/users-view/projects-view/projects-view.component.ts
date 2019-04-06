@@ -5,6 +5,8 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Title } from '@angular/platform-browser';
 
 
+import { JiraService } from '../../../services/jira.service';
+import { ProjectCardComponent } from '../../project-card/project-card.component';
 
 @Component({
   selector: 'app-projects-view',
@@ -21,26 +23,41 @@ export class ProjectsViewComponent implements OnInit {
   keys: any;
   projectsReceived: boolean;
   timeZone: string;
-
+  tmss_by_id: any;
   loading: boolean;
   public defaultTimeZone: string;
+
 
   // isLoggedInStatus = false;
   // panelOpenState = false;
   constructor(
     private etabotAPI: EtabotApiService,
+    private tms_service: JiraService,
     private authService: AuthService,
     private http: Http,
     private titleService: Title) {
     this.defaultTimeZone = 'GMT +7';
     this.showAdvancedSetting = false;
-
-
+    this.tmss_by_id = {};
     this.etabotAPI.get_real_projects();
     etabotAPI.projects.subscribe(data => this.setProjects(data));
     etabotAPI.projects.subscribe(change => this.setGotProjects());
+
+    tms_service.get_tms().subscribe();
+    tms_service.tmss.subscribe(data => this.setTmss(data));
+
   }
-  // token: string;
+
+  setTmss(data) {
+      console.log('saving TMS data');
+
+      Object.entries(data).forEach(
+          ([key, tms]) => {
+              console.log(tms);
+              this.tmss_by_id[tms['id']] = tms;
+          });
+  }
+
   setProjects(data) {
     this.realProjects = data;
   }
@@ -57,20 +74,13 @@ export class ProjectsViewComponent implements OnInit {
     this.timeZone = receivedTimeZone;
   }
 
-
-  estimate(project) {
-      // this.etabotAPI.estimate('16', '51')
-      if (project == null) {
-          console.log('updating all projects: ' + typeof(this.realProjects) + this.realProjects);
-          Object.entries(this.realProjects).forEach(
-              ([key, value]) => {
-                  value['eta_in_progress'] = true;
-                  this.etabotAPI.estimate(value);
-              });
-      } else {
-          project['eta_in_progress'] = true;
-          this.etabotAPI.estimate(project);
-      }
+  estimate_all_projects() {
+    console.log('updating all projects: ' + typeof(this.realProjects) + this.realProjects);
+    Object.entries(this.realProjects).forEach(
+        ([key, value]) => {
+            value['eta_in_progress'] = true;
+            this.etabotAPI.estimate(value);
+        });
   }
 
 }

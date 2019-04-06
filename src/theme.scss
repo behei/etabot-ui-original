@@ -204,3 +204,10 @@ h1 {
     order: 2;
     flex-grow: 0.2;
 }
+
+.gear-image {
+   background-image: url('assets/gear.png');
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+  }

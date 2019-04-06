@@ -53,6 +53,9 @@ import { ProjectsViewComponent } from './components/users-view/projects-view/pro
 import { NeedSignUpTokenComponent } from './components/need-sign-up-token/need-sign-up-token.component';
 import { JiraIssueCollectorComponent } from './components/jira-issue-collector/jira-issue-collector.component';
 import { TmsListComponent } from './components/tms-list/tms-list.component';
+import { TmsCardComponent } from './components/tms-card/tms-card.component';
+import { SettingsWindowComponent } from './components/settings-window/settings-window.component';
+import { ProjectCardComponent } from './components/project-card/project-card.component';
 
 @NgModule({
   declarations: [
@@ -69,10 +72,14 @@ import { TmsListComponent } from './components/tms-list/tms-list.component';
     VerificationActivateComponent,
     NeedSignUpTokenComponent,
     JiraIssueCollectorComponent,
-    TmsListComponent
+    TmsListComponent,
+    TmsCardComponent,
+    SettingsWindowComponent,
+    ProjectCardComponent
   ],
   entryComponents: [
     TermsConditionsFullComponent,
+    SettingsWindowComponent
   ],
   imports: [
     BrowserModule,

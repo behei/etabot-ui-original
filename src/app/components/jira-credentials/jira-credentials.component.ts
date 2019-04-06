@@ -23,7 +23,6 @@ export class JiraCredentialsComponent implements OnInit {
     private titleService: Title,
     private jiraService: JiraService,
     private router: Router) {
-    this.team = '.atlassian.net';
     if (localStorage.getItem('username')) {
           this.username = localStorage.getItem('username');
       }
@@ -63,9 +62,14 @@ export class JiraCredentialsComponent implements OnInit {
                 if (error._body.includes('already exists for this user')) {
                     this.error_message = 'This username and team name already exist in your account. \
 Please enter another one or edit your existing one in projects screen.';
+                } else if (error._body.includes('Need to pass CAPTCHA challenge first.')) {
+                    const error_obj = JSON.parse(error._body);
+                    console.log(error_obj);
+                    console.log(error_obj.non_field_errors);
+                    this.error_message = error_obj.non_field_errors[0];
                 } else {
-                    this.error_message = 'Bad request (4xx) - Cannot connnect to https://'
-                        + this.model.jira_url + '.atlassian.net - please check\
+                    this.error_message = 'Bad request (4xx) - Cannot connnect to '
+                        + this.model.jira_url + ' - please check\
                         all inputs and try again. If the issue persists, please report the issue to \
                         hello@etabot.ai';
                 }
@@ -77,5 +81,4 @@ Please enter another one or edit your existing one in projects screen.';
       }
     );
   }
-  
 }

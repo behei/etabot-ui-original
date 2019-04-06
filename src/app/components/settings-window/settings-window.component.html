@@ -1,0 +1,31 @@
+Project {{ project.name  }} Settings <br>
+
+          <mat-accordion>
+            <mat-expansion-panel >
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Scope field name
+                </mat-panel-title>
+                <mat-panel-description>
+                  {{ (!!project.project_settings && !!project.project_settings.scope_field_name_message && !!project.project_settings.scope_field_name_message.scope_field_name) ? project.project_settings.scope_field_name_message.scope_field_name : "needs attention"}}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div innerHTML="{{ (!!project.project_settings && !!project.project_settings.scope_field_name_message && !!project.project_settings.scope_field_name_message.ui_message) ? project.project_settings.scope_field_name_message.ui_message : 'No message found. Please contact us at hello@etabot.ai'}}">
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel >
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Sprint field name
+                </mat-panel-title>
+                <mat-panel-description>
+                  {{ (!!project.project_settings && !!project.project_settings.sprint_field_name) ? project.project_settings.sprint_field_name : "needs attention"}}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div *ngIf="(!!project.project_settings && !!project.project_settings.sprint_field_name)">Parsed correctly</div>
+              <div *ngIf="!(!!project.project_settings && !!project.project_settings.sprint_field_name)">Sprint field name was not determined automatically. This can cause inaccurate predictions due to lack of data. Please contact us at <a href="mailto:hello@etabot.ai">hello@etabot.ai</a></div>
+            </mat-expansion-panel>
+
+          </mat-accordion>      
+
+<app-tms-card [tms]="tms"></app-tms-card>

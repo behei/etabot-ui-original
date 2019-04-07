@@ -3,7 +3,9 @@
     Welcome to ETAbot!
 </mat-card-title>
 <mat-card-content style="justify-content: center" align="center">
-    <span style="margin-left: 10px; "><img [routerLink]="['/']" src="https://etabot.ai/wp-content/uploads/2017/09/cropped-ETAbot-1.png"  alt="etabot homepage" /></span>
+    <div style="display: flex; justify-content: center">
+        <div [routerLink]="['/']" class="logo-image"  alt="etabot homepage" align="center"></div>
+    </div>
     <br>
     <a mat-button [routerLink]="['/signup']" style="margin-top: 10px;" align="center">Sign up</a>
     <br>

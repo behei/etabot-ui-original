@@ -11,8 +11,10 @@ import { Router, ActivatedRoute} from '@angular/router';
 
 export class TmsCardComponent implements OnInit {
   @Input() tms: any;
+  @Input() tms_service: any;
   updating_tms: boolean;
   new_password: string;
+  new_username: string;
   error_message: string;
   error: boolean;
 
@@ -26,7 +28,7 @@ export class TmsCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('TmsCardComponent Init tms: ' + this.tms + this.tms.id + JSON.stringify(this.tms));
+    console.log('TmsCardComponent Init tms: ' + this.tms + this.tms.id);
   }
 
   remove_protocol_from_string(url) {
@@ -40,8 +42,13 @@ export class TmsCardComponent implements OnInit {
     this.jiraService.patch_password_tms(tms_id, this.new_password)
     .subscribe(
       success => {
+          console.log('update password is successful');
         this.updating_tms = false;
         this.error = false;
+        if (this.tms_service) {
+            this.tms_service.get_tms();
+        }
+
       },
       error => {
         this.error_message = error;
@@ -82,9 +89,7 @@ Please enter another one or edit your existing one in projects screen.';
             if (error._body.includes('Unauthorized (401)')) {
                 this.error_message = 'Error: Unauthorized 401';
             } else {
-                this.error_message = 'Bad request (4xx) - please relogin and  \
-                    try again. If the issue persists, please report the issue to \
-                    hello@etabot.ai';
+                this.error_message = error._body;
             }
         }
         console.log(error);

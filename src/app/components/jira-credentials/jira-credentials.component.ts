@@ -43,6 +43,7 @@ export class JiraCredentialsComponent implements OnInit {
 
   add_tms_via_service() {
     this.loading = true;
+    this.error = false;
     this.jiraService.add_tms(
         this.username,
         this.model.jira_url,
@@ -56,8 +57,8 @@ export class JiraCredentialsComponent implements OnInit {
       error => {
         this.error_message = error;
         if (String(error.status) === '400') {
-            if (error._body.includes('Unauthorized (401)')) {
-                this.error_message = 'Wrong combination of username/email and password. Please correct and try again.';
+            if (error._body.includes('Unauthorized (401)') || error._body.includes('cannot connnect to TMS') ) {
+                this.error_message = 'Cannot connect - please check address, combination of username/email and password, and try again.';
             } else {
                 if (error._body.includes('already exists for this user')) {
                     this.error_message = 'This username and team name already exist in your account. \

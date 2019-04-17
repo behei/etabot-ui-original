@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { SettingsWindowComponent } from '../settings-window/settings-window.component';
 import { EtabotApiService } from '../../services/etabot-api.service';
+import { Project } from '../../project';
 
 @Component({
   selector: 'app-project-card',
@@ -11,6 +12,8 @@ import { EtabotApiService } from '../../services/etabot-api.service';
 export class ProjectCardComponent implements OnInit {
   @Input() project: any;
   @Input() tms: any;
+  @Input() tms_service: any;
+  project_obj: Project;
   constructor(
     public dialog: MatDialog,
     private etabotAPI: EtabotApiService
@@ -18,6 +21,8 @@ export class ProjectCardComponent implements OnInit {
 
   ngOnInit() {
     console.log('initing Project Card with project: ' + this.project.name + ' tms id: ' + this.tms.id);
+    this.project_obj = new Project(this.project);
+    // console.log(this.project_obj.get_scope_field_name());
   }
 
 
@@ -27,7 +32,8 @@ export class ProjectCardComponent implements OnInit {
       height: '500px',
       data: {
         tms: tms,
-        project: project
+        project: project,
+        tms_service: this.tms_service
       }
     });
   }
@@ -43,12 +49,11 @@ export class ProjectCardComponent implements OnInit {
 
   get_connectivity_status() {
     // console.log('parsing "' + this.tms.connectivity_status + "'");
-    
     // console.log(typeof(this.tms.connectivity_status));
     // console.log('"'+this.tms.connectivity_status+'"')
     // const cs = JSON.parse(this.tms.connectivity_status);
     // console.log(cs)
-    return this.tms.connectivity_status
+    return this.tms.connectivity_status;
   }
 
 }

@@ -21,44 +21,6 @@
     min-width: 55px;
 }
 
-.update_button_spinner_container{
-    vertical-align: middle;
-    align-items: center;
-}
-
-
-.card-update-button {
-    display:inline-block;
-    vertical-align: middle;
-    align-items: center;
-}
-
-.update_eta_button {
-    font-size: 22px;
-    height: 50px;
-    margin-left: 12px;
-}
-
-.spinner {
-  margin: 0 10px;
-  align-items: right;
-  display:inline-block;
-  align-items: center;
-}
-
-.spinner_div {
-    vertical-align: middle;
-    display:inline-block;
-    align-items: center;
-}
-
-.eta_update_status {
-    margin: 10px;
-}
-
-.metrics_table {
-    font-size: 18px;
-}
 
 /*.mat-raised-button {
     background-color: #d9edf7; border-color: #bce8f1;

@@ -23,7 +23,8 @@ export class JiraService {
         {endpoint: tms_url,
          username: email,
          password: password,
-         type: type});
+         type: type,
+         connectivity_status: 'not tested.'});
 
     return this.http.post(this.service_api_end_point + 'tms/', jiraObject, this.authService.construct_options())
 

@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { UsersViewComponent } from './components/users-view/users-view.component';
 import { IntroductionComponent } from './components/introduction/introduction.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-
+// import { DomSanitizer } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { routing } from './routes/app.routing';
 
@@ -16,7 +16,7 @@ import { AuthService } from './services/auth-service.service';
 import { EtabotApiService } from './services/etabot-api.service';
 import { SignUpService } from './services/sign-up.service';
 import { JiraService } from './services/jira.service';
-
+import {MatIconModule} from '@angular/material/icon';
 // import { materialExportModule } from './material-scheme/app.materialExportModule';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -35,8 +35,9 @@ import {
     MatToolbarModule,
     MatGridListModule,
     MatCardModule,
-    MatIconModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTabsModule,
+    MatTooltipModule
 } from '@angular/material';
 
 import {
@@ -56,6 +57,8 @@ import { TmsListComponent } from './components/tms-list/tms-list.component';
 import { TmsCardComponent } from './components/tms-card/tms-card.component';
 import { SettingsWindowComponent } from './components/settings-window/settings-window.component';
 import { ProjectCardComponent } from './components/project-card/project-card.component';
+import { AttentionIconComponent } from './components/attention-icon/attention-icon.component';
+import { ProjectComponent } from './components/project/project.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +78,9 @@ import { ProjectCardComponent } from './components/project-card/project-card.com
     TmsListComponent,
     TmsCardComponent,
     SettingsWindowComponent,
-    ProjectCardComponent
+    ProjectCardComponent,
+    AttentionIconComponent,
+    ProjectComponent
   ],
   entryComponents: [
     TermsConditionsFullComponent,
@@ -97,10 +102,12 @@ import { ProjectCardComponent } from './components/project-card/project-card.com
     MatToolbarModule,
     MatGridListModule,
     MatCardModule,
-    MatIconModule,
     MatFormFieldModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
+    MatTabsModule,
+    MatTooltipModule,
+    MatIconModule,
 
     FormsModule,
     ReactiveFormsModule,
@@ -132,4 +139,8 @@ import { ProjectCardComponent } from './components/project-card/project-card.com
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+    // constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
+    //     matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('/assets/baseline-error_outline-24px.svg'));
+    // }
+}

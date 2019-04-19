@@ -1,19 +1,37 @@
-<mat-toolbar color="primary" style="min-height: 90px;">
-        <span style="margin-left: 10px; " >
-            <div [routerLink]="['/']" class="logo-image" alt="etabot homepage"></div></span>
+<mat-toolbar color="primary" >
+    <!-- style="min-height: 90px;" -->
+<!--         <span style="margin-left: 10px; margin-right: 10px;" >
+            </span>
         <div >
-            <h3>This is the alpha version of ETAbot <br>- please expect and <a href="mailto:hello@etabot.ai">report</a> bugs</h3>
         </div>
-        <span  class="fill-the-space"></span>
+ -->        
 
-        <span  class="space-between-log-in-sign-up"></span>
+<!-- </div>         -->
+<mat-toolbar-row fxLayout="row wrap" style="align-items: center;">
 
-        <a mat-button [routerLink]="['/signup']"  *ngIf="!isLoggedIn" style="margin-top: 10px; " class="new-font">Sign up</a>
-        <span class="space-between-log-in-sign-up"></span>
-        <a mat-button [routerLink] = "['/login']"  *ngIf="!isLoggedIn" style="margin-top: 10px;" class="new-font">Log in</a>
-        <!-- <i *ngIf="isLoggedIn" class="material-icons" style="font-size: 48px;">account_circle</i> -->
-        <div *ngIf="isLoggedIn" >{{ username }}</div>
-        <button  *ngIf="isLoggedIn" (click)="logout()" mat-raised-button color="accent" class="logout_button">Log Out</button>
-        <span  *ngIf="isLoggedIn" class="space-between-log-in-sign-up"></span>
-        <span  class="space-between-log-in-sign-up"></span>
+  <!-- <div class="content" fxLayout="row wrap" > -->
+       
+  <div class="sec1"  [routerLink]="['/']" class="logo-image" alt="etabot homepage"></div>
+  <div fxShow.lt-md="true" fxHide.gt-sm="true" style="font-size: 20px;" title="This is the alpha version of ETAbot - please expect and report bugs">Alpha version</div>
+  <div  class="sec2" fxHide.lt-md="true" style="font-size: 20px; width: 200px; overflow-wrap: break-word; word-break: break-all;">Alpha version - please <a href="mailto:hello@etabot.ai">report</a> bugs</div>
+  <span  class="fill-the-space"></span>
+  <div  *ngIf="isLoggedIn" fxHide.lt-sm="true">{{ username }}</div>
+  <div  class="sec3">
+    <a mat-button [routerLink]="['/signup']"  *ngIf="!isLoggedIn"  class="new-font">Sign up</a>
+<!-- <span class="space-between-log-in-sign-up"></span> -->
+    <a mat-button [routerLink] = "['/login']"  *ngIf="!isLoggedIn" class="new-font">Log in</a>
+<!-- <i *ngIf="isLoggedIn" class="material-icons" style="font-size: 48px;">account_circle</i> -->
+  </div> 
+  <div style="display: block">
+    <button  *ngIf="isLoggedIn" (click)="logout()" mat-raised-button color="accent" class="logout_button">Log Out</button>
+  </div>
+
+<!-- <span  *ngIf="isLoggedIn" class="space-between-log-in-sign-up"></span> -->
+<!-- <span  class="space-between-log-in-sign-up"></span> -->
+
+<!-- </div> -->
+  
+
+</mat-toolbar-row>
+    
 </mat-toolbar>

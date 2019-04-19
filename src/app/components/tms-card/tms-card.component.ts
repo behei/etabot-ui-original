@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { JiraService } from '../../services/jira.service';
 import { Router, ActivatedRoute} from '@angular/router';
+import { ErrorBoxComponent } from '../error-box/error-box.component';
 // import { EtabotApiService } from '../../services/etabot-api.service';
 
 @Component({
@@ -11,8 +12,10 @@ import { Router, ActivatedRoute} from '@angular/router';
 
 export class TmsCardComponent implements OnInit {
   @Input() tms: any;
+  @Input() tms_service: any;
   updating_tms: boolean;
   new_password: string;
+  new_username: string;
   error_message: string;
   error: boolean;
 
@@ -26,7 +29,7 @@ export class TmsCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('TmsCardComponent Init tms: ' + this.tms + this.tms.id + JSON.stringify(this.tms));
+    console.log('TmsCardComponent Init tms: ' + this.tms + this.tms.id);
   }
 
   remove_protocol_from_string(url) {
@@ -37,28 +40,19 @@ export class TmsCardComponent implements OnInit {
   update_password(tms_id) {
       // console.log('updating tms id ' + tms_id + ' with new password: ' + this.new_password);
     this.updating_tms = true;
-    this.jiraService.patch_password_tms(tms_id, this.new_password)
+    this.jiraService.patch_username_password_tms(tms_id, this.new_username, this.new_password)
     .subscribe(
       success => {
+          console.log('update password is successful');
         this.updating_tms = false;
         this.error = false;
+        if (this.tms_service) {
+            this.tms_service.get_tms();
+        }
+
       },
       error => {
-        this.error_message = error;
-        if (String(error.status) === '400') {
-            if (error._body.includes('Unauthorized (401)')) {
-                this.error_message = 'Wrong combination of username/email and password. Please correct and try again.';
-            } else {
-                if (error._body.includes('already exists for this user')) {
-                    this.error_message = 'This username and team name already exist in your account. \
-Please enter another one or edit your existing one in projects screen.';
-                } else {
-                    this.error_message = 'Bad request (4xx) - please check\
-                        all inputs and try again. If the issue persists, please report the issue to \
-                        hello@etabot.ai';
-                }
-            }
-        }
+        this.error_message = this.jiraService.parse_error(error);
         console.log(error);
         this.error = true;
         this.updating_tms = false;
@@ -78,15 +72,7 @@ Please enter another one or edit your existing one in projects screen.';
       },
       error => {
         this.error_message = error;
-        if (String(error.status) === '400') {
-            if (error._body.includes('Unauthorized (401)')) {
-                this.error_message = 'Error: Unauthorized 401';
-            } else {
-                this.error_message = 'Bad request (4xx) - please relogin and  \
-                    try again. If the issue persists, please report the issue to \
-                    hello@etabot.ai';
-            }
-        }
+        this.error_message = this.jiraService.parse_error(error);
         console.log(error);
         this.error = true;
         this.updating_tms = false;
@@ -109,20 +95,7 @@ Please enter another one or edit your existing one in projects screen.';
           },
           error => {
             this.error_message = error;
-            if (String(error.status) === '400') {
-                if (error._body.includes('Unauthorized (401)')) {
-                    this.error_message = 'Wrong combination of username/email and password. Please correct and try again.';
-                } else {
-                    if (error._body.includes('already exists for this user')) {
-                        this.error_message = 'This username and team name already exist in your account. \
-    Please enter another one or edit your existing one in projects screen.';
-                    } else {
-                        this.error_message = 'Bad request (4xx) - please check\
-                            all inputs and try again. If the issue persists, please report the issue to \
-                            hello@etabot.ai';
-                    }
-                }
-            }
+            this.error_message = this.jiraService.parse_error(error);
             console.log(error);
             this.error = true;
             this.updating_tms = false;

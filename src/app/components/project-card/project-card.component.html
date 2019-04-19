@@ -1,11 +1,20 @@
 
   <mat-card class="project-card" >
-    <mat-card-header class="card-header" style="margin-bottom: 28px;">
-      <mat-card-title class="new-font" style="margin-top: 8px; font-size: 24px;" class="julius-font">
-        <div style="float: left">{{ project.name }}</div>
-        <div (click)="openSettings(tms, project)" class="gear-image" style="float: right"></div></mat-card-title>
-        <div *ngIf="tms.connectivity_status.status == 'error'">(!)</div>
-    </mat-card-header>
+    <!-- <mat-card-header > -->
+      <mat-card-title-group style="margin-bottom: 28px; margin-top: 8px; font-size: 24px;" class="julius-font">
+            <span>{{ project.name }}</span>
+            <span class="fill-remaining-space"></span>
+            <span  style="display: flex; align-items: center;">
+                <div style="display:inline-block;">
+                    <app-attention-icon [tms]="tms" (click)="openSettings(tms, project_obj)"></app-attention-icon></div>
+                <div style="display:inline-block;">
+                    <app-attention-icon [project]="project_obj" (click)="openSettings(tms, project_obj)"></app-attention-icon></div>
+
+                <div style="display:inline-block;" (click)="openSettings(tms, project_obj)" class="gear-image" matTooltip="settings"></div>
+            </span>
+    </mat-card-title-group>
+        
+    <!-- </mat-card-header> -->
       <mat-card-content>
         <div fxLayout="row wrap" class="update_button_spinner_container">
           <div fxFlex class="card-update-button new-font">
@@ -15,6 +24,7 @@
              <mat-progress-spinner *ngIf="project.eta_in_progress" class="spinner" mode="indeterminate" [diameter]="35">
              </mat-progress-spinner>
           </div>
+
         </div>
         <div class="eta_update_status">
            <div *ngIf="project.eta_in_progress || project.last_updated">Your JIRA task summaries will be updated with ETAs soon. This could take a few minutes (and will continue even if the browser is closed).</div>
@@ -26,13 +36,17 @@
           <table class="metrics_table">
             <tr>
               <td>Velocity</td>
-              <td>{{ (project.velocities !== null) ? (project.velocities.mean | number:'1.0-2') : "TBD" }} pph</td>
+              <td>
+                <div style="display: flex; align-items: center;">
+                    {{ (project.velocities != null) ? (project.velocities.mean | number:'1.0-2') : "TBD" }}  
+                    <div *ngIf="project.velocities != null" matTooltip="points per hour of work">&nbsp;pph</div>
+                </div></td>
             </tr>
-            <tr>
+<!--             <tr>
               <td>Issues on track</td>
               <td>Coming soon</td>
             </tr>        
-
+ -->
           </table>
         </div>
         <div>

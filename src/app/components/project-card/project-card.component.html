@@ -10,7 +10,7 @@
                 <div style="display:inline-block;">
                     <app-attention-icon [project]="project_obj" (click)="openSettings(tms, project_obj)"></app-attention-icon></div>
 
-                <div style="display:inline-block;" (click)="openSettings(tms, project_obj)" class="gear-image"></div>
+                <div style="display:inline-block;" (click)="openSettings(tms, project_obj)" class="gear-image" matTooltip="settings"></div>
             </span>
     </mat-card-title-group>
         
@@ -36,7 +36,11 @@
           <table class="metrics_table">
             <tr>
               <td>Velocity</td>
-              <td>{{ (project.velocities !== null) ? (project.velocities.mean | number:'1.0-2') : "TBD" }} pph</td>
+              <td>
+                <div style="display: flex; align-items: center;">
+                    {{ (project.velocities != null) ? (project.velocities.mean | number:'1.0-2') : "TBD" }}  
+                    <div *ngIf="project.velocities != null" matTooltip="points per hour of work">&nbsp;pph</div>
+                </div></td>
             </tr>
 <!--             <tr>
               <td>Issues on track</td>

@@ -1,7 +1,11 @@
 <h1>Project {{ project_obj.name  }} Settings </h1>
 
-<mat-tab-group>
-  <mat-tab label="Data fields">
+<mat-tab-group md-stretch-tabs>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      Data fields <app-attention-icon [project]="project_obj"></app-attention-icon>
+    </ng-template>
+
       <mat-accordion>
         <mat-expansion-panel >
           <mat-expansion-panel-header>

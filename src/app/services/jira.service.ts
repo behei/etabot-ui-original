@@ -27,7 +27,6 @@ export class JiraService {
          connectivity_status: 'not tested.'});
 
     return this.http.post(this.service_api_end_point + 'tms/', jiraObject, this.authService.construct_options())
-
         .pipe(map((response: Response) => {
           if (String(response.status) === '201') {
             return true;
@@ -76,9 +75,10 @@ export class JiraService {
         }));
   }
 
-  patch_password_tms(tms_id, password) {
+  patch_username_password_tms(tms_id, username, password) {
     const jiraObject = JSON.stringify(
-        {  password: password });
+        {  username: username,
+           password: password });
 
     return this.http.patch(this.service_api_end_point + 'tms/' + tms_id + '/', jiraObject, this.authService.construct_options())
         .pipe(map((response: Response) => {
@@ -86,4 +86,30 @@ export class JiraService {
                 console.log(res);
         }));
   }
+
+
+  parse_error(error) {
+      let error_message = String(error._body);
+        if (String(error.status) === '400') {
+            if (error._body.includes('Unauthorized (401)') || error._body.includes('cannot connnect to TMS') ) {
+                error_message = 'Cannot connect - please check address, combination of username/email and password, and try again.';
+            } else {
+                if (error._body.includes('already exists for this user')) {
+                    error_message = 'This username and team name already exist in your account. \
+Please enter another one or edit your existing one in projects screen.';
+                } else if (error._body.includes('Need to pass CAPTCHA challenge first.')) {
+                    const error_obj = JSON.parse(error._body);
+                    console.log(error_obj);
+                    console.log(error_obj.non_field_errors);
+                    error_message = error_obj.non_field_errors[0];
+                } else {
+                    error_message = 'Bad request (4xx) - Cannot connnect - please check\
+ all inputs and try again. If the issue persists, please report the issue to \
+ hello@etabot.ai';
+                }
+            }
+        }
+        console.log(error);
+        return error_message;
+    }
 }

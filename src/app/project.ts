@@ -5,12 +5,14 @@ export class Project {
     sprint_field_name: String;
     scope_ui_message: String;
     name: String;
+    velocity: number;
 
 
     constructor(project_json: any) {
         this.project_json = project_json;
         this.settings = project_json.project_settings;
         this.name = project_json.name;
+        this.velocity = project_json.velocity.mean;
 
         this.get_scope_field_name();
         this.get_sprint_field_name();

@@ -6,17 +6,24 @@ export class Project {
     scope_ui_message: String;
     name: String;
     velocity: number;
+    velocity_available = false;
 
 
     constructor(project_json: any) {
         this.project_json = project_json;
         this.settings = project_json.project_settings;
         this.name = project_json.name;
-        this.velocity = project_json.velocity.mean;
+        if (project_json.velocities) {
+            this.velocity = project_json.velocities.mean;
+        }
+
+        if (this.velocity) {
+            this.velocity_available = true;
+        }
 
         this.get_scope_field_name();
         this.get_sprint_field_name();
-        console.log('Project inited with settings: ' + this.settings);
+        console.log('Project inited with settings: ' + this.settings + 'project_json.velocities: ' + project_json.velocities +  'velocity: ' +  this.velocity + 'velocity_available ' + this.velocity_available);
     }
 
   get_scope_field_name() {

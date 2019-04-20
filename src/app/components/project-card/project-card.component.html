@@ -17,8 +17,15 @@
     <!-- </mat-card-header> -->
       <mat-card-content>
         <div fxLayout="row wrap" class="update_button_spinner_container">
-          <div fxFlex class="card-update-button new-font">
-              <button (click)="estimate(project)" mat-raised-button color="primary" class="update_eta_button new-font julius-font">Update ETAs</button>
+          <div fxFlex class="card-update-button new-font" matTooltip="{{update_eta_tooltip}}">
+              <button [disabled]="!project_obj.velocity_available" (click)="estimate(project)" mat-raised-button color="primary" class="update_eta_button new-font julius-font">Update ETAs</button>
+          </div>
+          <div>
+            <section class="checkbox-section">
+                <mat-checkbox class="eta_option_checkbox" [(ngModel)]="update_active_sprints">Active sprints</mat-checkbox>
+                <mat-checkbox class="eta_option_checkbox" [(ngModel)]="update_future_sprints">Future sprints</mat-checkbox>
+                <mat-checkbox class="eta_option_checkbox" [(ngModel)]="update_backlog">Backlog</mat-checkbox>
+            </section>
           </div>
           <div fxFlex class="spinner_div">
              <mat-progress-spinner *ngIf="project.eta_in_progress" class="spinner" mode="indeterminate" [diameter]="35">
@@ -38,8 +45,8 @@
               <td>Velocity</td>
               <td>
                 <div style="display: flex; align-items: center;">
-                    {{ (project.velocities != null) ? (project.velocities.mean | number:'1.0-2') : "TBD" }}  
-                    <div *ngIf="project.velocities != null" matTooltip="points per hour of work">&nbsp;pph</div>
+                    {{ (project_obj.velocity_available) ? (project.velocities.mean | number:'1.0-2') : "TBD" }}  
+                    <div *ngIf="project_obj.velocity_available" matTooltip="points per hour of work">&nbsp;pph</div>
                 </div></td>
             </tr>
 <!--             <tr>

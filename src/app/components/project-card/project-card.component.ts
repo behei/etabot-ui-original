@@ -14,14 +14,32 @@ export class ProjectCardComponent implements OnInit {
   @Input() tms: any;
   @Input() tms_service: any;
   project_obj: Project;
+  update_eta_tooltip: string;
+
+  update_active_sprints: true;
+  update_future_sprints: true;
+  update_backlog: false;
+
   constructor(
     public dialog: MatDialog,
     private etabotAPI: EtabotApiService
-    ) { }
+    ) {
+      console.log('constructor update_backlog=' + this.update_backlog);
+  }
 
   ngOnInit() {
+    this.update_active_sprints = true;
+    this.update_future_sprints = true;
+    this.update_backlog = false;
+
     console.log('initing Project Card with project: ' + this.project.name + ' tms id: ' + this.tms.id);
+    console.log('ngOnInit update_backlog=' + this.update_backlog);
     this.project_obj = new Project(this.project);
+    if (this.project_obj.velocity_available) {
+        this.update_eta_tooltip = 'Submit job to update ETAs';
+    } else {
+        this.update_eta_tooltip = 'Need to accumulate velocity data before making ETA predictions.';
+    }
     // console.log(this.project_obj.get_scope_field_name());
   }
 
@@ -43,6 +61,9 @@ export class ProjectCardComponent implements OnInit {
       // this.etabotAPI.estimate('16', '51')
 
       project['eta_in_progress'] = true;
+      this.project.include_active_sprints = this.update_active_sprints;
+      this.project.include_future_sprints = this.update_future_sprints;
+      this.project.include_backlog = this.update_backlog;
       this.etabotAPI.estimate(project);
 
   }

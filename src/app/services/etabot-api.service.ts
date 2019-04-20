@@ -68,8 +68,18 @@ export class EtabotApiService {
         }
     }
     console.log('url: ' + url);
-    return this.http.get(
+    const json_params = JSON.stringify(
+        {params:
+            {
+                include_active_sprints: project.include_active_sprints,
+                include_future_sprints: project.include_future_sprints,
+                include_backlog: project.include_backlog
+            }
+        });
+    console.log('json_params: ' + json_params);
+    return this.http.post(
         url,
+        json_params,
         this.authService.construct_options()).pipe(
             map((response: Response) => {
               console.log('Response: ' + Response);

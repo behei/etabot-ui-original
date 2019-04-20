@@ -41,3 +41,14 @@
 .metrics_table {
     font-size: 18px;
 }
+
+.eta_option_checkbox {
+    margin: 10px 10px;
+}
+
+.checkbox-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}

@@ -18,6 +18,7 @@ export class TmsCardComponent implements OnInit {
   new_username: string;
   error_message: string;
   error: boolean;
+  tms_status: any;
 
   constructor(
       private jiraService: JiraService,
@@ -29,12 +30,18 @@ export class TmsCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('TmsCardComponent Init tms: ' + this.tms + this.tms.id);
+    console.log('TmsCardComponent Init tms: ' + this.tms.id + this.tms.connectivity_status + this.tms);
+    if (this.tms.connectivity_status !== null) {
+          this.tms_status = this.tms.connectivity_status;
+      } else {
+          this.tms_status = {'status': 'unknown', 'descrtiption': ''};
+      }
   }
 
   remove_protocol_from_string(url) {
       return url.replace(/(^\w+:|^)\/\//, '');
   }
+
 
 
   update_password(tms_id) {

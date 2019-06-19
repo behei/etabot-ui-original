@@ -13,11 +13,11 @@
               TMS Connectivity
             </mat-panel-title>
             <mat-panel-description>
-                {{ tms.connectivity_status.status }}
+                {{ tms_status.status }}
             </mat-panel-description>
           </mat-expansion-panel-header>
             URL {{ tms.endpoint }} <br>
-            {{ tms.connectivity_status.description | slice:0:200 }}
+            {{ tms_status.description | slice:0:200 }}
         </mat-expansion-panel>
       </mat-accordion>      
         <div>

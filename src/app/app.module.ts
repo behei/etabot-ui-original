@@ -58,7 +58,7 @@ import { TmsCardComponent } from './components/tms-card/tms-card.component';
 import { SettingsWindowComponent } from './components/settings-window/settings-window.component';
 import { ProjectCardComponent } from './components/project-card/project-card.component';
 import { AttentionIconComponent } from './components/attention-icon/attention-icon.component';
-import { ProjectComponent } from './components/project/project.component';
+//import { ProjectComponent } from './components/project/project.component';
 import { ErrorBoxComponent } from './components/error-box/error-box.component';
 
 @NgModule({
@@ -81,7 +81,7 @@ import { ErrorBoxComponent } from './components/error-box/error-box.component';
     SettingsWindowComponent,
     ProjectCardComponent,
     AttentionIconComponent,
-    ProjectComponent,
+    //ProjectComponent,
     ErrorBoxComponent
   ],
   entryComponents: [

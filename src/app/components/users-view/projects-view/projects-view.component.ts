@@ -26,6 +26,7 @@ export class ProjectsViewComponent implements OnInit {
   tmss_by_id: any;
   loading: boolean;
   public defaultTimeZone: string;
+  username: string;
 
 
   // isLoggedInStatus = false;
@@ -68,6 +69,8 @@ export class ProjectsViewComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle('Your projects');
+    this.username = localStorage.getItem('username');
+    this.username = this.username.substr(0, this.username.indexOf('@'));
   }
 
   setTimeZone(receivedTimeZone) {

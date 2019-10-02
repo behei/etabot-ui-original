@@ -3,7 +3,7 @@ import { EtabotApiService } from '../../../services/etabot-api.service';
 import { AuthService } from '../../../services/auth-service.service';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Title } from '@angular/platform-browser';
-
+import { isEmpty } from '../../../tools';
 
 import { JiraService } from '../../../services/jira.service';
 import { ProjectCardComponent } from '../../project-card/project-card.component';
@@ -27,7 +27,7 @@ export class ProjectsViewComponent implements OnInit {
   loading: boolean;
   public defaultTimeZone: string;
   username: string;
-
+  c_isEmpty = isEmpty;
 
   // isLoggedInStatus = false;
   // panelOpenState = false;

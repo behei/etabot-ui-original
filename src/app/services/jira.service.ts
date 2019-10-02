@@ -43,7 +43,8 @@ export class JiraService {
                 const res = response.json();
                 console.log('get_tms response: ' + res);
                 if (res.length === 0) {
-                    throw new Error('user does not have TMS accounts');
+                    console.log('zero of TMS accounts found: ');
+                    this.tmss.emit(res);
                 } else {
                     console.log('number of TMS accounts found: ' + res.length);
                     console.log('emitting tmss');

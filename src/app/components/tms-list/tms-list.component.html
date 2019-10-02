@@ -1,13 +1,12 @@
-<div class="new-font">
 <h1 style="text-align: center; font-size: 32px;" class="julius-font">Task Management Systems accounts</h1>
 
-<div class="add_tms_link"><a [routerLink]="['/jira']" style="cursor: pointer">Add account</a></div>
-<div class="add_tms_link"><a [routerLink]="['/projects']" style="cursor: pointer">Projects</a></div>
+<div style="text-align: center; font-size: 32px;"><a [routerLink]="['/jira']" style="cursor: pointer">Add account</a></div>
 
 <div class="projects-container" fxLayout="row wrap"  fxLayoutAlign="space-evenly start">
 <!-- fxLayoutGap="0.5%" -->
 
-        <app-tms-card *ngFor="let tms_i of tmss" [tms]="tms_i"></app-tms-card>
+    <app-tms-card *ngFor="let tms_i of tmss" [tms]="tms_i"></app-tms-card>
+    <div style="text-align: center; font-size: 32px;" *ngIf="!loaded_data">Loading...</div>
+    <div style="text-align: center; font-size: 32px;" *ngIf="loaded_data && c_isEmpty(tmss)">No accounts added yet.</div>
 
-</div>
 </div>

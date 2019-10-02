@@ -6,6 +6,10 @@
     flex: 0.008 0.008 auto;
 }
 
+.spacer {
+    flex: 0.016 0.016 auto;
+}
+
 img {
     max-width: 55%;
 }

@@ -28,6 +28,7 @@ export class ProjectsViewComponent implements OnInit {
   public defaultTimeZone: string;
   username: string;
   c_isEmpty = isEmpty;
+  local_etabotAPI: EtabotApiService;
 
   // isLoggedInStatus = false;
   // panelOpenState = false;
@@ -40,10 +41,7 @@ export class ProjectsViewComponent implements OnInit {
     this.defaultTimeZone = 'GMT +7';
     this.showAdvancedSetting = false;
     this.tmss_by_id = {};
-    this.etabotAPI.get_real_projects();
-    etabotAPI.projects.subscribe(data => this.setProjects(data));
-    etabotAPI.projects.subscribe(change => this.setGotProjects());
-
+    this.local_etabotAPI = etabotAPI;
     tms_service.get_tms().subscribe();
     tms_service.tmss.subscribe(data => this.setTmss(data));
 
@@ -57,6 +55,12 @@ export class ProjectsViewComponent implements OnInit {
               console.log(tms);
               this.tmss_by_id[tms['id']] = tms;
           });
+      console.log('getting projects data');
+
+    this.local_etabotAPI.get_real_projects();
+    this.local_etabotAPI.projects.subscribe(data => this.setProjects(data));
+    this.local_etabotAPI.projects.subscribe(change => this.setGotProjects());
+
   }
 
   setProjects(data) {

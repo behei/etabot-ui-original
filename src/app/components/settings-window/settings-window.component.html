@@ -1,0 +1,47 @@
+<h1>Project {{ project_obj.name  }} Settings </h1>
+
+<mat-tab-group md-stretch-tabs>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      Data fields <app-attention-icon [project]="project_obj"></app-attention-icon>
+    </ng-template>
+
+      <mat-accordion>
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Scope field name
+            </mat-panel-title>
+            <mat-panel-description>
+              {{ project_obj.scope_field_name !==null ? project_obj.scope_field_name : "needs attention"}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div innerHTML="{{ project_obj.scope_ui_message }} ">
+          </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Sprint field name
+            </mat-panel-title>
+            <mat-panel-description>
+              {{ (project_obj.sprint_field_name !== null ) ? project_obj.sprint_field_name : "needs attention"}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div *ngIf="(project_obj.sprint_field_name !== null)">Parsed correctly</div>
+          <div *ngIf="project_obj.sprint_field_name === null">Sprint field name was not determined automatically. This can cause inaccurate predictions due to lack of data. Please contact us at <a href="mailto:hello@etabot.ai">hello@etabot.ai</a></div>
+        </mat-expansion-panel>
+
+      </mat-accordion>      
+
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      Account <app-attention-icon [tms]="tms"></app-attention-icon>
+    </ng-template>
+    <div style="align-items: center">
+        <app-tms-card [tms]="tms" [tms_service]="tms_service" style="align-self: center"></app-tms-card>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+

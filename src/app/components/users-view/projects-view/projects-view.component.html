@@ -1,68 +1,32 @@
-<!--<a mat-raised-button (click)="get_real_projects()">Get Projects</a>
-<div *ngIf="gotProjects">GOT PROJECTS</div>-->
-
-
 <div *ngIf="projectsReceived == true" class="new-font">
-<div class="add_tms_link"><a [routerLink]="['/jira']" style="cursor: pointer">Add JIRA account</a></div>
-<h1 style="text-align: center; font-size: 32px;" class="julius-font">Projects</h1>
-<div class="alert alert-info new-font" style="text-align: center; font-size: 20px;  "><p style="color: #1a237e;">All JIRA tasks will be updated daily at 11:59 pm, or click <a (click)="estimate()" style="cursor: pointer">here</a> to update ETA for all projects now.</p></div> 
+    <!-- <div class="add_tms_link"><a [routerLink]="['/jira']" style="cursor: pointer">Add JIRA account</a></div> -->
+    <!-- <div class="add_tms_link"><a [routerLink]="['/tmss']" style="cursor: pointer">View accounts</a></div> -->
+    <h1 style="text-align: center; font-size: 32px;" class="julius-font">Welcome, {{username}}</h1>
+    <div class="alert alert-info new-font" style="text-align: center; font-size: 20px;  "><p style="color: #1a237e;">All JIRA tasks will be updated daily around midnight, or click <a (click)="estimate_all_projects()" style="cursor: pointer">here</a> to update ETA for all projects now.</p></div> 
 
-<div class="projects-container" fxLayout="row wrap"  fxLayoutAlign="space-evenly start">
-<!-- fxLayoutGap="0.5%" -->
-  <mat-card class="project-card" *ngFor="let project of realProjects">
-    <mat-card-header class="card-header" style="margin-bottom: 28px;">
-      <mat-card-title class="new-font" style="margin-top: 8px; font-size: 24px;" class="julius-font">{{ project.name }}</mat-card-title>
+    <div style="text-align: center; font-size: 32px;" *ngIf="!projectsReceived">Loading...</div>
+    <div style="text-align: center; font-size: 32px;" *ngIf="projectsReceived && c_isEmpty(realProjects)">No projects added yet. You can go to <a [routerLink]="['/tmss']">Accounts</a> to add them.</div>
 
-    </mat-card-header>
-      <mat-card-content>
-        <div fxLayout="row wrap" class="update_button_spinner_container">
-          <div fxFlex class="card-update-button new-font">
-              <button (click)="estimate(project)" mat-raised-button color="primary" class="update_eta_button new-font julius-font">Update ETAs</button>
-          </div>
-          <div fxFlex class="spinner_div">
-             <mat-progress-spinner *ngIf="project.eta_in_progress" class="spinner" mode="indeterminate" [diameter]="35">
-             </mat-progress-spinner>
-          </div>
-        </div>
-        <div class="eta_update_status">
-           <div *ngIf="project.eta_in_progress">Your JIRA task summaries will be updated with ETAs soon. This could take a few minutes (and will continue even if the browser is closed).</div>
-           <div *ngIf="project.error_message" class="alert-danger">Error: {{ project.error_message }}.</div>
-           <div *ngIf="project.result_message" class="alert-success">{{ project.result_message }}</div>
-
-        </div>
-        <div>
-          <table class="metrics_table">
-            <tr>
-              <td>Velocity</td>
-              <td>{{ (project.velocities !== null) ? (project.velocities.mean | number:'1.0-2') : "TBD" }} pph</td>
-            </tr>
-            <tr>
-              <td>Issues on track</td>
-              <td>Coming soon</td>
-            </tr>            
-          </table>
-        </div>
-
-        <div *ngIf="project.last_updated">ETAs last updated {{ project.last_updated | date:'short' }}.</div>
-    </mat-card-content>
-
-  </mat-card>
-<!--           <div class="container">    
-            <div fxFlex mat-card-avatar class="header-image" ></div>
-            <div fxFlex class="card-title-subtitle">
-              <mat-card-subtitle class="new-font">{{ project.mode }}</mat-card-subtitle>
-              <mat-card-subtitle>{{ project.id }}</mat-card-subtitle>
-              <mat-card-subtitle>{{ project.work_hours.time_zone}}</mat-card-subtitle>
-            </div>
-          </div>
- --> 
- <!--            <div fxFlex>
-            </div>
- -->
-</div>
-
+    <div class="projects-container" fxLayout="row wrap"  fxLayoutAlign="space-evenly start">
+        <app-project-card *ngFor="let project of realProjects" [project]="project" [tms]="tmss_by_id[project.project_tms_id]" [tms_service]="tms_service"></app-project-card>
+    </div>
 
 </div>
+    
+    <!-- fxLayoutGap="0.5%" -->
+
+    <!--           <div class="container">    
+                <div fxFlex mat-card-avatar class="header-image" ></div>
+                <div fxFlex class="card-title-subtitle">
+                  <mat-card-subtitle class="new-font">{{ project.mode }}</mat-card-subtitle>
+                  <mat-card-subtitle>{{ project.id }}</mat-card-subtitle>
+                  <mat-card-subtitle>{{ project.work_hours.time_zone}}</mat-card-subtitle>
+                </div>
+              </div>
+     --> 
+     <!--            <div fxFlex>
+                </div>
+     -->
 
       
         <!-- <div fxLayout="row">

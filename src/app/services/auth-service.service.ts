@@ -22,6 +22,22 @@ export class AuthService {
     // var loggedIn = JSON.parse(localStorage.getItem('currentUser'))
     // this.token = loggedIn && loggedIn.token;
 
+      construct_options() {
+            const loggedIn = JSON.parse(localStorage.getItem('currentUser'));
+            this.token = loggedIn && loggedIn.token;
+            console.log('token is ' + this.token);
+
+            const headers = new Headers({
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            });
+            headers.append('Authorization', `Token ${this.token}`);
+            const options = new RequestOptions({
+              headers: headers
+            });
+            return options;
+        }
+
 
     login(username: string, password: string) {
         const headers = new Headers({

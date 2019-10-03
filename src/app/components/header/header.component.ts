@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     if (localStorage.getItem('username'))
       this.isLoggedIn = true;
-      this.username = localStorage.getItem('username')
+      this.username = localStorage.getItem('username');
   }
 
   redirectHomePage() {
@@ -47,6 +47,7 @@ export class HeaderComponent implements OnInit {
   logout() {
     console.log("logging out...");
     this.logInService.logout();
+    console.log("log out successful");
     //window.location.href = "https://etabot.ai";
   }
 

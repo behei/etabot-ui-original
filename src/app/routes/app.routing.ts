@@ -14,6 +14,7 @@ import { AuthGuard } from '../auth_guard/auth.guard';
 import { NeedSignUpTokenComponent } from '../components/need-sign-up-token/need-sign-up-token.component';
 import { JiraIssueCollectorComponent } from '../components/jira-issue-collector/jira-issue-collector.component';
 import { TmsListComponent } from '../components/tms-list/tms-list.component';
+import { TmsConnectComponent } from '../components/tms-connect/tms-connect.component';
 
 const appRoutes: Routes = [
   {
@@ -30,7 +31,11 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard],
     component: TmsListComponent
   },
-
+  {
+    path: 'tms_connect',
+    canActivate: [AuthGuard],
+    component: TmsConnectComponent
+  },
   {
     path: 'login',
     component: UsersViewComponent

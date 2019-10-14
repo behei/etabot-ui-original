@@ -60,6 +60,7 @@ import { ProjectCardComponent } from './components/project-card/project-card.com
 import { AttentionIconComponent } from './components/attention-icon/attention-icon.component';
 import { ProjectComponent } from './components/project/project.component';
 import { ErrorBoxComponent } from './components/error-box/error-box.component';
+import { TmsConnectComponent } from './components/tms-connect/tms-connect.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { ErrorBoxComponent } from './components/error-box/error-box.component';
     ProjectCardComponent,
     AttentionIconComponent,
     ProjectComponent,
-    ErrorBoxComponent
+    ErrorBoxComponent,
+    TmsConnectComponent
   ],
   entryComponents: [
     TermsConditionsFullComponent,

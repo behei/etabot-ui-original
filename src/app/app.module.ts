@@ -61,6 +61,7 @@ import { AttentionIconComponent } from './components/attention-icon/attention-ic
 import { ProjectComponent } from './components/project/project.component';
 import { ErrorBoxComponent } from './components/error-box/error-box.component';
 import { TmsConnectComponent } from './components/tms-connect/tms-connect.component';
+import { ErrorPageComponent } from './components/error-page/error-page.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { TmsConnectComponent } from './components/tms-connect/tms-connect.compon
     AttentionIconComponent,
     ProjectComponent,
     ErrorBoxComponent,
-    TmsConnectComponent
+    TmsConnectComponent,
+    ErrorPageComponent
   ],
   entryComponents: [
     TermsConditionsFullComponent,

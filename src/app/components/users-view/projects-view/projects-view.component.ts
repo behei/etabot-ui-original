@@ -21,7 +21,7 @@ export class ProjectsViewComponent implements OnInit {
   isSession: any;
   gotProjects = false;
   keys: any;
-  projectsReceived: boolean;
+  projectsReceived = false;
   timeZone: string;
   tmss_by_id: any;
   loading: boolean;

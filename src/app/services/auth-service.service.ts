@@ -22,7 +22,7 @@ export class AuthService {
     // var loggedIn = JSON.parse(localStorage.getItem('currentUser'))
     // this.token = loggedIn && loggedIn.token;
 
-      construct_options() {
+      construct_options(extra_headers?: Array<[string, string]>) {
             const loggedIn = JSON.parse(localStorage.getItem('currentUser'));
             this.token = loggedIn && loggedIn.token;
             console.log('token is ' + this.token);
@@ -32,6 +32,18 @@ export class AuthService {
               'Content-Type': 'application/json'
             });
             headers.append('Authorization', `Token ${this.token}`);
+            console.log('extra_headers:');
+            console.log(extra_headers);
+            if (extra_headers) {
+                for (let extra_header of extra_headers) {
+                    console.log('adding: ');
+                    console.log(extra_header);
+                    console.log(extra_header[0]);
+                    console.log(extra_header[1]);
+                    headers.append(extra_header[0], extra_header[1]);
+                }
+            }
+
             const options = new RequestOptions({
               headers: headers
             });
@@ -55,7 +67,9 @@ export class AuthService {
               const user = response.json();
               if (user && user.token) {
                 localStorage.setItem('currentUser', JSON.stringify(user));
+                const to_persist_User = localStorage.getItem('currentUser');
                 localStorage.setItem('username', username);
+                const to_persist_username = localStorage.getItem('currentUser');
                 this.token = user.token;
                 this.getLoggedIn.emit(true);
                 return true;

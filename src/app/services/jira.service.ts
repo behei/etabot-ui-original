@@ -4,17 +4,45 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { AuthService } from './auth-service.service';
 
+
 @Injectable()
 export class JiraService {
     private service_api_end_point: string;
     private token: string;
     @Output() tmss: EventEmitter<any> = new EventEmitter();
+    @Output() oauth_url: EventEmitter<any> = new EventEmitter();
     constructor(
         private http: Http,
         private authService: AuthService) {
             this.service_api_end_point = environment.apiUrl;
     }
 
+
+  link_tms(tms_name: string) {
+    const url = this.service_api_end_point + tms_name;
+    console.log('jira.service linking tms: ' + url);
+    // const cors: Array<[string, string]> = [
+    //     ['Access-Control-Allow-Origin', 'localhost:4200, *, null'],
+    //     ['Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT'],
+    //     ['Access-Control-Allow-Headers', 'Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Access-Control-Request-Origin, Access-Control-Allow-Origin']
+    //   ];
+    const options = this.authService.construct_options();
+    console.log('options: ');
+    console.log(options);
+    return this.http.get(url, options)
+        .pipe(map((response: Response) => {
+          const res = JSON.parse(response.json());
+          console.log(res);
+          this.oauth_url.emit(res);
+          if (String(response.status) === '201') {
+            console.log('201');
+            return res;
+          } else {
+            console.log('not 201');
+            return res;
+          }
+        }));
+  }
 
   add_tms(owner: string, tms_url: string, email: string, password: string) {
     console.log('tms_url:' + tms_url);

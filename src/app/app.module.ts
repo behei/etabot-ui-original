@@ -37,7 +37,8 @@ import {
     MatCardModule,
     MatExpansionModule,
     MatTabsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatMenuModule
 } from '@angular/material';
 
 import {
@@ -114,7 +115,7 @@ import { ErrorPageComponent } from './components/error-page/error-page.component
     MatTabsModule,
     MatTooltipModule,
     MatIconModule,
-
+    MatMenuModule,
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule

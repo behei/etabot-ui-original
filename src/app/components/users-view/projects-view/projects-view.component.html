@@ -1,3 +1,7 @@
+<div *ngIf="projectsReceived == false" class="new-font">
+    <h1 style="text-align: center; font-size: 32px;" class="julius-font">Welcome, {{username}}</h1>
+    <h1 style="text-align: center; font-size: 32px;" class="julius-font">Loading your projects...</h1>
+</div>
 <div *ngIf="projectsReceived == true" class="new-font">
     <!-- <div class="add_tms_link"><a [routerLink]="['/jira']" style="cursor: pointer">Add JIRA account</a></div> -->
     <!-- <div class="add_tms_link"><a [routerLink]="['/tmss']" style="cursor: pointer">View accounts</a></div> -->

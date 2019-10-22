@@ -42,3 +42,6 @@ Thumbs.db
 
 # IDE files
 /.metadata
+
+# dist folder
+/dist/.

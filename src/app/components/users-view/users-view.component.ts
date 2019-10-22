@@ -57,8 +57,9 @@ export class UsersViewComponent implements OnInit {
             );
           },
         error => {
-          console.log('authService.login error: ' + error);
           this.error_message = error + '; \n' + error._body;
+          console.log(this.error_message);
+          this.error_message = "Unable to log in. Please verify your credentials are correct.";
           this.loading = false;
         }
       );

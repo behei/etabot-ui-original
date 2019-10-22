@@ -30,7 +30,8 @@
     <div class="form-group" style="font-size: 16px;">
       <button mat-raised-button [disabled]="!isAcceptedTerms || !isNotGDRPCountry" color="accent" class="new-font" style="margin-right: 10px; margin-bottom: 5px; margin-left: 3px; font-size: 20px; font-size: 20px; width: 120px; height: 44px;">Sign up
       </button>
-      Already registered? <a [routerLink]="['/login']">Log in here</a>
+      <span class="lg-view">Already registered? <a [routerLink]="['/login']">Log in here</a></span>
+      <span class="sm-view"><a [routerLink]="['/login']">Log in here</a></span>
     </div>
   </form>
 </mat-card>

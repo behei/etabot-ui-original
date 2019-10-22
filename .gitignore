@@ -44,4 +44,4 @@ Thumbs.db
 /.metadata
 
 # dist folder
-/dist/.
+dist/

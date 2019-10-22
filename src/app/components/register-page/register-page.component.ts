@@ -35,7 +35,7 @@ export class RegisterPageComponent implements OnInit {
         this.isAcceptedTerms = false;
         this.passwordMatched = false;
         this.userFailure = false;
-        this.isNotGDRPCountry = true;
+        this.isNotGDRPCountry = false;
     }
 
 
@@ -83,11 +83,5 @@ export class RegisterPageComponent implements OnInit {
       }
     );
   }
-
-  regionChange(): void {
-    this.isNotGDRPCountry = !this.isNotGDRPCountry;
-  }
-
-
 }
 

@@ -19,14 +19,18 @@
 
     <div style="margin-bottom: 10px;">
       <input type="checkbox" [checked]="isAcceptedTerms" (change)="isAcceptedTerms = !isAcceptedTerms" id="terms" class="filled-in">
-      <label for="terms" style="font-size: 16px; margin-left: 3px;">I agree with <a (click)="openDialog()" style="font-size: 16px;"> Terms and Conditions and Privacy Policy and I do not currently reside in the European Union.</a></label>
+      <label for="terms" style="font-size: 16px; margin-left: 3px;">I agree with <a (click)="openDialog()" style="font-size: 16px;"> Terms and Conditions and Privacy Policy</a></label>
+    </div>
+
+    <div style="margin-bottom: 10px;">
+      <input type="checkbox" [checked]="isNotGDRPCountry" (change)="isNotGDRPCountry = !isNotGDRPCountry" id="gdpr" class="filled-in">
+      <label for="gdpr" style="font-size: 16px; margin-left: 3px;">I do not currently reside in <a title="We do not currently support customers from European Union due to GDRP regulations. Please come back later.">European Union.</a></label>
     </div>
 
     <div class="form-group" style="font-size: 16px;">
-      <button mat-raised-button [disabled]="!isAcceptedTerms" color="accent" class="new-font" style="margin-right: 10px; margin-bottom: 5px; margin-left: 3px; font-size: 20px; font-size: 20px; width: 120px; height: 44px;">Sign up
+      <button mat-raised-button [disabled]="!isAcceptedTerms || !isNotGDRPCountry" color="accent" class="new-font" style="margin-right: 10px; margin-bottom: 5px; margin-left: 3px; font-size: 20px; font-size: 20px; width: 120px; height: 44px;">Sign up
       </button>
       Already registered? <a [routerLink]="['/login']">Log in here</a>
     </div>
-
   </form>
 </mat-card>

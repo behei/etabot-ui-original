@@ -1,36 +1,32 @@
-<!-- <div class="col-md-6 col-md-offset-3 mat-typography" style="margin-top: 40px;" > -->
 <mat-card class="sign-login-card">
   <mat-card-title style="text-align: center;">
     <h1>Sign up</h1></mat-card-title>
   <form #f="ngForm" (ngSubmit)="f.form.valid && signup()">
+
     <div *ngIf="userFailure" class="alert alert-danger" style="font-size: 16px;">Server Error has occured: {{ error_message }}</div>
-<!--     <div class="form-group">
-      <label for="username" style="font-size: 20px;">Username:</label>
-      <input type="text" id="username" class="form-control" name="username" required [(ngModel)]="model.username" #username="ngModel" style="font-size: 20px;" />
-      <div *ngIf="f.submitted && !username.valid" class="help-block new-font">Username is required</div>
-    </div> -->
+
     <div class="form-group">
       <label for="email" style="font-size: 20px;">Register with your email:</label>
       <input type="text" id="email" class="form-control" name="email" required [(ngModel)]="model.email" #email="ngModel" style="font-size: 16px;" />
       <div *ngIf="f.submitted && !email.valid" class="help-block new-font">Email is required</div>
     </div>
+
     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
       <label for="password" style="font-size: 20px;">Password:</label>
       <input type="password" id="password" class="form-control" name="password" required [(ngModel)]="model.password" #password="ngModel" style="font-size: 20px;" />
       <div *ngIf="f.submitted && !password.valid" class="help-block new-font">Password is required</div>
     </div>
-    <!-- <div class="form-group">
-            <label for="passwordrepeat" style="font-size: 20px;">Repeat password:</label>
-            <input type="passwordrepeat" id="passwordrepeat" class="form-control" name="passwordrepeat" required ngModel style="font-size: 20px;"/>        
-        </div> -->
+
     <div style="margin-bottom: 10px;">
       <input type="checkbox" [checked]="isAcceptedTerms" (change)="isAcceptedTerms = !isAcceptedTerms" id="terms" class="filled-in">
-      <label for="terms" style="font-size: 16px; margin-left: 3px;">I agree with</label> <a (click)="openDialog()" style="font-size: 16px;"> Terms and Conditions and Privacy Policy.</a>
+      <label for="terms" style="font-size: 16px; margin-left: 3px;">I agree with <a (click)="openDialog()" style="font-size: 16px;"> Terms and Conditions and Privacy Policy and I do not currently reside in the European Union.</a></label>
     </div>
+
     <div class="form-group" style="font-size: 16px;">
-      <button mat-raised-button [disabled]="!isAcceptedTerms && !passwordMatched" color="accent" class="new-font" style="margin-right: 10px; margin-bottom: 5px; margin-left: 3px; font-size: 20px; font-size: 20px; width: 120px; height: 44px;">Sign up
+      <button mat-raised-button [disabled]="!isAcceptedTerms" color="accent" class="new-font" style="margin-right: 10px; margin-bottom: 5px; margin-left: 3px; font-size: 20px; font-size: 20px; width: 120px; height: 44px;">Sign up
       </button>
       Already registered? <a [routerLink]="['/login']">Log in here</a>
     </div>
+
   </form>
 </mat-card>

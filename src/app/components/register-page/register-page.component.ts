@@ -18,6 +18,7 @@ export class RegisterPageComponent implements OnInit {
     newUser: any;
     isAcceptedTerms: boolean;
     passwordMatched: boolean;
+    isNotGDRPCountry: boolean;
     userFailure: boolean;
     model: any = {};
     returnUrl = '';
@@ -31,9 +32,10 @@ export class RegisterPageComponent implements OnInit {
         private dialog: MatDialog,
         private route: ActivatedRoute,
         private titleService: Title) {
-        this.isAcceptedTerms = false;
+        this.isAcceptedTerms = true;
         this.passwordMatched = false;
         this.userFailure = false;
+        this.isNotGDRPCountry = true;
     }
 
 
@@ -81,7 +83,5 @@ export class RegisterPageComponent implements OnInit {
       }
     );
   }
-
-
 }
 

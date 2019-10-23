@@ -29,3 +29,21 @@ h1 {
   font-family: 'Josefin Sans', sans-serif;
   font-size: 20px;
 }
+
+.lg-view {
+  display: inline-block;
+}
+
+.sm-view {
+  display: none;
+}
+
+@media screen and (max-width: 500px) {
+  .lg-view {
+    display: none;
+  }
+
+  .sm-view {
+    display: inline-block;
+  }
+}

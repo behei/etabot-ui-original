@@ -34,6 +34,17 @@ export class UsersViewComponent implements OnInit {
     if (localStorage.getItem('newUser') === 'true') {
         this.newUser = true;
         localStorage.removeItem('newUser');
+    }
+
+    const loggedInUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    if (loggedInUser == null) {
+      console.log("user has not logged in yet");
+    }
+    else
+      {
+        console.log("current user, logging in automatically..");
+        this.router.navigate(['/projects']);
       }
   }
 

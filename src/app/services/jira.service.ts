@@ -57,9 +57,9 @@ export class JiraService {
     return this.http.post(this.service_api_end_point + 'tms/', jiraObject, this.authService.construct_options())
         .pipe(map((response: Response) => {
           if (String(response.status) === '201') {
-            return true;
+            return response.json();
           } else {
-            return false;
+            return null;
           }
         }));
   }

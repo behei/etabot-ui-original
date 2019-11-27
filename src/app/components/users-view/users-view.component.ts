@@ -55,6 +55,7 @@ export class UsersViewComponent implements OnInit {
           this.jiraService.get_tms()
             .subscribe(
               (tms_count: number) => {
+                console.log('tms_count: ' + tms_count);
                 if (tms_count > 0) {
                     console.log('redirecting to projects');
                     this.router.navigate(['/projects']);

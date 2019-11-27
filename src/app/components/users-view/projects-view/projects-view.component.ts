@@ -29,6 +29,8 @@ export class ProjectsViewComponent implements OnInit {
   username: string;
   c_isEmpty = isEmpty;
   local_etabotAPI: EtabotApiService;
+  error_message: string;
+  error_occurred: boolean;
 
   // isLoggedInStatus = false;
   // panelOpenState = false;
@@ -42,9 +44,14 @@ export class ProjectsViewComponent implements OnInit {
     this.showAdvancedSetting = false;
     this.tmss_by_id = {};
     this.local_etabotAPI = etabotAPI;
-    tms_service.get_tms().subscribe();
-    tms_service.tmss.subscribe(data => this.setTmss(data));
+    this.error_occurred = false;
 
+    tms_service.get_tms().subscribe(
+        tms_count => console.log(tms_count),
+        error => this.projectsError(error));
+    tms_service.tmss.subscribe(
+        data => this.setTmss(data),
+        error => this.projectsError(error));
   }
 
   setTmss(data) {
@@ -58,18 +65,25 @@ export class ProjectsViewComponent implements OnInit {
       console.log('getting projects data');
 
     this.local_etabotAPI.get_real_projects();
-    this.local_etabotAPI.projects.subscribe(data => this.setProjects(data));
-    this.local_etabotAPI.projects.subscribe(change => this.setGotProjects());
+    this.local_etabotAPI.projects.subscribe(
+        data => this.setProjects(data),
+        error => this.projectsError(error));
+
+  }
+
+  projectsError(error) {
+      console.log('error in getting projects: ' + error);
+      this.error_message = 'Something went wrong while getting your projects. Please try again later.';
+      this.projectsReceived = true;
+      this.error_occurred = true;
 
   }
 
   setProjects(data) {
     this.realProjects = data;
-  }
-
-  setGotProjects() {
     this.projectsReceived = true;
   }
+
 
   ngOnInit() {
     this.titleService.setTitle('Your projects');

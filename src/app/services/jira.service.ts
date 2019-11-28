@@ -98,6 +98,7 @@ export class JiraService {
         .pipe(map((response: Response) => {
             const res = response.json();
             console.log('parse_projects response: ' + res);
+            return res;
         }));
   }
 

@@ -17,7 +17,6 @@ export class UsersViewComponent implements OnInit {
   model: any = {};
   users: any;
   projects: any;
-  returnUrl: string;
   newUser = false;
   error_message: string;
   constructor(
@@ -29,7 +28,6 @@ export class UsersViewComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.returnUrl = '/jira';
     this.titleService.setTitle('ETAbot Log In');
     if (localStorage.getItem('newUser') === 'true') {
         this.newUser = true;
@@ -39,11 +37,9 @@ export class UsersViewComponent implements OnInit {
     const loggedInUser = JSON.parse(localStorage.getItem('currentUser'));
 
     if (loggedInUser == null) {
-      console.log("user has not logged in yet");
-    }
-    else
-      {
-        console.log("current user, logging in automatically..");
+      console.log('user has not logged in yet');
+    } else {
+        console.log('current user, logging in automatically..');
         this.router.navigate(['/projects']);
       }
   }
@@ -55,15 +51,22 @@ export class UsersViewComponent implements OnInit {
     this.authService.login(this.model.username, this.model.password)
       .subscribe(
         success => {
+          console.log('login success');
           this.jiraService.get_tms()
             .subscribe(
-              success => {
-                console.log('redirecting to projects');
-                this.router.navigate(['/projects']);
+              (tms_count: number) => {
+                console.log('tms_count: ' + tms_count);
+                if (tms_count > 0) {
+                    console.log('redirecting to projects');
+                    this.router.navigate(['/projects']);
+                } else {
+                    console.log('redirecting to tms_connect');
+                    this.router.navigate(['/tms_connect']);
+                }
               },
               error => {
-                console.log('get_tms() error occurred - redirecting to: ' + this.returnUrl);
-                this.router.navigate([this.returnUrl]);
+                console.log('get_tms() error occurred ');
+                this.router.navigate(['/error_page']);
               }
             );
           },

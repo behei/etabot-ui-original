@@ -36,7 +36,15 @@ export class EtabotApiService {
      return this.http.get(environment.apiUrl + 'projects/', this.authService.construct_options())
        .subscribe((response: Response) => {
          if (response.status === 200) {
+           console.log('get_real_projects response: ');
+           console.log(response);
            const res = response.json();
+          Object.entries(res).forEach(
+              ([key, value]) => {
+                  console.log(key);
+                  console.log(value);
+                  }
+              );
           // Object.entries(res).forEach(
           //     ([key, value]) => {
           //         // value['velocities'] = value['velocities']['mean'];
@@ -47,8 +55,12 @@ export class EtabotApiService {
            console.log(
                'get_real_projects 200 response status: '
                + response.status
+               + 'json type: '
+               + typeof(res)
                + 'json: '
                + JSON.stringify(res));
+           // console.log(res['scope_field_name_message']);
+           // console.log(res['scope_field_name_message']['scope_field_name']);
            this.projects.emit(res);
            this.projectsReceived.emit(true);
            return true;

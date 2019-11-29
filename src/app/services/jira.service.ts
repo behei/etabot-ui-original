@@ -57,9 +57,9 @@ export class JiraService {
     return this.http.post(this.service_api_end_point + 'tms/', jiraObject, this.authService.construct_options())
         .pipe(map((response: Response) => {
           if (String(response.status) === '201') {
-            return true;
+            return response.json();
           } else {
-            return false;
+            return null;
           }
         }));
   }
@@ -68,20 +68,17 @@ export class JiraService {
     console.log('started get_tms');
     return this.http.get(this.service_api_end_point + 'tms/', this.authService.construct_options())
         .pipe(map((response: Response) => {
-                const res = response.json();
-                console.log('get_tms response: ' + res);
-                if (res.length === 0) {
-                    console.log('zero of TMS accounts found: ');
-                    this.tmss.emit(res);
-                } else {
-                    console.log('number of TMS accounts found: ' + res.length);
-                    console.log('emitting tmss');
-                    this.tmss.emit(res);
-                    console.log('done emitting tmss');
-                    return res.length;
-                }
+            const res = response.json();
+            console.log('get_tms response: ' + res);
+            console.log('number of TMS accounts found: ' + res.length);
+            console.log('emitting tmss');
+            this.tmss.emit(res);
+            console.log('done emitting tmss');
+            return res.length;
+
         }));
   }
+
 
   delete_tms(tms_id) {
 
@@ -101,6 +98,7 @@ export class JiraService {
         .pipe(map((response: Response) => {
             const res = response.json();
             console.log('parse_projects response: ' + res);
+            return res;
         }));
   }
 

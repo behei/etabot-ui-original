@@ -63,6 +63,7 @@ import { ProjectComponent } from './components/project/project.component';
 import { ErrorBoxComponent } from './components/error-box/error-box.component';
 import { TmsConnectComponent } from './components/tms-connect/tms-connect.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
+import { TosppComponent } from './components/tospp/tospp.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import { ErrorPageComponent } from './components/error-page/error-page.component
     ProjectComponent,
     ErrorBoxComponent,
     TmsConnectComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    TosppComponent
   ],
   entryComponents: [
     TermsConditionsFullComponent,

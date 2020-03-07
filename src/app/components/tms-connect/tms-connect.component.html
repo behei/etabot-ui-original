@@ -1,10 +1,35 @@
-<div style="text-align: center; font-size: 32px;">
+<div style="text-align: left; font-size: 32px; margin-left: 50px;">
     <h1>
-      Link your account from:
+      Connect Your Account
     </h1>
 </div>
 
-<div class="projects-container" fxLayout="row wrap"  fxLayoutAlign="space-evenly start">
-    <div (click)="link_tms('atlassian_oauth')" class="jira-logo-image" alt="etabot homepage" style="cursor: pointer"></div>
-  </div>
-  <div style="text-align: center; font-size: 32px;">Problems with linking your account? <a href="/jira">Try another way</a></div>
+<mat-grid-list [cols]="breakpoint" rowHeight="300px" rowWidth="500px" (window:resize)="onResize($event)">
+  <mat-grid-tile>
+  	<mat-grid-tile-header [style.background]="'white'"><img src="./assets/Jira_Software-blue-short.svg" alt="jira software connect" class="jira_connect"></mat-grid-tile-header>
+  	<mat-card>
+  		<mat-card-content>
+  			For ETAbot to work, we need to connect to your JIRA account.
+  		</mat-card-content>
+  		<mat-card-actions><a mat-raised-button color="primary" (click)="link_tms('atlassian_oauth')">Connect</a></mat-card-actions>
+  		<div fxLayout="column">
+  			<mat-checkbox color="primary">I want ETAbot to update me in Jira</mat-checkbox>
+  			<mat-checkbox color="primary">I want my updates in ETAbot ony</mat-checkbox>
+  		</div>
+  	</mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile>
+  	<mat-card>
+			<mat-card-content>
+				Use a different service? <br />
+				Let us know about other services you would like us to support.
+				<mat-card-actions><a mat-raised-button color="primary">Get in touch</a></mat-card-actions>
+			</mat-card-content>
+  	</mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
+<!--<div class="projects-container" fxLayout="row wrap"  fxLayoutAlign="space-evenly start">
+    <div (click)="link_tms('atlassian_oauth')" class="jira-logo-image jira-connect" alt="etabot homepage" style="cursor: pointer"></div>
+    <button class="jira-connect">Connect to JIRA</button>
+  </div>-->
+  <div style="text-align: center; font-size: 24px;">Problems with linking your account? <a href="/jira">Try another way</a></div>

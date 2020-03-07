@@ -10,12 +10,18 @@ import { DOCUMENT } from '@angular/common';
 })
 export class TmsConnectComponent implements OnInit {
   redirect_url: String;
+  breakpoint: Number;
 
   constructor(
       @Inject(DOCUMENT) private document: Document,
       private jiraService: JiraService) { }
 
   ngOnInit() {
+    this.breakpoint = (window.innerWidth <= 800) ? 1 : 4;
+  }
+
+  onResize(event) {
+    this.breakpoint = (event.target.innerWidth <= 800) ? 1 : 4;
   }
 
   setRedirectUrl(res) {

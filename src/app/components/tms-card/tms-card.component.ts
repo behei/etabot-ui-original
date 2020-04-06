@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { JiraService } from '../../services/jira.service';
 import { Router, ActivatedRoute} from '@angular/router';
 import { ErrorBoxComponent } from '../error-box/error-box.component';
+import { JobsServiceService } from '../../services/jobs-service.service';
+import { Job } from '../../job';
 // import { EtabotApiService } from '../../services/etabot-api.service';
 
 @Component({
@@ -19,17 +21,21 @@ export class TmsCardComponent implements OnInit {
   error_message: string;
   error: boolean;
   tms_status: any;
+  message: string;
 
   constructor(
       private jiraService: JiraService,
+      private jobs_service: JobsServiceService,
       private router: Router
       // private etabotAPI: EtabotApiService
     ) {
     this.updating_tms = false;
     this.error = false;
+
   }
 
   ngOnInit() {
+
     console.log('TmsCardComponent Init tms: ' + this.tms.id + this.tms.connectivity_status + this.tms);
     if (this.tms.connectivity_status !== null) {
           this.tms_status = this.tms.connectivity_status;
@@ -73,7 +79,15 @@ export class TmsCardComponent implements OnInit {
     this.updating_tms = true;
     this.jiraService.parse_projects(tms_id)
     .subscribe(
-      success => {
+      parse_result => {
+
+        console.log(parse_result);
+        console.log(typeof(parse_result));
+        for (const job of parse_result) {
+            console.log(job);
+            this.jobs_service.add_job(job);
+        }
+
         this.updating_tms = false;
         this.error = false;
       },

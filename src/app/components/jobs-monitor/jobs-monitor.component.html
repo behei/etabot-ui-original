@@ -1,0 +1,9 @@
+<span>{{ local_jobs }}</span>
+<div class="projects-container" fxLayout="row wrap"  fxLayoutAlign="space-evenly start">
+<!-- fxLayoutGap="0.5%" -->
+    <app-job-card *ngFor="let job of local_jobs" [job]="job"></app-job-card>
+    <div style="text-align: center; font-size: 32px;" *ngIf="!loaded_data">Loading jobs...</div>
+
+    <div style="text-align: center; font-size: 32px;" *ngIf="loaded_data && local_jobs.length == 0">No jobs running</div>
+
+</div>

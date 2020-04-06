@@ -3,6 +3,7 @@ import { JiraService } from '../../services/jira.service';
 import { TmsCardComponent } from '../tms-card/tms-card.component';
 import { isEmpty } from '../../tools';
 import { Router, ActivatedRoute} from '@angular/router';
+import { JobsServiceService } from '../../services/jobs-service.service';
 
 @Component({
   selector: 'app-tms-list',
@@ -19,6 +20,7 @@ export class TmsListComponent implements OnInit {
 
   constructor(
         private tms_service: JiraService,
+        private jobs_service: JobsServiceService,
         private router: Router,
         private route: ActivatedRoute) {
 
@@ -42,35 +44,40 @@ export class TmsListComponent implements OnInit {
                 if (this.new_tms_ids) {
                     for (const new_tms_id of this.new_tms_ids) {
                         console.log('parsing new TMS id ' + new_tms_id);
-                        this.parsing_projects.add(new_tms_id);
+                        // this.parsing_projects.add(new_tms_id);
                         this.tms_service.parse_projects(new_tms_id).subscribe(
                             parse_result => {
 
-                                console.log('parsed correctly tms id ' + new_tms_id);
+                                console.log('started job correctly tms id ' + new_tms_id);
                                 console.log(parse_result);
                                 console.log(typeof(parse_result));
-                                console.log(parse_result['result']);
-                                this.parsing_projects.delete(new_tms_id);
-                                console.log('parsing_logs: ');
-                                this.parsing_logs += parse_result['result'] + '\n';
-                                console.log(this.parsing_logs);
-                                if (this.parsing_projects.size === 0) {
-                                    if (confirm('Done pulling projects! \n ' +
-                                        this.parsing_logs + 'Redirect to projects screen?')) {
-                                        this.router.navigate(['/projects']);
-                                    }
-                                }},
+                                for (const job of parse_result) {
+                                    console.log(job);
+                                    this.jobs_service.add_job(job);
+                                }
+
+                                // this.parsing_projects.delete(new_tms_id);
+                                // console.log('parsing_logs: ');
+                                // this.parsing_logs += parse_result['result'] + '\n';
+                                // console.log(this.parsing_logs);
+                                // if (this.parsing_projects.size === 0) {
+                                //     if (confirm('Done pulling projects! \n ' +
+                                //         this.parsing_logs + 'Redirect to projects screen?')) {
+                                //         this.router.navigate(['/projects']);
+                                //     }
+                                // }
+                            },
                             error => {
                                 const error_message = 'error in parsing tms id ' + new_tms_id;
                                 console.log(error_message);
                                 this.parsing_logs += error_message + '\n';
-                                this.parsing_projects.delete(new_tms_id);
-                                if (this.parsing_projects.size === 0) {
-                                    if (confirm('Redirect to projects screen?')) {
-                                        this.router.navigate(['/projects']);
-                                    }
+                                // this.parsing_projects.delete(new_tms_id);
+                                // if (this.parsing_projects.size === 0) {
+                                //     if (confirm('Redirect to projects screen?')) {
+                                //         this.router.navigate(['/projects']);
+                                //     }
 
-                                }
+                                // }
                               }
                             );
                     }

@@ -64,6 +64,8 @@ import { ErrorBoxComponent } from './components/error-box/error-box.component';
 import { TmsConnectComponent } from './components/tms-connect/tms-connect.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
 import { TosppComponent } from './components/tospp/tospp.component';
+import { JobsMonitorComponent } from './components/jobs-monitor/jobs-monitor.component';
+import { JobCardComponent } from './components/jobs-monitor/job-card/job-card.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +91,9 @@ import { TosppComponent } from './components/tospp/tospp.component';
     ErrorBoxComponent,
     TmsConnectComponent,
     ErrorPageComponent,
-    TosppComponent
+    TosppComponent,
+    JobsMonitorComponent,
+    JobCardComponent
   ],
   entryComponents: [
     TermsConditionsFullComponent,

@@ -1,0 +1,12 @@
+  <mat-card class="tms-card">
+
+    <mat-card-header class="card-header" style="margin-bottom: 28px;">
+      <mat-card-title class="new-font" style="margin-top: 8px; font-size: 24px;" class="julius-font">{{ job.get_title() }}</mat-card-title>
+
+    </mat-card-header>
+    <mat-card-content>
+        {{ job.get_status() }}
+        <span (click)="update_job_status()">Update </span>
+    </mat-card-content>
+
+</mat-card>

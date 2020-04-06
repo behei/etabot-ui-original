@@ -3,7 +3,8 @@ import { Http, Response, Request, RequestMethod, Headers, RequestOptions } from 
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { AuthService } from './auth-service.service';
-
+import { Job } from '../job';
+import { JobStatus } from '../job';
 
 @Injectable()
 export class JiraService {
@@ -94,11 +95,28 @@ export class JiraService {
     // const params = JSON.stringify(
     //     {tms: tms_id});
     // console.log('params: ' + params);
-    return this.http.get(this.service_api_end_point + 'parse_projects/?tms=' + tms_id, this.authService.construct_options())
+    const api_call = this.service_api_end_point + 'parse_projects/?tms=' + tms_id;
+    return this.http.get(api_call, this.authService.construct_options())
         .pipe(map((response: Response) => {
             const res = response.json();
-            console.log('parse_projects response: ' + res);
-            return res;
+            console.log('parse_projects response: ' + res + 'type = ' + typeof(res));
+            const response_json = JSON.parse(res);
+            console.log(response_json);
+            const celery_task_ids = response_json['celery_task_ids'];
+            console.log(celery_task_ids);
+            let jobs: Job[];
+            jobs = [];
+            for (const celery_task_id of celery_task_ids) {
+                console.log(celery_task_id);
+                const new_job = new Job(
+                    celery_task_id,
+                    'parsing projects for tms id ' + tms_id,
+                    JobStatus.in_progress,
+                    api_call,
+                    {'tms_id': tms_id});
+                jobs.push(new_job);
+            }
+            return jobs;
         }));
   }
 

@@ -38,9 +38,12 @@ import {
     MatExpansionModule,
     MatTabsModule,
     MatTooltipModule,
-    MatMenuModule
+    MatMenuModule,
+    MatProgressBarModule
 } from '@angular/material';
 
+    // MatProgressBarModule,
+    // MatProgressBar
 import {
   FormsModule,
   ReactiveFormsModule
@@ -66,7 +69,7 @@ import { ErrorPageComponent } from './components/error-page/error-page.component
 import { TosppComponent } from './components/tospp/tospp.component';
 import { JobsMonitorComponent } from './components/jobs-monitor/jobs-monitor.component';
 import { JobCardComponent } from './components/jobs-monitor/job-card/job-card.component';
-
+    // MatProgressBarModule,
 @NgModule({
   declarations: [
     AppComponent,
@@ -121,6 +124,7 @@ import { JobCardComponent } from './components/jobs-monitor/job-card/job-card.co
     MatTabsModule,
     MatTooltipModule,
     MatIconModule,
+    MatProgressBarModule,
     MatMenuModule,
     FormsModule,
     ReactiveFormsModule,
@@ -157,3 +161,4 @@ export class AppModule {
     //     matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('/assets/baseline-error_outline-24px.svg'));
     // }
 }
+

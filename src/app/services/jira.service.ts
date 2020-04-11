@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { AuthService } from './auth-service.service';
 import { Job } from '../job';
 import { JobStatus } from '../job';
+import { JobsServiceService } from './jobs-service.service';
 
 @Injectable()
 export class JiraService {
@@ -14,6 +15,7 @@ export class JiraService {
     @Output() oauth_url: EventEmitter<any> = new EventEmitter();
     constructor(
         private http: Http,
+        private jobs_service: JobsServiceService,
         private authService: AuthService) {
             this.service_api_end_point = environment.apiUrl;
     }
@@ -90,7 +92,7 @@ export class JiraService {
         }));
   }
 
-  parse_projects(tms_id) {
+  parse_projects(tms_id, job_callback?) {
     console.log('started parse_projects with tms_id ' + tms_id);
     // const params = JSON.stringify(
     //     {tms: tms_id});
@@ -114,7 +116,9 @@ export class JiraService {
                     JobStatus.in_progress,
                     api_call,
                     {'tms_id': tms_id});
+                new_job.callback = job_callback;
                 jobs.push(new_job);
+                this.jobs_service.add_job(new_job);
             }
             return jobs;
         }));

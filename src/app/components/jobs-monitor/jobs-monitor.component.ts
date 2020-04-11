@@ -8,16 +8,33 @@ import { JobsServiceService } from '../../services/jobs-service.service';
   styleUrls: ['./jobs-monitor.component.css']
 })
 export class JobsMonitorComponent implements OnInit {
-    local_jobs: Job[] = [];
-    loaded_data = true;
+    jobs_status_dict: any;
+    loaded_data = false;
 
   constructor(
       private jobs_service: JobsServiceService) {
-      this.jobs_service.local_jobs.subscribe(local_jobs => this.local_jobs = local_jobs);
+          this.updateJobsStatuses();
+  }
+
+  deleteJobCard(job) {
+      console.log('deleteJobCard called');
+      this.jobs_service.delete_job(job.get_id());
+  }
+
+  updateJobsStatuses() {
+      console.log('job monitor started updating Jobs Statuses.');
+      this.jobs_service.local_jobs_dict.subscribe(
+          jobs_status_dict => {
+              this.jobs_status_dict = jobs_status_dict;
+              console.log('job monitor finished updating Jobs Statuses.');
+              this.loaded_data = true;
+              // console.log(this.jobs_status_dict);
+          });
   }
 
   ngOnInit() {
-      this.jobs_service.local_jobs.subscribe(local_jobs => this.local_jobs = local_jobs);
+      this.updateJobsStatuses();
+
   }
 
 }

@@ -5,8 +5,10 @@
 
     </mat-card-header>
     <mat-card-content>
-        {{ job.get_status() }}
-        <span (click)="update_job_status()">Update </span>
+        {{ job.get_status_description() }}<br>
+        <span (click)="update_job_status()">Force status check </span><br>
+        <span (click)="deleteMe()">Close </span>
+        <mat-progress-bar mode="buffer" *ngIf="job.get_status() === 0"></mat-progress-bar>
     </mat-card-content>
 
 </mat-card>

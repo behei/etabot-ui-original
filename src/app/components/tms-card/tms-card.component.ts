@@ -2,8 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { JiraService } from '../../services/jira.service';
 import { Router, ActivatedRoute} from '@angular/router';
 import { ErrorBoxComponent } from '../error-box/error-box.component';
-import { JobsServiceService } from '../../services/jobs-service.service';
-import { Job } from '../../job';
+
+// import { Job } from '../../job';
 // import { EtabotApiService } from '../../services/etabot-api.service';
 
 @Component({
@@ -25,7 +25,6 @@ export class TmsCardComponent implements OnInit {
 
   constructor(
       private jiraService: JiraService,
-      private jobs_service: JobsServiceService,
       private router: Router
       // private etabotAPI: EtabotApiService
     ) {
@@ -85,7 +84,6 @@ export class TmsCardComponent implements OnInit {
         console.log(typeof(parse_result));
         for (const job of parse_result) {
             console.log(job);
-            this.jobs_service.add_job(job);
         }
 
         this.updating_tms = false;

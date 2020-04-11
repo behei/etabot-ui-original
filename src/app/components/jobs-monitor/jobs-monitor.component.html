@@ -1,9 +1,10 @@
-<span>{{ local_jobs }}</span>
+<span>{{ jobs_status_dict }}</span>
+<span>{{ jobs_status_dict.keys }}</span>
 <div class="projects-container" fxLayout="row wrap"  fxLayoutAlign="space-evenly start">
 <!-- fxLayoutGap="0.5%" -->
-    <app-job-card *ngFor="let job of local_jobs" [job]="job"></app-job-card>
+    <app-job-card *ngFor="let job_kv of jobs_status_dict | keyvalue" [job]="job_kv.value" (delete)=deleteJobCard(job_kv.value)></app-job-card>
     <div style="text-align: center; font-size: 32px;" *ngIf="!loaded_data">Loading jobs...</div>
 
-    <div style="text-align: center; font-size: 32px;" *ngIf="loaded_data && local_jobs.length == 0">No jobs running</div>
+    <!-- <div style="text-align: center; font-size: 32px;" *ngIf="loaded_data && Object.keys(jobs_status_dict).length == 0">No jobs running</div> -->
 
 </div>

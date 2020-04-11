@@ -4,6 +4,7 @@ import { TmsCardComponent } from '../tms-card/tms-card.component';
 import { isEmpty } from '../../tools';
 import { Router, ActivatedRoute} from '@angular/router';
 import { JobsServiceService } from '../../services/jobs-service.service';
+import { Job } from '../../job';
 
 @Component({
   selector: 'app-tms-list',
@@ -42,18 +43,35 @@ export class TmsListComponent implements OnInit {
                 console.log('this.new_tms_ids: ');
                 console.log(this.new_tms_ids);
                 if (this.new_tms_ids) {
+                      const remaining_new_tms_celery_jobs = [];
+                      const job_done_callback = (job: Job) => {
+                          const done_job_id = job.get_id();
+                          console.log('deleting ' + done_job_id + 'from: ' + remaining_new_tms_celery_jobs);
+                          delete remaining_new_tms_celery_jobs[done_job_id];
+
+                        const index: number = remaining_new_tms_celery_jobs.indexOf(done_job_id);
+                        if (index !== -1) {
+                            remaining_new_tms_celery_jobs.splice(index, 1);
+                        }
+                          console.log('updated remaining_new_tms_celery_jobs ' + remaining_new_tms_celery_jobs);
+                          if (remaining_new_tms_celery_jobs.length === 0) {
+                              this.router.navigate(['/projects']);
+                          }
+                      }
                     for (const new_tms_id of this.new_tms_ids) {
                         console.log('parsing new TMS id ' + new_tms_id);
                         // this.parsing_projects.add(new_tms_id);
-                        this.tms_service.parse_projects(new_tms_id).subscribe(
+                        this.tms_service.parse_projects(new_tms_id, job_done_callback).subscribe(
                             parse_result => {
 
                                 console.log('started job correctly tms id ' + new_tms_id);
                                 console.log(parse_result);
+
+
                                 console.log(typeof(parse_result));
                                 for (const job of parse_result) {
                                     console.log(job);
-                                    this.jobs_service.add_job(job);
+                                    remaining_new_tms_celery_jobs.push(job.get_id());
                                 }
 
                                 // this.parsing_projects.delete(new_tms_id);
@@ -82,7 +100,14 @@ export class TmsListComponent implements OnInit {
                             );
                     }
                 }
+                // TODO: this kicks in prematurely
+              this.jobs_service.local_jobs_done_dict.subscribe(
+
+                  );
+
             }
+
+
         });
 
 

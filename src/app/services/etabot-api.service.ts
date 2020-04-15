@@ -5,6 +5,9 @@ import { map } from 'rxjs/operators';
 // import {Observable} from 'rxjs/Rx';
 import { environment } from '../../environments/environment';
 import { AuthService } from './auth-service.service';
+import { Job } from '../job';
+import { JobStatus } from '../job';
+import { JobsServiceService } from './jobs-service.service';
 
 @Injectable()
 export class EtabotApiService {
@@ -16,6 +19,7 @@ export class EtabotApiService {
 
   constructor(
       private http: Http,
+      private jobs_service: JobsServiceService,
       private authService: AuthService) {
     // depending on the environment (e.g. production or local) api end point could be different
     // this.service_api_end_point = environment.apiUrl;
@@ -89,13 +93,35 @@ export class EtabotApiService {
             }
         });
     console.log('json_params: ' + json_params);
+    const api_call = url + json_params;
     return this.http.post(
         url,
         json_params,
         this.authService.construct_options()).pipe(
             map((response: Response) => {
-              console.log('Response: ' + Response);
+              console.log('Response: ' + response);
               project['eta_in_progress'] = false;
+
+            const response_json = response.json();
+            // console.log('parse_projects response: ' + res + 'type = ' + typeof(res));
+            // console.log(res);
+            // const response_json = JSON.parse(res);
+            console.log(response_json);
+            // const celery_task_ids = response_json['celery_task_ids'];
+            // console.log(celery_task_ids);              
+            for (const tms_id in response_json) {
+                const celery_task_id = response_json[tms_id];
+                console.log(celery_task_id);
+                const new_job = new Job(
+                    celery_task_id,
+                    'updating ETAs for tms id ' + tms_id,
+                    JobStatus.in_progress,
+                    api_call,
+                    {'tms_id': tms_id});
+                this.jobs_service.add_job(new_job);
+            }
+
+
               if (String(response.status) === '201') {
                   console.log('estimate get returns 201');
                   return true;
@@ -110,6 +136,7 @@ export class EtabotApiService {
                     project['error_message'] = null;
                     project['last_updated'] = Date.now();
                     project['result_message'] = 'ETAs update started!';
+
                 },
                 error => {
                     console.log('estimate error' + error);

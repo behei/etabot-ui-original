@@ -1,35 +1,43 @@
-<div style="text-align: left; font-size: 32px; margin-left: 50px;">
+<div style="display: flex; justify-content: center;" class="connect-text">
     <h1>
       Connect Your Account
     </h1>
 </div>
 
-<mat-grid-list [cols]="breakpoint" rowHeight="300px" rowWidth="500px" (window:resize)="onResize($event)">
-  <mat-grid-tile>
-  	<mat-grid-tile-header [style.background]="'white'"><img src="./assets/Jira_Software-blue-short.svg" alt="jira software connect" class="jira_connect"></mat-grid-tile-header>
-  	<mat-card>
-  		<mat-card-content>
-  			For ETAbot to work, we need to connect to your JIRA account.
-  		</mat-card-content>
-  		<mat-card-actions><a mat-raised-button color="primary" (click)="link_tms('atlassian_oauth')">Connect</a></mat-card-actions>
-  		<div fxLayout="column">
-  			<mat-checkbox color="primary">I want ETAbot to update me in Jira</mat-checkbox>
-  			<mat-checkbox color="primary">I want my updates in ETAbot ony</mat-checkbox>
-  		</div>
-  	</mat-card>
-  </mat-grid-tile>
-  <mat-grid-tile>
-  	<mat-card>
-			<mat-card-content>
-				Use a different service? <br />
-				Let us know about other services you would like us to support.
-				<mat-card-actions><a mat-raised-button color="primary">Get in touch</a></mat-card-actions>
-			</mat-card-content>
-  	</mat-card>
-  </mat-grid-tile>
-</mat-grid-list>
-<!--<div class="projects-container" fxLayout="row wrap"  fxLayoutAlign="space-evenly start">
-    <div (click)="link_tms('atlassian_oauth')" class="jira-logo-image jira-connect" alt="etabot homepage" style="cursor: pointer"></div>
-    <button class="jira-connect">Connect to JIRA</button>
-  </div>-->
-  <div style="text-align: center; font-size: 24px;">Problems with linking your account? <a href="/jira">Try another way</a></div>
+<div fxLayout="row wrap" fxLayoutAlign="space-between center">
+  <mat-card class="etabot-connect-card">
+    <mat-card-header>
+      <mat-card-title class="jira-image"><img src="../../../assets/Jira_Software-blue-short.svg" style="width: 100%; height: auto;"/></mat-card-title>
+        <!-- <mat-card-title class="work-header">For ETABot to work, we need to connect to your JIRA account.</mat-card-title> -->
+    </mat-card-header>
+    <mat-card-content>
+      For ETABot to work, we need to connect to your JIRA account.
+      <form class="etabot-connect-form">
+        <div style="display: flex; justify-content: center;">
+          <mat-card-actions><a mat-raised-button color="primary" (click)="link_tms('atlassian_oauth')" class="action-button">Connect</a></mat-card-actions>
+        </div>
+        <div fxLayout="column">
+          <div fxLayout="row">
+            <mat-checkbox color="primary">I want ETAbot to update me in JIRA</mat-checkbox>&nbsp;<i class="material-icons" style="font-size: 18px; color: #9e9e9e;">info</i>
+          </div>
+          <div fxLayout="row">
+            <mat-checkbox color="primary">I want my updates in ETAbot only</mat-checkbox>&nbsp;<i class="material-icons" style="font-size: 18px; color: #9e9e9e;">info</i>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="etabot-different-service">
+    <mat-card-header>
+        <mat-card-title>Use a different service? </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      Let us know about other services you would like us to support. 
+      <div style="display: flex; justify-content: center;">
+        <mat-card-actions><a mat-raised-button color="primary" href="mailto:hello@etabot.ai" class="action-button">Get in touch</a></mat-card-actions>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div style="text-align: center; font-size: 24px; padding-top: 10px;">Problems with linking your account? <a href="/jira">Try another way</a></div>

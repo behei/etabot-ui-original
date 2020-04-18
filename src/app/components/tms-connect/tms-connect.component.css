@@ -15,6 +15,18 @@
   color: black;
 }
 
+.action_button {
+  font-size: 22px;
+  height: 50px;
+  margin-left: 12px;
+}
+
+.paragraph {
+  margin: 20px;
+  text-align: left;
+  font-size: 16px;
+}
+
 mat-card img{
   object-fit: cover; 
   width: 100%; 
@@ -31,28 +43,62 @@ mat-card img{
   display: none;
 }
 
+.connect-option-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  text-align: left;
+
+}
+
+.connect-option-radio-button {
+  margin: 5px;
+  font-size: 18px;
+}
+
+.radio_text {
+  font-size: 16px;
+}
+.info_icon {
+    position:relative;
+    display:inline-block;
+}
+
+.info_icon:after {
+    content: "info";
+}
+
+.vote_options {
+  margin: 15px;
+  max-width: 50%;
+}
+
 div:hover .hidden-text {
   display: inline-block;
 }
 
 @media only screen and (min-width: 768px) {
   .etabot-connect-card {
-    width: 650px;
+    max-width: 450px;
     margin-left: 30px;
-    height: 300px;
+    min-height: 400px;
     text-align: center;
   }
   .etabot-different-service {
-    width: 650px;
+    max-width: 450px;
     margin-right: 30px;
     height: 300px;
     text-align: center;
   }
   .connect-text {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
   }
   .action-button {
     width: 150px;
+    height: 70px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 30px;
   }
   .all-cards {
     margin-bottom: 100px;

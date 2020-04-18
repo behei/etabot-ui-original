@@ -18,14 +18,13 @@ export class JiraService {
     }
 
 
-  link_tms(tms_name: string) {
-    const url = this.service_api_end_point + tms_name;
+  link_tms(tms_name: string, permissions?: string) {
+    let url = this.service_api_end_point + tms_name;
+    if (permissions) {
+        url = url + '?permissions=' + permissions;
+    }
     console.log('jira.service linking tms: ' + url);
-    // const cors: Array<[string, string]> = [
-    //     ['Access-Control-Allow-Origin', 'localhost:4200, *, null'],
-    //     ['Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT'],
-    //     ['Access-Control-Allow-Headers', 'Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Access-Control-Request-Origin, Access-Control-Allow-Origin']
-    //   ];
+
     const options = this.authService.construct_options();
     console.log('options: ');
     console.log(options);

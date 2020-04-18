@@ -38,7 +38,8 @@ import {
     MatExpansionModule,
     MatTabsModule,
     MatTooltipModule,
-    MatMenuModule
+    MatMenuModule,
+    MatRadioModule
 } from '@angular/material';
 
 import {
@@ -118,6 +119,7 @@ import { TosppComponent } from './components/tospp/tospp.component';
     MatTooltipModule,
     MatIconModule,
     MatMenuModule,
+    MatRadioModule,
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule
@@ -137,6 +139,7 @@ import { TosppComponent } from './components/tospp/tospp.component';
     MatGridListModule,
     MatCardModule,
     MatIconModule,
+    MatRadioModule,
     MatProgressSpinnerModule
 
     ],

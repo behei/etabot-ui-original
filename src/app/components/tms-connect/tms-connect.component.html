@@ -1,10 +1,69 @@
-<div style="text-align: center; font-size: 32px;">
+<div style="display: flex; justify-content: center;" class="connect-text">
     <h1>
-      Link your account from:
+      Connect Your Account
     </h1>
 </div>
+<div class="alert alert-info new-font" style="text-align: center; font-size: 20px;  ">
+  <p style="color: #1a237e;">For ETABot to work, we need to connect to your Task Management System account. Please choose your type (you can connect to any number of them).</p>
+</div> 
 
-<div class="projects-container" fxLayout="row wrap"  fxLayoutAlign="space-evenly start">
-    <div (click)="link_tms('atlassian_oauth')" class="jira-logo-image" alt="etabot homepage" style="cursor: pointer"></div>
-  </div>
-  <div style="text-align: center; font-size: 32px;">Problems with linking your account? <a href="/jira">Try another way</a></div>
+<div class="tms-links-container" fxLayout="row wrap" fxLayoutAlign="space-evenly start">
+  <mat-card class="etabot-connect-card">
+    <mat-card-header>
+      <mat-card-title class="jira-image"><img src="../../../assets/Jira_Software-blue-short.svg" style="width: 100%; height: auto;"/></mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="paragraph">
+        We use secure consent-based authentication (OAuth2) without knowing your credentials (no need for user name and password). 
+      </div>
+      <div>
+        <form class="etabot-connect-form">
+          <div style="display: flex; justify-content: center;">
+            <mat-radio-group
+              aria-labelledby="radio-group-connect_options"
+              class="connect-option-radio-group"
+              [(ngModel)]="connect_option_selected"
+              name="connect_option_radio_group">
+                <mat-radio-button class="connect-option-radio-button" *ngFor="let connect_option of connect_options" [value]="connect_option.value" >
+                  <span class="radio_text">{{ connect_option.text }}</span> <span class="material-icons info_icon" matTooltip="{{connect_option.info_text}}"></span>
+
+                </mat-radio-button>
+            </mat-radio-group>
+            </div>
+          <div style="display: flex; justify-content: center;">
+            <button mat-raised-button (click)="link_tms('atlassian_oauth', connect_option_selected)" class="action-button" color="primary" >Connect</button>
+          </div>
+
+        </form>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="etabot-connect-card">
+    <mat-card-header>
+      <mat-card-title ><h1>Use a different service?</h1> </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="paragraph">
+        Let us know about other services you would like us to support. 
+      </div>
+      <div >
+          <mat-label>Your project/task management tool</mat-label>
+            <mat-select class="vote_options" [(ngModel)]="tms_vote">
+              <mat-option *ngFor="let tms_option of tms_options" [value]="tms_option.value">
+                {{tms_option.viewValue}}
+              </mat-option>
+            </mat-select>
+      </div>
+      <div>
+        <form class="etabot-connect-form">
+          <div style="display: flex; justify-content: center;">
+            <button mat-raised-button class="action-button" color="primary" (click)="vote(tms_vote.value)">Vote</button>
+          </div>
+
+        </form>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div style="text-align: center; font-size: 24px; padding-top: 20px;">Problems with connecting to your account? <a href="/jira">Try another way</a></div>

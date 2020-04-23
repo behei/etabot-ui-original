@@ -3,19 +3,77 @@ import { JiraService } from '../../services/jira.service';
 import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
+interface TMSoption {
+  value: string;
+  viewValue: string;
+}
+
+interface ConnectOption {
+  value: string;
+  text: string;
+  info_text: string;
+  checked: boolean;
+}
+
+
 @Component({
   selector: 'app-tms-connect',
   templateUrl: './tms-connect.component.html',
   styleUrls: ['./tms-connect.component.css']
 })
+
+
+
 export class TmsConnectComponent implements OnInit {
   redirect_url: String;
+  breakpoint: Number;
+  tms_vote: TMSoption;
+
+  connect_options: ConnectOption[] = [
+   {
+     value: 'in ETAbot only',
+     text: 'I want to be updated only outside of JIRA',
+     info_text: 'We only need read access.',
+     checked: false
+   },
+   {
+     value: 'in JIRA',
+     text: 'I want to get ETAs in JIRA tasks summaries',
+     info_text: 'We need read and write access',
+     checked: true
+   }];
+   connect_option_selected = 'in JIRA';
+  tms_options: TMSoption[] = [
+    {value: 'Asana', viewValue: 'Asana'},
+    {value: 'MS Project', viewValue: 'MS Project'},
+    {value: 'Monday', viewValue: 'Monday'},
+    {value: 'Spreadsheets', viewValue: 'Spreadsheets'},
+    {value: 'Pivotal', viewValue: 'Pivotal'},
+    {value: 'Wrike', viewValue: 'Wrike'},
+    {value: 'Monday.com', viewValue: 'Monday.com'},
+    {value: 'Monday', viewValue: 'Monday'},
+    {value: 'Trello', viewValue: 'Trello'},
+    {value: 'Fabricator', viewValue: 'Fabricator'},
+    {value: 'Teamwork.com', viewValue: 'Teamwork.com'},
+    {value: 'Basecamp', viewValue: 'Basecamp'},
+    {value: 'Rally', viewValue: 'Rally'},
+    {value: 'AgileCraft', viewValue: 'AgileCraft'},
+    {value: 'Version1/CollabNet', viewValue: 'Version1/CollabNet'},
+    {value: 'Physical board', viewValue: 'Physical board'},
+    {value: 'Plutio', viewValue: 'Plutio'}
+  ];
 
   constructor(
       @Inject(DOCUMENT) private document: Document,
       private jiraService: JiraService) { }
 
   ngOnInit() {
+    this.breakpoint = (window.innerWidth <= 800) ? 1 : 4;
+    // this.connect_option_selected = this.connect_options[1];
+  }
+
+  onResize(event) {
+    this.breakpoint = (event.target.innerWidth <= 800) ? 1 : 4;
   }
 
   setRedirectUrl(res) {
@@ -29,9 +87,15 @@ export class TmsConnectComponent implements OnInit {
   }
 
 
-  link_tms(tms_name: string) {
+  vote(choice: string) {
+    // TODO: implement this.
+    console.log('vote=' + choice);
+    console.log('needs implementing');
+  }
+
+  link_tms(tms_name: string, permissions?: string) {
       console.log('linking to ' + tms_name);
-      this.jiraService.link_tms(tms_name).subscribe(
+      this.jiraService.link_tms(tms_name, permissions).subscribe(
       success => {
         // this.router.navigate(['/projects']);
         console.log('success');
@@ -44,3 +108,5 @@ export class TmsConnectComponent implements OnInit {
       this.jiraService.oauth_url.subscribe(res => this.setRedirectUrl(res));
   }
 }
+
+

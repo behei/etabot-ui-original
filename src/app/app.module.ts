@@ -39,6 +39,7 @@ import {
     MatTabsModule,
     MatTooltipModule,
     MatMenuModule,
+    MatRadioModule,
     MatProgressBarModule
 } from '@angular/material';
 
@@ -126,6 +127,7 @@ import { JobCardComponent } from './components/jobs-monitor/job-card/job-card.co
     MatIconModule,
     MatProgressBarModule,
     MatMenuModule,
+    MatRadioModule,
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule
@@ -145,6 +147,7 @@ import { JobCardComponent } from './components/jobs-monitor/job-card/job-card.co
     MatGridListModule,
     MatCardModule,
     MatIconModule,
+    MatRadioModule,
     MatProgressSpinnerModule
 
     ],

@@ -12,20 +12,6 @@ import { JobStatus } from '../../../job';
 export class JobCardComponent implements OnInit, DoCheck {
   @Input() job: Job;
 
-  // private _job: Job;
-
-  // @Input()
-  // set job(job: Job) {
-  //   console.log('setting job to new Input value with status' + job.get_status());
-  //   this._job = job;
-
-
-
-  //   console.log('finished setting job to new Input value');
-  // }
-
-  // get job(): Job { return this._job; }
-
   @Output() delete: EventEmitter<Job> = new EventEmitter();
 
   timer: any;
@@ -43,6 +29,8 @@ export class JobCardComponent implements OnInit, DoCheck {
       if (this.job.get_status() === JobStatus.done) {
           console.log('job is done, deleting the card');
           this.deleteMe();
+      } else if (this.job.get_status() === JobStatus.failed) {
+          console.log('job failed');
       } else {
           console.log('job is not done yet, starting timer.');
           if (this.timer_on) {

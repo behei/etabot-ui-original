@@ -47,6 +47,13 @@ export class TmsCardComponent implements OnInit {
       return url.replace(/(^\w+:|^)\/\//, '');
   }
 
+  username_not_null() {
+      if (this.tms.username) {
+          return true;
+      } else {
+          return false;
+      }
+  }
 
 
   update_password(tms_id) {

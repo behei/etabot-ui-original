@@ -92,6 +92,16 @@ export class EtabotApiService {
                 include_backlog: project.include_backlog
             }
         });
+    const job_scope = [];
+    if (project.include_active_sprints) {
+        job_scope.push('active sprints');
+    }
+    if (project.include_future_sprints) {
+        job_scope.push('future sprints');
+    }
+    if (project.include_backlog) {
+        job_scope.push('backlog');
+    }
     console.log('json_params: ' + json_params);
     const api_call = url + json_params;
     return this.http.post(
@@ -100,7 +110,7 @@ export class EtabotApiService {
         this.authService.construct_options()).pipe(
             map((response: Response) => {
               console.log('Response: ' + response);
-              project['eta_in_progress'] = false;
+              project['eta_in_progress'] = true;
 
             const response_json = response.json();
             // console.log('parse_projects response: ' + res + 'type = ' + typeof(res));
@@ -108,43 +118,32 @@ export class EtabotApiService {
             // const response_json = JSON.parse(res);
             console.log(response_json);
             // const celery_task_ids = response_json['celery_task_ids'];
-            // console.log(celery_task_ids);              
+            // console.log(celery_task_ids);
+            const jobs = [];
             for (const tms_id in response_json) {
                 const celery_task_id = response_json[tms_id];
-                console.log(celery_task_id);
+                console.log('celery_task_id ' + celery_task_id);
                 const new_job = new Job(
                     celery_task_id,
-                    'updating ETAs for tms id ' + tms_id,
+                    'updating ETAs for ' + project.name,
                     JobStatus.in_progress,
                     api_call,
-                    {'tms_id': tms_id});
+                    {
+                        'tms_id': tms_id,
+                        'project_id': project.id,
+                        'details': 'tasks in: ' + job_scope.join(', '),
+                    });
                 this.jobs_service.add_job(new_job);
+                jobs.push(new_job);
             }
-
 
               if (String(response.status) === '201') {
                   console.log('estimate get returns 201');
-                  return true;
               } else {
                 console.log('estimate get returns not 201');
-                return false;
               }
-
-             })).subscribe(
-                success => {
-                    console.log('estimate success');
-                    project['error_message'] = null;
-                    project['last_updated'] = Date.now();
-                    project['result_message'] = 'ETAs update started!';
-
-                },
-                error => {
-                    console.log('estimate error' + error);
-                    project['error_message'] = error;
-                    project['eta_in_progress'] = false;
-                    project['result_message'] = null;
-                }
-            );
+              return jobs;
+             }));
   }
 
 }

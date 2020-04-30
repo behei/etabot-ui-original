@@ -40,10 +40,9 @@ export class JobsServiceService {
   }
 
   delete_job(job_id) {
-      console.log('moveing to done job ' + job_id);
+      console.log('moving to done job ' + job_id);
       const job = this.jobs_dict[job_id];
       this.jobs_done_dict[job.get_id()] = job;
-      job.execute_callback();
       delete this.jobs_dict[job.get_id()];
       console.log('deleted job ' + job_id);
       console.log(this.jobs_done_dict);
@@ -62,6 +61,12 @@ export class JobsServiceService {
                    job.set_status(JobStatus.in_progress);
                } else if (job_status === 'SUCCESS') {
                    job.set_status(JobStatus.done);
+                   job.execute_callback();
+               } else if (job_status === 'FAILURE') {
+                   job.set_status(JobStatus.failed);
+                   job.execute_callback();
+               } else {
+                 job.set_status(JobStatus.unknown);
                }
 
                // this.publish_updates();

@@ -26,12 +26,11 @@
               name="connect_option_radio_group">
                 <mat-radio-button class="connect-option-radio-button" *ngFor="let connect_option of connect_options" [value]="connect_option.value" >
                   <span class="radio_text">{{ connect_option.text }}</span> <span class="material-icons info_icon" matTooltip="{{connect_option.info_text}}"></span>
-
                 </mat-radio-button>
             </mat-radio-group>
             </div>
           <div style="display: flex; justify-content: center;">
-            <button mat-raised-button (click)="link_tms('atlassian_oauth', connect_option_selected)" class="action-button" color="primary" >Connect</button>
+            <button mat-raised-button (click)="link_tms('atlassian_oauth', connect_option_selected)" class="action-button" color="primary">Connect</button>
           </div>
 
         </form>

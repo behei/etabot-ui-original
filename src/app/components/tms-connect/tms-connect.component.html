@@ -48,7 +48,7 @@
       </div>
       <div >
           <mat-label>Your project/task management tool</mat-label>
-            <mat-select class="vote_options" [(ngModel)]="tms_vote">
+            <mat-select class="vote_options" [(ngModel)]="tms_vote_value">
               <mat-option *ngFor="let tms_option of tms_options" [value]="tms_option.value">
                 {{tms_option.viewValue}}
               </mat-option>
@@ -57,10 +57,12 @@
       <div>
         <form class="etabot-connect-form">
           <div style="display: flex; justify-content: center;">
-            <button mat-raised-button class="action-button" color="primary" (click)="vote(tms_vote.value)">Vote</button>
+            <button mat-raised-button class="action-button" color="primary" (click)="vote(tms_vote_value)" [disabled]="voted">Vote</button>
           </div>
-
         </form>
+        <div>
+            <span *ngIf="voted">Thank you for voting!</span>
+        </div>
       </div>
     </mat-card-content>
   </mat-card>

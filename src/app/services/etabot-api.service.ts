@@ -75,6 +75,28 @@ export class EtabotApiService {
        });
    }
 
+    vote(vote_choice) {
+         const url = environment.apiUrl + 'vote/';
+         const params = {
+              'choice': vote_choice
+            };
+         console.log('params');
+         console.log(params);
+
+         const json_params = JSON.stringify(params);
+         console.log('json_params');
+         console.log(json_params);
+         return this.http.post(
+            url,
+            json_params,
+            this.authService.construct_options()).pipe(
+                map((response: Response) => {
+                  console.log('Response: ' + response);
+                  return response.status;
+                     }
+               ));
+   }
+
   estimate(project) {
     let url = environment.apiUrl + 'estimate/';
     if (project.project_tms_id != null) {

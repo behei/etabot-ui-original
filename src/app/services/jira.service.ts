@@ -111,7 +111,7 @@ export class JiraService {
                 console.log(celery_task_id);
                 const new_job = new Job(
                     celery_task_id,
-                    'parsing projects for tms id ' + tms_id,
+                    'importing projects for tms id ' + tms_id,
                     JobStatus.in_progress,
                     api_call,
                     {'tms_id': tms_id});

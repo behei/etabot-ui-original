@@ -16,7 +16,7 @@
     <div style="text-align: center; font-size: 32px;" *ngIf="projectsReceived && c_isEmpty(realProjects)">No projects added yet. You can go to <a [routerLink]="['/tmss']">Accounts</a> to add new accounts or refetch projects for existing accounts.</div>
 
     <div class="projects-container" fxLayout="row wrap"  fxLayoutAlign="space-evenly start">
-        <app-project-card *ngFor="let project of realProjects" [project]="project" [tms]="tmss_by_id[project.project_tms_id]" [tms_service]="tms_service"></app-project-card>
+        <app-project-card *ngFor="let project of realProjects" [project]="project" [tms]="tmss_by_id[project.project_tms]" [tms_service]="tms_service"></app-project-card>
     </div>
 
 </div>

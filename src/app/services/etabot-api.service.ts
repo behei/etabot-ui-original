@@ -99,8 +99,8 @@ export class EtabotApiService {
 
   estimate(project) {
     let url = environment.apiUrl + 'estimate/';
-    if (project.project_tms_id != null) {
-        url = url + '?tms=' + project.project_tms_id;
+    if (project.project_tms != null) {
+        url = url + '?tms=' + project.project_tms;
         if (project.id != null) {
             url = url + '&project_id=' + project.id;
         }

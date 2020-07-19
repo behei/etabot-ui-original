@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { JiraService } from '../../services/jira.service';
+import { EtabotApiService } from '../../services/etabot-api.service';
 import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
@@ -27,7 +28,8 @@ interface ConnectOption {
 export class TmsConnectComponent implements OnInit {
   redirect_url: String;
   breakpoint: Number;
-  tms_vote: TMSoption;
+  tms_vote_value: string;
+  voted = false;
 
   connect_options: ConnectOption[] = [
    {
@@ -65,7 +67,8 @@ export class TmsConnectComponent implements OnInit {
 
   constructor(
       @Inject(DOCUMENT) private document: Document,
-      private jiraService: JiraService) { }
+      private jiraService: JiraService,
+      private etabotApiService: EtabotApiService) { }
 
   ngOnInit() {
     this.breakpoint = (window.innerWidth <= 800) ? 1 : 4;
@@ -88,9 +91,23 @@ export class TmsConnectComponent implements OnInit {
 
 
   vote(choice: string) {
-    // TODO: implement this.
-    console.log('vote=' + choice);
-    console.log('needs implementing');
+    console.log('vote=');
+    console.log(choice);
+    if (choice) {
+
+        this.etabotApiService.vote(choice).subscribe(
+            res => {
+                console.log('vote submitted. res: ');
+                console.log(res);
+                this.voted = true;
+
+            },
+            error => {
+                console.log('voting error: ');
+                console.log(error);
+            });
+    }
+
   }
 
   link_tms(tms_name: string, permissions?: string) {

@@ -1,0 +1,19 @@
+
+
+.job-card {
+    margin: 3px;
+    padding: 3px;
+}
+
+.job-card-content {
+    display: flex;
+    align-items: center;
+    margin: 1px;
+}
+
+.job-card-element {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-right: 3px;
+    padding-left: 3px;
+}

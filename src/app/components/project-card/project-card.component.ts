@@ -32,7 +32,10 @@ export class ProjectCardComponent implements OnInit {
     this.update_future_sprints = true;
     this.update_backlog = false;
 
-    console.log('initing Project Card with project: ' + this.project.name + ' tms id: ' + this.tms.id);
+    console.log('initing Project Card with project: ');
+    console.log(this.project)
+    console.log('tms:');
+    console.log(this.tms);
     console.log('ngOnInit update_backlog=' + this.update_backlog);
     this.project_obj = new Project(this.project);
     if (this.project_obj.velocity_available) {

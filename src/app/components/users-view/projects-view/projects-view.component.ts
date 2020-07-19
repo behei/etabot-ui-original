@@ -98,9 +98,16 @@ export class ProjectsViewComponent implements OnInit {
   estimate_all_projects() {
     console.log('updating all projects: ' + typeof(this.realProjects) + this.realProjects);
     Object.entries(this.realProjects).forEach(
-        ([key, value]) => {
-            value['eta_in_progress'] = true;
-            this.etabotAPI.estimate(value);
+        ([key, project]) => {
+            project['eta_in_progress'] = true;
+            this.etabotAPI.estimate(project).subscribe(
+                jobs => {
+                    for (const job of jobs) {
+                        job.callback = () => {
+                            project['eta_in_progress'] = false;
+                        };
+                    }
+                });
         });
   }
 

@@ -35,7 +35,7 @@ export class AuthService {
             console.log('extra_headers:');
             console.log(extra_headers);
             if (extra_headers) {
-                for (let extra_header of extra_headers) {
+                for (const extra_header of extra_headers) {
                     console.log('adding: ');
                     console.log(extra_header);
                     console.log(extra_header[0]);

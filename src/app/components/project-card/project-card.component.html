@@ -18,26 +18,25 @@
       <mat-card-content>
         <div fxLayout="row wrap" class="update_button_spinner_container">
           <div fxFlex class="card-update-button new-font" matTooltip="{{update_eta_tooltip}}">
-              <button [disabled]="!project_obj.velocity_available" (click)="estimate(project)" mat-raised-button color="primary" class="update_eta_button new-font julius-font">Update ETAs</button>
+              <button [disabled]="update_button_disabled" (click)="estimate(project)" mat-raised-button color="primary" class="update_eta_button new-font julius-font">Update ETAs</button>
           </div>
           <div>
             <section class="checkbox-section">
-                <mat-checkbox class="eta_option_checkbox" [(ngModel)]="update_active_sprints">Active sprints</mat-checkbox>
-                <mat-checkbox class="eta_option_checkbox" [(ngModel)]="update_future_sprints">Future sprints</mat-checkbox>
-                <mat-checkbox class="eta_option_checkbox" [(ngModel)]="update_backlog">Backlog</mat-checkbox>
+                <mat-checkbox class="eta_option_checkbox" [(ngModel)]="update_active_sprints" (change)="try_enable_update_button()">Active sprints</mat-checkbox>
+                <mat-checkbox class="eta_option_checkbox" [(ngModel)]="update_future_sprints" (change)="try_enable_update_button()">Future sprints</mat-checkbox>
+                <mat-checkbox class="eta_option_checkbox" [(ngModel)]="update_backlog" (change)="try_enable_update_button()">Backlog</mat-checkbox>
             </section>
           </div>
           <div fxFlex class="spinner_div">
-             <mat-progress-spinner *ngIf="project.eta_in_progress" class="spinner" mode="indeterminate" [diameter]="35">
-             </mat-progress-spinner>
+             <mat-progress-bar *ngIf="project.eta_in_progress" mode="indeterminate" >
+             </mat-progress-bar>
           </div>
 
         </div>
         <div class="eta_update_status">
-           <div *ngIf="project.eta_in_progress || project.last_updated">Your JIRA task summaries will be updated with ETAs soon. This could take a few minutes (and will continue even if the browser is closed).</div>
+           <div *ngIf="project.eta_in_progress">ETAs will be updated soon. This could take a few minutes (and will continue even if the browser is closed).</div>
            <div *ngIf="project.error_message" class="alert-danger">Error: {{ project.error_message }}.</div>
-           <div *ngIf="project.result_message" class="alert-success">{{ project.result_message }}</div>
-
+           <!-- <div *ngIf="project.result_message" class="alert-success">{{ project.result_message }}</div> -->
         </div>
         <div>
           <table class="metrics_table">

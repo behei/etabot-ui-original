@@ -2,12 +2,12 @@
 export enum JobStatus {
     in_progress,
     done,
-    error,
-    cancelled
+    failed,
+    cancelled,
+    unknown
 }
 
 export class Job {
-    JobStatus1: JobStatus;
     JobStatusDescription = {
         0: 'In progress',
         1: 'Done'
@@ -23,14 +23,13 @@ export class Job {
     }
 
     execute_callback() {
-
         if (this.callback) {
-            console.log('job is executing callback');            
+            console.log('job is executing callback');
             this.callback(this);
         } else {
             console.log(' no callback function');
         }
-        
+
     }
 
     set_status(status) {
@@ -41,6 +40,14 @@ export class Job {
 
     get_id() {
         return this.id;
+    }
+
+    get_details() {
+        if ('details' in this.params) {
+            return this.params['details'];
+        } else {
+            return '';
+        }
     }
 
     get_title() {

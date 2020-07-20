@@ -28,7 +28,7 @@ interface ConnectOption {
 export class TmsConnectComponent implements OnInit {
   redirect_url: String;
   breakpoint: Number;
-  tms_vote: TMSoption;
+  tms_vote_value: string;
   voted = false;
   no_choice_message = false;
   connect_options: ConnectOption[] = [

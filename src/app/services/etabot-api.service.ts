@@ -76,6 +76,7 @@ export class EtabotApiService {
    }
 
     vote(vote_choice) {
+        console.log('etabot api service vote started');
          const url = environment.apiUrl + 'vote/';
          const params = {
               'choice': vote_choice

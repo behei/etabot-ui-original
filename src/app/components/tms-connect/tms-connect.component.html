@@ -53,6 +53,10 @@
                 {{tms_option.viewValue}}
               </mat-option>
             </mat-select>
+
+      </div>
+      <div>
+        <span *ngIf="no_choice_message">Please select an option to vote ^ </span>            
       </div>
       <div>
         <form class="etabot-connect-form">
@@ -62,6 +66,7 @@
         </form>
         <div>
             <span *ngIf="voted">Thank you for voting!</span>
+
         </div>
       </div>
     </mat-card-content>

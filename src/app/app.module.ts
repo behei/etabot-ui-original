@@ -70,6 +70,7 @@ import { ErrorPageComponent } from './components/error-page/error-page.component
 import { TosppComponent } from './components/tospp/tospp.component';
 import { JobsMonitorComponent } from './components/jobs-monitor/jobs-monitor.component';
 import { JobCardComponent } from './components/jobs-monitor/job-card/job-card.component';
+import { ReportComponent } from './components/report/report.component';
     // MatProgressBarModule,
 @NgModule({
   declarations: [
@@ -97,11 +98,13 @@ import { JobCardComponent } from './components/jobs-monitor/job-card/job-card.co
     ErrorPageComponent,
     TosppComponent,
     JobsMonitorComponent,
-    JobCardComponent
+    JobCardComponent,
+    ReportComponent
   ],
   entryComponents: [
     TermsConditionsFullComponent,
-    SettingsWindowComponent
+    SettingsWindowComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,

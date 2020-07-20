@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { SettingsWindowComponent } from '../settings-window/settings-window.component';
+import { ReportComponent } from '../report/report.component';
 import { EtabotApiService } from '../../services/etabot-api.service';
 import { Project } from '../../project';
 import { Job } from '../../job';
@@ -36,7 +37,7 @@ export class ProjectCardComponent implements OnInit {
     this.update_backlog = false;
 
     console.log('initing Project Card with project: ');
-    console.log(this.project)
+    console.log(this.project);
     console.log('tms:');
     console.log(this.tms);
     console.log('ngOnInit update_backlog=' + this.update_backlog);
@@ -91,6 +92,7 @@ export class ProjectCardComponent implements OnInit {
                                 project['eta_in_progress'] = false;
                                 project['result_message'] = 'Done!';
                                 this.try_enable_update_button();
+                                this.show_report();
                             }
                         };
                     }
@@ -116,6 +118,18 @@ export class ProjectCardComponent implements OnInit {
     // const cs = JSON.parse(this.tms.connectivity_status);
     // console.log(cs)
     return this.tms.connectivity_status;
+  }
+
+  show_report(): void {
+    const dialogRef = this.dialog.open(
+        ReportComponent,
+            {
+              width: '800px',
+              height: '500px',
+              data: {
+                  'html_report': this.project_obj.get_html_report()
+              }
+            });
   }
 
 }

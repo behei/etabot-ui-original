@@ -38,9 +38,6 @@
     margin: 10px;
 }
 
-.metrics_table {
-    font-size: 18px;
-}
 
 .eta_option_checkbox {
     margin: 10px 10px;
@@ -52,3 +49,19 @@
   align-items: center;
   height: 60px;
 }
+
+.metrics_table {
+  font-size: 18px;
+}
+
+/*.table.summary_table {
+  border-collapse: collapse;
+  border: 1px solid silver;
+}
+
+.tabke.summary_table td, th, tr {
+  padding: 5px;
+  border-collapse: collapse;
+  border: 1px solid silver;
+  text-align: center;
+}*/

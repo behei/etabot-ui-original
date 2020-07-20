@@ -19,6 +19,7 @@
         <div fxLayout="row wrap" class="update_button_spinner_container">
           <div fxFlex class="card-update-button new-font" matTooltip="{{update_eta_tooltip}}">
               <button [disabled]="update_button_disabled" (click)="estimate(project)" mat-raised-button color="primary" class="update_eta_button new-font julius-font">Update ETAs</button>
+              <button [disabled]="update_button_disabled" (click)="show_report()" mat-raised-button color="primary" class="update_eta_button new-font julius-font">Report</button>
           </div>
           <div>
             <section class="checkbox-section">
@@ -46,7 +47,8 @@
                 <div style="display: flex; align-items: center;">
                     {{ (project_obj.velocity_available) ? (project.velocities.mean | number:'1.0-2') : "TBD" }}  
                     <div *ngIf="project_obj.velocity_available" matTooltip="points per hour of work">&nbsp;pph</div>
-                </div></td>
+                </div>
+              </td>
             </tr>
 <!--             <tr>
               <td>Issues on track</td>
@@ -55,9 +57,10 @@
  -->
           </table>
         </div>
-        <div>
-    
-        </div>
+<!--         <div [innerHTML]="project_obj.get_deadlines_summary()" class="summary_table">
+            
+        </div> -->
+
         <div *ngIf="project.last_updated">ETAs last triggered {{ project.last_updated | date:'short' }}.</div>
     </mat-card-content>
 

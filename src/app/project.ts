@@ -51,4 +51,22 @@ export class Project {
       return this.sprint_field_name;
   }
 
+  get_deadlines_summary() {
+      if (!! this.settings &&
+          !! this.settings.deadlines &&
+          !! this.settings.deadlines.summary_table) {
+          return this.settings.deadlines.summary_table;
+      } else {
+          return '';
+      }
+  }
+
+  get_html_report() {
+       if (!! this.settings &&
+          !! this.settings.report) {
+          return this.settings.report.slice(622);
+      } else {
+          return 'No report available. Please click Update ETAs in the project card to generate report.';
+      }
+  }
 }

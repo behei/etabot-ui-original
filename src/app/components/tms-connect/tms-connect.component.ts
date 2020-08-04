@@ -31,6 +31,7 @@ export class TmsConnectComponent implements OnInit {
   tms_vote_value: string;
   voted = false;
   no_choice_message = false;
+  on_premises_email_sent = false;
   connect_options: ConnectOption[] = [
    {
      value: 'in ETAbot only',
@@ -104,6 +105,18 @@ export class TmsConnectComponent implements OnInit {
         this.no_choice_message = true;
     }
 
+
+  }
+
+  on_premises() {
+      if (confirm('Interested in on-premises deployemnt of ETAbot?')) {
+        const message = 'JIRA on premises deployemnt';
+        this.etabot_api_service.vote(message).subscribe(
+            res => {
+                console.log('on premises request submitted.');
+                confirm('Your request has been submitted. Please wait for us to contact you by email.');
+            });
+      }
 
   }
 

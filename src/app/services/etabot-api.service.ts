@@ -94,7 +94,7 @@ export class EtabotApiService {
                 map((response: Response) => {
                   console.log('Response: ' + response);
                   return response.status;
-                     }    
+                     }
                ));
    }
 

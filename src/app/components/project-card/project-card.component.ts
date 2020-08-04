@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { SettingsWindowComponent } from '../settings-window/settings-window.component';
 import { ReportComponent } from '../report/report.component';
@@ -15,11 +15,13 @@ export class ProjectCardComponent implements OnInit {
   @Input() project: any;
   @Input() tms: any;
   @Input() tms_service: any;
+  @Input() show_report_on_init: any;
+  @Output() project_update_needed: EventEmitter<any> = new EventEmitter();
   project_obj: Project;
   update_eta_tooltip: string;
   project_jobs_ids = [];
   update_button_disabled = true;
-
+  projectUpdated: EventEmitter<any>;
   update_active_sprints: true;
   update_future_sprints: true;
   update_backlog: false;
@@ -36,6 +38,7 @@ export class ProjectCardComponent implements OnInit {
     this.update_future_sprints = true;
     this.update_backlog = false;
 
+
     console.log('initing Project Card with project: ');
     console.log(this.project);
     console.log('tms:');
@@ -43,6 +46,11 @@ export class ProjectCardComponent implements OnInit {
     console.log('ngOnInit update_backlog=' + this.update_backlog);
     this.project_obj = new Project(this.project);
     this.try_enable_update_button();
+    console.log('show_report_on_init: ' + this.show_report_on_init);
+    if (this.show_report_on_init.has(this.project_obj.name)) {
+        console.log('need to show report');
+        this.show_report();
+    }
   }
 
 
@@ -91,8 +99,9 @@ export class ProjectCardComponent implements OnInit {
                             if (this.project_jobs_ids.length === 0) {
                                 project['eta_in_progress'] = false;
                                 project['result_message'] = 'Done!';
+                                console.log('emitting project_update_needed');
                                 this.try_enable_update_button();
-                                this.show_report();
+                                this.project_update_needed.emit(this.project_obj.name);
                             }
                         };
                     }
@@ -121,6 +130,7 @@ export class ProjectCardComponent implements OnInit {
   }
 
   show_report(): void {
+    console.log('showing report in dialog window');
     const dialogRef = this.dialog.open(
         ReportComponent,
             {

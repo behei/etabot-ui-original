@@ -32,8 +32,11 @@
           <div style="display: flex; justify-content: center;">
             <button mat-raised-button (click)="link_tms('atlassian_oauth', connect_option_selected)" class="action-button" color="primary">Connect</button>
           </div>
-
         </form>
+      </div>
+
+      <div style="display: flex; justify-content: center; padding-top: 20px">
+        <span (click)="on_premises()" style="text-align: center; font-size: 14px;" color="secondary">Need on premises deployment?</span>
       </div>
     </mat-card-content>
   </mat-card>

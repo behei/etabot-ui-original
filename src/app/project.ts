@@ -10,6 +10,14 @@ export class Project {
 
 
     constructor(project_json: any) {
+        this.parse_json(project_json);
+        console.log('Project inited with settings: ' + this.settings +
+            'project_json.velocities: ' + project_json.velocities +
+            'velocity: ' +  this.velocity +
+            'velocity_available ' + this.velocity_available);
+    }
+
+    parse_json(project_json: any) {
         this.project_json = project_json;
         this.settings = project_json.project_settings;
         this.name = project_json.name;
@@ -23,7 +31,7 @@ export class Project {
 
         this.get_scope_field_name();
         this.get_sprint_field_name();
-        console.log('Project inited with settings: ' + this.settings + 'project_json.velocities: ' + project_json.velocities +  'velocity: ' +  this.velocity + 'velocity_available ' + this.velocity_available);
+
     }
 
   get_scope_field_name() {

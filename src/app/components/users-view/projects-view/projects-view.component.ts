@@ -69,7 +69,7 @@ export class ProjectsViewComponent implements OnInit {
   }
 
 
-  getProjects(callback?: CallableFunction) {
+  getProjects(callback?) {
     console.log('getting projects data');
     this.local_etabotAPI.get_real_projects();
     this.local_etabotAPI.projects.subscribe(

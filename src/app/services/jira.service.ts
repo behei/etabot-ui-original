@@ -3,18 +3,48 @@ import { Http, Response, Request, RequestMethod, Headers, RequestOptions } from 
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { AuthService } from './auth-service.service';
+import { Job } from '../job';
+import { JobStatus } from '../job';
+import { JobsServiceService } from './jobs-service.service';
 
 @Injectable()
 export class JiraService {
     private service_api_end_point: string;
     private token: string;
     @Output() tmss: EventEmitter<any> = new EventEmitter();
+    @Output() oauth_url: EventEmitter<any> = new EventEmitter();
     constructor(
         private http: Http,
+        private jobs_service: JobsServiceService,
         private authService: AuthService) {
             this.service_api_end_point = environment.apiUrl;
     }
 
+
+  link_tms(tms_name: string, permissions?: string) {
+    let url = this.service_api_end_point + tms_name;
+    if (permissions) {
+        url = url + '?permissions=' + permissions;
+    }
+    console.log('jira.service linking tms: ' + url);
+
+    const options = this.authService.construct_options();
+    console.log('options: ');
+    console.log(options);
+    return this.http.get(url, options)
+        .pipe(map((response: Response) => {
+          const res = JSON.parse(response.json());
+          console.log(res);
+          this.oauth_url.emit(res);
+          if (String(response.status) === '201') {
+            console.log('201');
+            return res;
+          } else {
+            console.log('not 201');
+            return res;
+          }
+        }));
+  }
 
   add_tms(owner: string, tms_url: string, email: string, password: string) {
     console.log('tms_url:' + tms_url);
@@ -29,9 +59,9 @@ export class JiraService {
     return this.http.post(this.service_api_end_point + 'tms/', jiraObject, this.authService.construct_options())
         .pipe(map((response: Response) => {
           if (String(response.status) === '201') {
-            return true;
+            return response.json();
           } else {
-            return false;
+            return null;
           }
         }));
   }
@@ -40,20 +70,17 @@ export class JiraService {
     console.log('started get_tms');
     return this.http.get(this.service_api_end_point + 'tms/', this.authService.construct_options())
         .pipe(map((response: Response) => {
-                const res = response.json();
-                console.log('get_tms response: ' + res);
-                if (res.length === 0) {
-                    console.log('zero of TMS accounts found: ');
-                    this.tmss.emit(res);
-                } else {
-                    console.log('number of TMS accounts found: ' + res.length);
-                    console.log('emitting tmss');
-                    this.tmss.emit(res);
-                    console.log('done emitting tmss');
-                    return res.length;
-                }
+            const res = response.json();
+            console.log('get_tms response: ' + res);
+            console.log('number of TMS accounts found: ' + res.length);
+            console.log('emitting tmss');
+            this.tmss.emit(res);
+            console.log('done emitting tmss');
+            return res.length;
+
         }));
   }
+
 
   delete_tms(tms_id) {
 
@@ -64,15 +91,35 @@ export class JiraService {
         }));
   }
 
-  parse_projects(tms_id) {
+  parse_projects(tms_id, job_callback?) {
     console.log('started parse_projects with tms_id ' + tms_id);
     // const params = JSON.stringify(
     //     {tms: tms_id});
     // console.log('params: ' + params);
-    return this.http.get(this.service_api_end_point + 'parse_projects/?tms=' + tms_id, this.authService.construct_options())
+    const api_call = this.service_api_end_point + 'parse_projects/?tms=' + tms_id;
+    return this.http.get(api_call, this.authService.construct_options())
         .pipe(map((response: Response) => {
             const res = response.json();
-            console.log('parse_projects response: ' + res);
+            console.log('parse_projects response: ' + res + 'type = ' + typeof(res));
+            const response_json = JSON.parse(res);
+            console.log(response_json);
+            const celery_task_ids = response_json['celery_task_ids'];
+            console.log(celery_task_ids);
+            let jobs: Job[];
+            jobs = [];
+            for (const celery_task_id of celery_task_ids) {
+                console.log(celery_task_id);
+                const new_job = new Job(
+                    celery_task_id,
+                    'importing projects for tms id ' + tms_id,
+                    JobStatus.in_progress,
+                    api_call,
+                    {'tms_id': tms_id});
+                new_job.callback = job_callback;
+                jobs.push(new_job);
+                this.jobs_service.add_job(new_job);
+            }
+            return jobs;
         }));
   }
 

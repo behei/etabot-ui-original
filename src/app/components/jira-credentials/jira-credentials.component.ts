@@ -50,9 +50,14 @@ export class JiraCredentialsComponent implements OnInit {
         this.model.email,
         this.model.password)
     .subscribe(
-      success => {
+      tms_json => {
         this.loading = false;
-        this.router.navigate(['/projects']);
+        console.log('add_tms_via_service success: ');
+        console.log(tms_json);
+        const tms_id = tms_json['id'];
+        this.router.navigate(
+            ['/tmss'],
+            { queryParams: { 'new_tms_ids': tms_id }});
       },
       error => {
         this.loading = false;

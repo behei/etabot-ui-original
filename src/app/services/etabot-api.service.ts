@@ -112,7 +112,9 @@ export class EtabotApiService {
             {
                 include_active_sprints: project.include_active_sprints,
                 include_future_sprints: project.include_future_sprints,
-                include_backlog: project.include_backlog
+                include_backlog: project.include_backlog,
+                push_updates_to_tms: project.push_updates_to_tms,
+                update_velocity: project.update_velocity
             }
         });
     const job_scope = [];

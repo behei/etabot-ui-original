@@ -72,7 +72,7 @@ export class Project {
   get_html_report() {
        if (!! this.settings &&
           !! this.settings.report) {
-          return this.settings.report.slice(622);
+          return this.settings.report.slice(605);
       } else {
           return 'No report available. Please click Update ETAs in the project card to generate report.';
       }

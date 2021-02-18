@@ -17,7 +17,7 @@ import { TmsListComponent } from '../components/tms-list/tms-list.component';
 import { TmsConnectComponent } from '../components/tms-connect/tms-connect.component';
 import { ErrorPageComponent } from '../components/error-page/error-page.component';
 import { TosppComponent } from '../components/tospp/tospp.component';
-
+import { ReportComponent } from '../components/report/report.component';
 
 
 const appRoutes: Routes = [
@@ -78,6 +78,11 @@ const appRoutes: Routes = [
       path: 'issue_collector',
       component: JiraIssueCollectorComponent
   },
+  {
+      path: 'report',
+      component: ReportComponent
+  },
+
   // {
   //   path: 'about',
   //   component: AboutViewComponent

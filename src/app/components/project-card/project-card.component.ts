@@ -5,6 +5,7 @@ import { ReportComponent } from '../report/report.component';
 import { EtabotApiService } from '../../services/etabot-api.service';
 import { Project } from '../../project';
 import { Job } from '../../job';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-project-card',
@@ -25,9 +26,12 @@ export class ProjectCardComponent implements OnInit {
   update_active_sprints: true;
   update_future_sprints: true;
   update_backlog: false;
+  push_updates_to_tms: true;
+  update_velocity: false;
 
   constructor(
     public dialog: MatDialog,
+    private router: Router,
     private etabotAPI: EtabotApiService
     ) {
       console.log('constructor update_backlog=' + this.update_backlog);
@@ -37,6 +41,8 @@ export class ProjectCardComponent implements OnInit {
     this.update_active_sprints = true;
     this.update_future_sprints = true;
     this.update_backlog = false;
+    this.push_updates_to_tms = true;
+    this.update_velocity = false;
 
 
     console.log('initing Project Card with project: ');
@@ -83,6 +89,8 @@ export class ProjectCardComponent implements OnInit {
       this.project.include_active_sprints = this.update_active_sprints;
       this.project.include_future_sprints = this.update_future_sprints;
       this.project.include_backlog = this.update_backlog;
+      this.project.push_updates_to_tms = this.push_updates_to_tms;
+      this.project.update_velocity = this.update_velocity;
       this.etabotAPI.estimate(project).subscribe(
                 jobs => {
                     console.log('estimate job submission successful');
@@ -130,16 +138,19 @@ export class ProjectCardComponent implements OnInit {
   }
 
   show_report(): void {
-    console.log('showing report in dialog window');
-    const dialogRef = this.dialog.open(
-        ReportComponent,
-            {
-              width: '800px',
-              height: '500px',
-              data: {
-                  'html_report': this.project_obj.get_html_report()
-              }
-            });
+     this.router.navigate(['./report']);
+     // todo: pass this.project_obj.get_html_report() to html_report
+
+    // console.log('showing report in dialog window');
+    // const dialogRef = this.dialog.open(
+    //     ReportComponent,
+    //         {
+    //           width: '800px',
+    //           height: '500px',
+    //           data: {
+    //               'html_report': this.project_obj.get_html_report()
+    //           }
+    //         });
   }
 
 }

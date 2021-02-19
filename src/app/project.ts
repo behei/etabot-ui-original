@@ -5,6 +5,7 @@ export class Project {
     sprint_field_name: String;
     scope_ui_message: String;
     name: String;
+    project_id: number;
     velocity: number;
     velocity_available = false;
 
@@ -21,6 +22,7 @@ export class Project {
         this.project_json = project_json;
         this.settings = project_json.project_settings;
         this.name = project_json.name;
+        this.project_id = project_json.id;
         if (project_json.velocities) {
             this.velocity = project_json.velocities.mean;
         }

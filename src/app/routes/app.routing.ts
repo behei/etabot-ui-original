@@ -79,7 +79,7 @@ const appRoutes: Routes = [
       component: JiraIssueCollectorComponent
   },
   {
-      path: 'report',
+      path: 'report/:project_id',
       component: ReportComponent
   },
 

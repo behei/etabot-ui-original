@@ -138,7 +138,8 @@ export class ProjectCardComponent implements OnInit {
   }
 
   show_report(): void {
-     this.router.navigate(['./report']);
+      console.log('navigating to report with project_id = ' + this.project.project_id);
+     this.router.navigate(['./report', this.project_obj.project_id]);
      // todo: pass this.project_obj.get_html_report() to html_report
 
     // console.log('showing report in dialog window');

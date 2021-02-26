@@ -15,6 +15,14 @@
   color: black;
 }
 
+.radio_text {
+    white-space: normal;
+}
+
+::ng-deep .tms-links-container mat-card-content mat-radio-group mat-radio-button label {
+    white-space: normal;
+}
+
 .action_button {
   font-size: 22px;
   height: 50px;

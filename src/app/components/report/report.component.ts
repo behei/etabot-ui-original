@@ -38,6 +38,7 @@ export class ReportComponent implements OnInit {
                       this.project = p;
                       console.log('found project with desired project_id');
                       this.report_html = p['project_settings']['report'].slice(624);
+                      console.log('this.report_html:',this.report_html);
                   } else {
                       console.log('not desired project_id = ' + pid_str2 + typeof(pid_str2));
                   }

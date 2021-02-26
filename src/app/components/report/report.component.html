@@ -1,3 +1,5 @@
 <br>
 <h1>Report</h1>
-<div innerHTML="{{ report_html }}"></div>
+
+<!-- <div innerHTML="{{ report_html | keepHtml }}"></div> -->
+<div [innerHTML]="report_html"></div>

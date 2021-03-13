@@ -4,6 +4,9 @@ import { AuthService } from '../../services/auth-service.service';
 import { JiraService } from '../../services/jira.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { sha512 } from 'js-sha512';
+
+declare let pendo: any;
 
 @Component({
   selector: 'app-users-view',
@@ -51,7 +54,18 @@ export class UsersViewComponent implements OnInit {
     this.authService.login(this.model.username, this.model.password)
       .subscribe(
         success => {
-          console.log('login success');
+            const username_hash = sha512(this.model.username);
+          console.log('login success', this.model.username, username_hash);
+          console.log(username_hash);
+
+        pendo.initialize({
+                visitor: {
+                    id: username_hash,
+                },
+                account: {
+                    id: 'ACCOUNT-UNIQUE-ID-test'
+                }
+            });
           this.jiraService.get_tms()
             .subscribe(
               (tms_count: number) => {

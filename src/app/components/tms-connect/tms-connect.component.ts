@@ -30,7 +30,8 @@ export class TmsConnectComponent implements OnInit {
   breakpoint: Number;
   tms_vote_value: string;
   voted = false;
-
+  no_choice_message = false;
+  on_premises_email_sent = false;
   connect_options: ConnectOption[] = [
    {
      value: 'in ETAbot only',
@@ -68,7 +69,7 @@ export class TmsConnectComponent implements OnInit {
   constructor(
       @Inject(DOCUMENT) private document: Document,
       private jiraService: JiraService,
-      private etabotApiService: EtabotApiService) { }
+      private etabot_api_service: EtabotApiService) { }
 
   ngOnInit() {
     this.breakpoint = (window.innerWidth <= 800) ? 1 : 4;
@@ -91,22 +92,31 @@ export class TmsConnectComponent implements OnInit {
 
 
   vote(choice: string) {
-    console.log('vote=');
-    console.log(choice);
+    // TODO: implement this.
+    console.log('vote=' + choice);
     if (choice) {
-
-        this.etabotApiService.vote(choice).subscribe(
+        this.etabot_api_service.vote(choice).subscribe(
             res => {
-                console.log('vote submitted. res: ');
-                console.log(res);
                 this.voted = true;
-
-            },
-            error => {
-                console.log('voting error: ');
-                console.log(error);
+                this.no_choice_message = false;
             });
+    } else {
+        console.log('null choice');
+        this.no_choice_message = true;
     }
+
+
+  }
+
+  on_premises() {
+      if (confirm('Interested in on-premises deployemnt of ETAbot?')) {
+        const message = 'JIRA on premises deployemnt';
+        this.etabot_api_service.vote(message).subscribe(
+            res => {
+                console.log('on premises request submitted.');
+                confirm('Your request has been submitted. Please wait for us to contact you by email.');
+            });
+      }
 
   }
 

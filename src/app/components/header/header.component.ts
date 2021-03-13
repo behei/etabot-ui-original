@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
       private router: Router,
     ) {
     logInService.getLoggedIn.subscribe(response => this.changeLogInStatus(response));
-    //signUpService.getRegisteredStatus.subscribe(response => this.changeLogInStatus());
+    // signUpService.getRegisteredStatus.subscribe(response => this.changeLogInStatus());
   }
 
   ngOnInit() {
@@ -41,21 +41,19 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['./']);
   }
   private changeLogInStatus(response) {
-    console.log("changing the login status...");
+    console.log('changing the login status...');
     this.isLoggedIn = response;
   }
 
 
 
   logout() {
-    console.log("logging out...");
+    console.log('logging out...');
     this.logInService.logout();
-    console.log("log out successful");
-    //window.location.href = "https://etabot.ai";
+    console.log('log out successful');
+    // window.location.href = "https://etabot.ai";
   }
 
-
- 
 
 
 }

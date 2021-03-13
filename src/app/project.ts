@@ -5,14 +5,24 @@ export class Project {
     sprint_field_name: String;
     scope_ui_message: String;
     name: String;
+    project_id: number;
     velocity: number;
     velocity_available = false;
 
 
     constructor(project_json: any) {
+        this.parse_json(project_json);
+        console.log('Project inited with settings: ' + this.settings +
+            'project_json.velocities: ' + project_json.velocities +
+            'velocity: ' +  this.velocity +
+            'velocity_available ' + this.velocity_available);
+    }
+
+    parse_json(project_json: any) {
         this.project_json = project_json;
         this.settings = project_json.project_settings;
         this.name = project_json.name;
+        this.project_id = project_json.id;
         if (project_json.velocities) {
             this.velocity = project_json.velocities.mean;
         }
@@ -23,7 +33,7 @@ export class Project {
 
         this.get_scope_field_name();
         this.get_sprint_field_name();
-        console.log('Project inited with settings: ' + this.settings + 'project_json.velocities: ' + project_json.velocities +  'velocity: ' +  this.velocity + 'velocity_available ' + this.velocity_available);
+
     }
 
   get_scope_field_name() {
@@ -51,4 +61,22 @@ export class Project {
       return this.sprint_field_name;
   }
 
+  get_deadlines_summary() {
+      if (!! this.settings &&
+          !! this.settings.deadlines &&
+          !! this.settings.deadlines.summary_table) {
+          return this.settings.deadlines.summary_table;
+      } else {
+          return '';
+      }
+  }
+
+  get_html_report() {
+       if (!! this.settings &&
+          !! this.settings.report) {
+          return this.settings.report.slice(605);
+      } else {
+          return 'No report available. Please click Update ETAs in the project card to generate report.';
+      }
+  }
 }

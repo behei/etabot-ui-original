@@ -7,13 +7,14 @@ export class AuthGuard implements CanActivate {
     constructor(private router: Router) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (localStorage.getItem('username')) {
+        if (localStorage.getItem('currentUser')) {
             // either signed up or logged in so return true
+            console.log('the auth guard is true');
             return true;
+        } else {
+            console.log('the auth guard is false');
+            this.router.navigate(['/']);
+            return false;
         }
-
-        // not logged in so redirect to login page with the return url
-        this.router.navigate(['/']);
-        return false;
     }
 }

@@ -1,0 +1,67 @@
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+
+.update_button_spinner_container{
+    vertical-align: middle;
+    align-items: center;
+}
+
+
+.card-update-button {
+    display:inline-block;
+    vertical-align: middle;
+    align-items: center;
+}
+
+.update_eta_button {
+    font-size: 22px;
+    height: 50px;
+    margin-left: 12px;
+}
+
+.spinner {
+  margin: 0 10px;
+  align-items: right;
+  display:inline-block;
+  align-items: center;
+}
+
+.spinner_div {
+    vertical-align: middle;
+    display:inline-block;
+    align-items: center;
+}
+
+.eta_update_status {
+    margin: 10px;
+}
+
+
+.eta_option_checkbox {
+    margin: 10px 10px;
+}
+
+.checkbox-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.metrics_table {
+  font-size: 18px;
+}
+
+/*.table.summary_table {
+  border-collapse: collapse;
+  border: 1px solid silver;
+}
+
+.tabke.summary_table td, th, tr {
+  padding: 5px;
+  border-collapse: collapse;
+  border: 1px solid silver;
+  text-align: center;
+}*/

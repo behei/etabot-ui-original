@@ -3,9 +3,11 @@ import { EtabotApiService } from '../../services/etabot-api.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NgForm } from '@angular/forms';
 import { SignUpService } from '../../services/sign-up.service';
-import 'rxjs/add/observable/throw';
-import { Router } from '@angular/router';
+import { JiraService } from '../../services/jira.service';
+import { throwError } from 'rxjs';
+import { Router, ActivatedRoute} from '@angular/router';
 import { TermsConditionsFullComponent } from './terms-conditions-full/terms-conditions-full.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register-page',
@@ -13,59 +15,73 @@ import { TermsConditionsFullComponent } from './terms-conditions-full/terms-cond
   styleUrls: ['./register-page.component.css']
 })
 export class RegisterPageComponent implements OnInit {
-	newUser: any;
-  isAcceptedTerms: boolean;
-  passwordMatched: boolean;
-  userFailure: boolean;
-  model: any = {};
-  returnUrl = '';
-  constructor(
-    private etabotAPI: EtabotApiService, 
-    private router: Router, 
-    private signUpService: SignUpService,  
-    public dialog: MatDialog) 
-  {
-    this.isAcceptedTerms = false;
-    this.passwordMatched = false;
-    this.userFailure = false;
-  }
-
+    newUser: any;
+    isAcceptedTerms: boolean;
+    passwordMatched: boolean;
+    isNotGDRPCountry: boolean;
+    userFailure: boolean;
+    model: any = {};
+    returnUrl = '';
+    error_message = '';
+    token = 137;
+    constructor(
+        private etabotAPI: EtabotApiService,
+        private router: Router,
+        private signUpService: SignUpService,
+        private jiraService: JiraService,
+        private dialog: MatDialog,
+        private route: ActivatedRoute,
+        private titleService: Title) {
+        this.isAcceptedTerms = true;
+        this.passwordMatched = false;
+        this.userFailure = false;
+        this.isNotGDRPCountry = true;
+    }
 
 
   ngOnInit() {
-    this.returnUrl = '/jira';
-    if (localStorage.getItem('currentUser')) {
-      this.router.navigate([this.returnUrl]);
-    }
+    this.route.params.subscribe(params => {
+        this.token = params['token'];
+        console.log('params[token]: ' + params['token']);
+        // try {
+        //     const int_token = Number(this.token);
+        //     if (int_token % 188748146801 !== 0) {
+        //         this.router.navigate(['/need_sign_up_token']);
+        //     }
+        // } catch (e) {
+        //     this.router.navigate(['/need_sign_up_token']);
+        // }
+    });
+
+    this.returnUrl = '/verification/pending';
+    // if (localStorage.getItem('username')) {
+    //   this.router.navigate([this.returnUrl]);
+    // }
+    this.titleService.setTitle('ETAbot Sign Up');
   }
 
   openDialog(): void {
-    let dialogRef = this.dialog.open(TermsConditionsFullComponent, {
-      width: '800px',
-      height: '500px',
-      //data: { isAcceptedTerms: this.isAcceptedTerms}
-    });
-
-    //dialogRef.updatePosition({ top: '50px', left: '50px'});
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      //this.isAcceptevdTerms = result;
-    });
+    const dialogRef = this.dialog.open(
+        TermsConditionsFullComponent,
+            {
+              width: '800px',
+              height: '500px',
+            });
   }
 
   signup() {
-    this.signUpService.signup(this.model.username, this.model.email, this.model.password)
+    this.signUpService.signup(this.model.email, this.model.email, this.model.password)
     .subscribe(
       success => {
-        console.log("user successfully created");
+        console.log('signup success! redirecting...');
         this.router.navigate([this.returnUrl]);
       },
       error => {
-        console.log("error");
+        console.log('signup error');
+        this.error_message = error + '; \n' + error._body;
         this.userFailure = true;
       }
     );
   }
-
 }
 

@@ -1,0 +1,37 @@
+  ::ng-deep .summary_table {
+      border-collapse: collapse;
+      border: 1px solid silver;
+      width: 20%;
+  }
+
+  ::ng-deep .summary_table td, th, tr {
+      padding: 5px;
+      border-collapse: collapse;
+      border: 1px solid silver;
+      text-align: center;
+  }
+
+  ::ng-deep .df_table {
+      font-size: 11pt;
+      font-family: Arial;
+      border-collapse: collapse;
+      border: 1px solid silver;
+
+  }
+
+  ::ng-deep .df_table td, th {
+      padding: 5px;
+  }
+
+  ::ng-deep .df_table tr:nth-child(even) {
+      background: #E0E0E0;
+  }
+
+  ::ng-deep .df_table tr:hover {
+      background: silver;
+      cursor: pointer;
+  }
+
+  ::ng-deep ul li {
+    list-style-type: disc;
+  }

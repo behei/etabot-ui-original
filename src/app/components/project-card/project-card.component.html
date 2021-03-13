@@ -1,0 +1,73 @@
+
+  <mat-card class="project-card" >
+    <!-- <mat-card-header > -->
+      <mat-card-title-group style="margin-bottom: 28px; margin-top: 8px; font-size: 24px;" class="julius-font">
+            <span>{{ project.name }}</span>
+            <span class="fill-remaining-space"></span>
+            <span  style="display: flex; align-items: center;">
+                <div style="display:inline-block;">
+                    <app-attention-icon [tms]="tms" (click)="openSettings(tms, project_obj)"></app-attention-icon></div>
+                <div style="display:inline-block;">
+                    <app-attention-icon [project]="project_obj" (click)="openSettings(tms, project_obj)"></app-attention-icon></div>
+
+                <div style="display:inline-block;" (click)="openSettings(tms, project_obj)" class="gear-image" matTooltip="settings"></div>
+            </span> 
+    </mat-card-title-group>
+        
+    <!-- </mat-card-header> -->
+      <mat-card-content>
+        <div fxLayout="row wrap" class="update_button_spinner_container">
+          <div fxFlex class="card-update-button new-font" matTooltip="{{update_eta_tooltip}}">
+              <button [disabled]="update_button_disabled" (click)="estimate(project)" mat-raised-button color="primary" class="update_eta_button new-font julius-font">Update ETAs</button>
+              <button [disabled]="update_button_disabled" (click)="show_report()" mat-raised-button color="primary" class="update_eta_button new-font julius-font">Report</button>
+          </div>
+          <div>
+            <section class="checkbox-section">
+                <mat-checkbox class="eta_option_checkbox" [(ngModel)]="update_active_sprints" (change)="try_enable_update_button()">Active sprints</mat-checkbox>
+                <mat-checkbox class="eta_option_checkbox" [(ngModel)]="update_future_sprints" (change)="try_enable_update_button()">Future sprints</mat-checkbox>
+                <mat-checkbox class="eta_option_checkbox" [(ngModel)]="update_backlog" (change)="try_enable_update_button()">Backlog</mat-checkbox>
+            </section>
+            <br>                
+            <section class="checkbox-section">                
+                <!-- <mat-checkbox class="eta_option_checkbox" [(ngModel)]="update_velocity" (change)="try_enable_update_button()">Update velocity</mat-checkbox> -->
+
+                <mat-checkbox class="eta_option_checkbox" [(ngModel)]="push_updates_to_tms" (change)="try_enable_update_button()">Push updates to JIRA</mat-checkbox>
+            </section>
+          </div>
+          <div fxFlex class="spinner_div">
+             <mat-progress-bar *ngIf="project.eta_in_progress" mode="indeterminate" >
+             </mat-progress-bar>
+          </div>
+
+        </div>
+        <div class="eta_update_status">
+           <div *ngIf="project.eta_in_progress">ETAs will be updated soon. This could take a few minutes (and will continue even if the browser is closed).</div>
+           <div *ngIf="project.error_message" class="alert-danger">Error: {{ project.error_message }}.</div>
+           <!-- <div *ngIf="project.result_message" class="alert-success">{{ project.result_message }}</div> -->
+        </div>
+        <div>
+          <table class="metrics_table">
+            <tr>
+              <td>Velocity</td>
+              <td>
+                <div style="display: flex; align-items: center;">
+                    {{ (project_obj.velocity_available) ? (project.velocities.mean | number:'1.0-2') : "TBD" }}  
+                    <div *ngIf="project_obj.velocity_available" matTooltip="points per hour of work">&nbsp;pph</div>
+                </div>
+              </td>
+            </tr>
+<!--             <tr>
+              <td>Issues on track</td>
+              <td>Coming soon</td>
+            </tr>        
+ -->
+          </table>
+        </div>
+<!--         <div [innerHTML]="project_obj.get_deadlines_summary()" class="summary_table">
+            
+        </div> -->
+
+        <div *ngIf="project.last_updated">ETAs last triggered {{ project.last_updated | date:'short' }}.</div>
+    </mat-card-content>
+
+  </mat-card>

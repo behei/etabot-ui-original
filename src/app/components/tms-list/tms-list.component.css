@@ -1,0 +1,25 @@
+.add_tms_link{
+    text-align: center;
+    font-size: 32px;
+}
+
+.add_button {
+    font-size: 100px;
+    text-align: center;
+    vertical-align: center;
+    display: inline-block;
+}
+
+.add_button_container {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+}
+
+.tms-links-container-wrapper {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    align-items: middle;
+}

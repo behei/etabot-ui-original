@@ -1,13 +1,19 @@
-import { Component, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
+import { environment } from '../environments/environment';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-	@HostListener('window:onunload', [ '$event' ])
-  onunloadHandler(event) {
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('username');
+  title = 'app';
+
+  ngOnInit() {
+  	if (environment.production) {
+          console.log('prod env');
+  		// localStorage.removeItem('username');
+  		// localStorage.removeItem('currentUser');
+  	}
   }
 }

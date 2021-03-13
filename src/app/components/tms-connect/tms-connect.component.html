@@ -1,0 +1,78 @@
+<div style="display: flex; justify-content: center;" class="connect-text">
+    <h1>
+      Connect Your Account
+    </h1>
+</div>
+<div class="alert alert-info new-font" style="text-align: center; font-size: 20px;  ">
+  <p style="color: #1a237e;">For ETABot to work, we need to connect to your Task Management System account. Please choose your type (you can connect to any number of them).</p>
+</div> 
+
+<div class="tms-links-container" fxLayout="row wrap" fxLayoutAlign="space-evenly start">
+  <mat-card class="etabot-connect-card">
+    <mat-card-header>
+      <mat-card-title class="jira-image"><div class="jira-logo-image"></div></mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="paragraph">
+        We use secure consent-based authentication (OAuth2) without knowing your credentials (no need for user name and password). 
+      </div>
+      <div>
+        <form class="etabot-connect-form">
+          <div style="display: flex; justify-content: center;">
+            <mat-radio-group
+              aria-labelledby="radio-group-connect_options"
+              class="connect-option-radio-group"
+              [(ngModel)]="connect_option_selected"
+              name="connect_option_radio_group">
+                <mat-radio-button class="connect-option-radio-button" *ngFor="let connect_option of connect_options" [value]="connect_option.value" >
+                  <span class="radio_text">{{ connect_option.text }}</span> <span class="material-icons info_icon" matTooltip="{{connect_option.info_text}}"></span>
+                </mat-radio-button>
+            </mat-radio-group>
+            </div>
+          <div style="display: flex; justify-content: center;">
+            <button mat-raised-button (click)="link_tms('atlassian_oauth', connect_option_selected)" class="action-button" color="primary">Connect</button>
+          </div>
+        </form>
+      </div>
+
+      <div style="display: flex; justify-content: center; padding-top: 20px">
+        <span (click)="on_premises()" style="text-align: center; font-size: 14px;" color="secondary">Need on premises deployment?</span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="etabot-connect-card">
+    <mat-card-header>
+      <mat-card-title ><h1>Use a different service?</h1> </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="paragraph">
+        Let us know about other services you would like us to support. 
+      </div>
+      <div >
+          <mat-label>Your project/task management tool</mat-label>
+            <mat-select class="vote_options" [(ngModel)]="tms_vote_value">
+              <mat-option *ngFor="let tms_option of tms_options" [value]="tms_option.value">
+                {{tms_option.viewValue}}
+              </mat-option>
+            </mat-select>
+
+      </div>
+      <div>
+        <span *ngIf="no_choice_message">Please select an option to vote ^ </span>            
+      </div>
+      <div>
+        <form class="etabot-connect-form">
+          <div style="display: flex; justify-content: center;">
+            <button mat-raised-button class="action-button" color="primary" (click)="vote(tms_vote_value)" [disabled]="voted">Vote</button>
+          </div>
+        </form>
+        <div>
+            <span *ngIf="voted">Thank you for voting!</span>
+
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div style="text-align: center; font-size: 24px; padding-top: 20px;">Problems with connecting to your account? <a href="/jira">Try another way</a></div>

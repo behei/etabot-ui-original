@@ -1,20 +1,34 @@
-<mat-card style="margin-left:500px; margin-top: 82px; margin-right: 500px;">
-  <mat-card-title style="text-align: center; margin-bottom: 70px; ">
-    <h1>Log in</h1></mat-card-title>
-  <div *ngIf="loading == false" class="alert alert-danger">Username and password do not match</div>
+<!-- <mat-card style="margin-left:500px; margin-top: 82px; margin-right: 500px;"> -->
+<mat-card class="sign-login-card">
+  <mat-card-title style="text-align: left; margin-bottom: 70px; ">
+    <h1>Log in</h1>
+  </mat-card-title>
+  <mat-card-content>
+  <div *ngIf="newUser == true" class="alert alert-success">Your account has been confirmed.</div>
+  <div *ngIf="loading == false" class="alert alert-danger">{{ error_message }}</div>
   <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-      <label for="username" class="new-font" style="font-size: 20px;">Username</label>
+      <label for="username" class="new-font" style="font-size: 20px;">Email</label>
       <input type="text" name="username" [(ngModel)]="model.username" #username="ngModel" required style="font-size: 18px;" class="new-font" />
-      <div *ngIf="f.submitted && !username.valid" class="help-block new-font">Username is required</div>
+      <div *ngIf="f.submitted && !username.valid" class="help-block new-font" style="color: #ff5252;">Email is required</div>
     </div>
     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
       <label for="password" class="new-font" style="font-size: 20px;">Password</label>
       <input type="password" class="form-control new-font" name="password" [(ngModel)]="model.password" #password="ngModel" required style="font-size: 18px;" />
-      <div *ngIf="f.submitted && !password.valid" class="help-block new-font">Password is required</div>
+      <div *ngIf="f.submitted && !password.valid" class="help-block new-font" style="color: #ff5252">Password is required</div>
     </div>
     <div class="form-group" style="margin-bottom: 56px;">
       <button [disabled]="loading" mat-raised-button color="accent" class="new-font" style="font-size: 20px; width: 100px; height: 44px;">Log in</button>
     </div>
   </form>
+  </mat-card-content>
+  <mat-card-content>
+    <div>
+        <div fxFlex>
+            <a [routerLink]="['/signup']" style="font-size: 16px; padding-right: 20px;">Don't have an account? </a>
+            <a href = '/account/password_reset/' style="font-size: 16px;">Forgot password?</a>
+        </div>
+      </div>
+
+    </mat-card-content>
 </mat-card>

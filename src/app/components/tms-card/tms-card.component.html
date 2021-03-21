@@ -10,7 +10,7 @@
         <mat-expansion-panel >
           <mat-expansion-panel-header>
             <mat-panel-title>
-              TMS Connectivity
+              Status
             </mat-panel-title>
             <mat-panel-description>
                 {{ tms_status.status }}
@@ -23,11 +23,11 @@
         <div>
           <app-error-box *ngIf="error == true" [error_message]="error_message"></app-error-box>
           <div *ngIf="updating_tms == true" class="alert alert-info">Hold tight! We are verifying your info with Atlassian...</div>
-      <mat-accordion>
+      <mat-accordion *ngIf="username_not_null()">
         <mat-expansion-panel >
           <mat-expansion-panel-header>
             <mat-panel-title>
-              Update credentials for this JIRA account
+              Update credentials
             </mat-panel-title>
             <mat-panel-description></mat-panel-description>
           </mat-expansion-panel-header>
@@ -50,15 +50,19 @@
         </mat-expansion-panel>
       </mat-accordion>      
         <br>
+         <div align="center" *ngIf="!username_not_null()">
+            <button mat-raised-button [routerLink]="['/tms_connect']"  color="accent" style="margin-right: 10px; margin-bottom: 5px; font-size: 20px; height: 44px;" class="new-font">Reconnect</button>        
+        </div>
+        <br>
       <div align="center">
-        <button mat-raised-button (click)="parse_projects(tms.id)" color="accent" style="margin-right: 10px; margin-bottom: 5px; font-size: 20px; width: 340px; height: 44px;" class="new-font">Parse projects</button>        
+        <button mat-raised-button (click)="parse_projects(tms.id)" color="accent" style="margin-right: 10px; margin-bottom: 5px; font-size: 20px; height: 44px;" class="new-font">Import projects</button>        
       </div>
       <div align="center">
-          <button mat-raised-button (click)="delete_tms(tms.id)" matTooltip="This will also remove all projects associated with this JIRA account" color="accent" style="margin-right: 10px; margin-bottom: 5px; font-size: 20px; width: 340px; height: 44px;" class="new-font">Remove this JIRA account</button>
+          <span mat-raised-button (click)="delete_tms(tms.id)" matTooltip="This will also remove all projects associated with this JIRA account" color="accent" style="margin-right: 10px; margin-bottom: 5px; font-size: 12px; width: 340px; height: 44px;" class="new-font">Remove this JIRA account</span>
           </div>
 
       </div>
-      <div align="right">TMS ETAbot ID {{ tms.id }}</div>
+      <!-- <div align="right">TMS ETAbot ID {{ tms.id }}</div> -->
     </mat-card-content>
 
 

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { EscapeHtmlPipe } from './components/pipe_html';
 import { HttpModule, XSRFStrategy, CookieXSRFStrategy} from '@angular/http';
 
 import { AppComponent } from './app.component';
@@ -37,9 +37,14 @@ import {
     MatCardModule,
     MatExpansionModule,
     MatTabsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatMenuModule,
+    MatRadioModule,
+    MatProgressBarModule
 } from '@angular/material';
 
+    // MatProgressBarModule,
+    // MatProgressBar
 import {
   FormsModule,
   ReactiveFormsModule
@@ -60,7 +65,13 @@ import { ProjectCardComponent } from './components/project-card/project-card.com
 import { AttentionIconComponent } from './components/attention-icon/attention-icon.component';
 import { ProjectComponent } from './components/project/project.component';
 import { ErrorBoxComponent } from './components/error-box/error-box.component';
-
+import { TmsConnectComponent } from './components/tms-connect/tms-connect.component';
+import { ErrorPageComponent } from './components/error-page/error-page.component';
+import { TosppComponent } from './components/tospp/tospp.component';
+import { JobsMonitorComponent } from './components/jobs-monitor/jobs-monitor.component';
+import { JobCardComponent } from './components/jobs-monitor/job-card/job-card.component';
+import { ReportComponent } from './components/report/report.component';
+    // MatProgressBarModule,
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,11 +93,19 @@ import { ErrorBoxComponent } from './components/error-box/error-box.component';
     ProjectCardComponent,
     AttentionIconComponent,
     ProjectComponent,
-    ErrorBoxComponent
+    ErrorBoxComponent,
+    TmsConnectComponent,
+    ErrorPageComponent,
+    TosppComponent,
+    JobsMonitorComponent,
+    JobCardComponent,
+    ReportComponent,
+    EscapeHtmlPipe
   ],
   entryComponents: [
     TermsConditionsFullComponent,
-    SettingsWindowComponent
+    SettingsWindowComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,
@@ -110,7 +129,9 @@ import { ErrorBoxComponent } from './components/error-box/error-box.component';
     MatTabsModule,
     MatTooltipModule,
     MatIconModule,
-
+    MatProgressBarModule,
+    MatMenuModule,
+    MatRadioModule,
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule
@@ -130,6 +151,7 @@ import { ErrorBoxComponent } from './components/error-box/error-box.component';
     MatGridListModule,
     MatCardModule,
     MatIconModule,
+    MatRadioModule,
     MatProgressSpinnerModule
 
     ],
@@ -146,3 +168,4 @@ export class AppModule {
     //     matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('/assets/baseline-error_outline-24px.svg'));
     // }
 }
+

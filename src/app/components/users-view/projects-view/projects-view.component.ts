@@ -21,7 +21,7 @@ export class ProjectsViewComponent implements OnInit {
   isSession: any;
   gotProjects = false;
   keys: any;
-  projectsReceived: boolean;
+  projectsReceived = false;
   timeZone: string;
   tmss_by_id: any;
   loading: boolean;
@@ -29,6 +29,9 @@ export class ProjectsViewComponent implements OnInit {
   username: string;
   c_isEmpty = isEmpty;
   local_etabotAPI: EtabotApiService;
+  error_message: string;
+  error_occurred: boolean;
+  projects_to_show_report = new Set();
 
   // isLoggedInStatus = false;
   // panelOpenState = false;
@@ -42,34 +45,69 @@ export class ProjectsViewComponent implements OnInit {
     this.showAdvancedSetting = false;
     this.tmss_by_id = {};
     this.local_etabotAPI = etabotAPI;
-    tms_service.get_tms().subscribe();
-    tms_service.tmss.subscribe(data => this.setTmss(data));
+    this.error_occurred = false;
 
+    tms_service.get_tms().subscribe(
+        tms_count => console.log(tms_count),
+        error => this.projectsError(error));
+    tms_service.tmss.subscribe(
+        data => this.setTmss(data),
+        error => this.projectsError(error));
   }
 
-  setTmss(data) {
+  setTmss(tms_data) {
       console.log('saving TMS data');
 
-      Object.entries(data).forEach(
+      Object.entries(tms_data).forEach(
           ([key, tms]) => {
               console.log(tms);
               this.tmss_by_id[tms['id']] = tms;
           });
-      console.log('getting projects data');
 
+      this.getProjects();
+
+  }
+
+
+  getProjects(callback?) {
+    console.log('getting projects data');
     this.local_etabotAPI.get_real_projects();
-    this.local_etabotAPI.projects.subscribe(data => this.setProjects(data));
-    this.local_etabotAPI.projects.subscribe(change => this.setGotProjects());
+    this.local_etabotAPI.projects.subscribe(
+        data => {
+            this.setProjects(data);
+            if (callback) {
+                console.log('getProjects callback starting');
+                console.log(callback);
+                callback();
+                console.log('getProjects callback finished');
+            }
+        },
+        error => this.projectsError(error));
+  }
+
+  update_project(project_name) {
+      console.log('update_project called with: ' + project_name);
+      this.projects_to_show_report.add(project_name);
+      this.getProjects();
+      console.log('this.projects_to_show_report:');
+      console.log(this.projects_to_show_report);
+  }
+
+  projectsError(error) {
+      console.log('error in getting projects: ' + error);
+      this.error_message = 'Something went wrong while getting your projects. Please try again later.';
+      this.projectsReceived = true;
+      this.error_occurred = true;
 
   }
 
   setProjects(data) {
+    console.log('setProjects started.');
     this.realProjects = data;
+    this.projectsReceived = true;
+    console.log('setProjects finished.');
   }
 
-  setGotProjects() {
-    this.projectsReceived = true;
-  }
 
   ngOnInit() {
     this.titleService.setTitle('Your projects');
@@ -84,9 +122,16 @@ export class ProjectsViewComponent implements OnInit {
   estimate_all_projects() {
     console.log('updating all projects: ' + typeof(this.realProjects) + this.realProjects);
     Object.entries(this.realProjects).forEach(
-        ([key, value]) => {
-            value['eta_in_progress'] = true;
-            this.etabotAPI.estimate(value);
+        ([key, project]) => {
+            project['eta_in_progress'] = true;
+            this.etabotAPI.estimate(project).subscribe(
+                jobs => {
+                    for (const job of jobs) {
+                        job.callback = () => {
+                            project['eta_in_progress'] = false;
+                        };
+                    }
+                });
         });
   }
 

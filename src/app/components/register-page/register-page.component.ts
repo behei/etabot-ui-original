@@ -18,6 +18,7 @@ export class RegisterPageComponent implements OnInit {
     newUser: any;
     isAcceptedTerms: boolean;
     passwordMatched: boolean;
+    isNotGDRPCountry: boolean;
     userFailure: boolean;
     model: any = {};
     returnUrl = '';
@@ -31,9 +32,10 @@ export class RegisterPageComponent implements OnInit {
         private dialog: MatDialog,
         private route: ActivatedRoute,
         private titleService: Title) {
-        this.isAcceptedTerms = false;
+        this.isAcceptedTerms = true;
         this.passwordMatched = false;
         this.userFailure = false;
+        this.isNotGDRPCountry = true;
     }
 
 
@@ -41,14 +43,14 @@ export class RegisterPageComponent implements OnInit {
     this.route.params.subscribe(params => {
         this.token = params['token'];
         console.log('params[token]: ' + params['token']);
-        try {
-            const int_token = Number(this.token);
-            if (int_token % 188748146801 !== 0) {
-                this.router.navigate(['/need_sign_up_token']);
-            }
-        } catch (e) {
-            this.router.navigate(['/need_sign_up_token']);
-        }
+        // try {
+        //     const int_token = Number(this.token);
+        //     if (int_token % 188748146801 !== 0) {
+        //         this.router.navigate(['/need_sign_up_token']);
+        //     }
+        // } catch (e) {
+        //     this.router.navigate(['/need_sign_up_token']);
+        // }
     });
 
     this.returnUrl = '/verification/pending';
@@ -81,7 +83,5 @@ export class RegisterPageComponent implements OnInit {
       }
     );
   }
-
-
 }
 

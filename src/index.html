@@ -17,6 +17,7 @@
   <link type="text/css" rel="stylesheet prefetch" href="assets/materialize.css"> 
   <!-- <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.css'>   -->
 <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script>
 window['_fs_debug'] = false;
 window['_fs_host'] = 'fullstory.com';
@@ -44,7 +45,26 @@ window['_fs_namespace'] = 'FS';
 
   gtag('config', 'UA-130006699-1');
 </script>
-
+    <script>
+        (function(apiKey) {
+            (function(p, e, n, d, o) {
+                var v, w, x, y, z;
+                o = p[d] = p[d] || {};
+                o._q = [];
+                v = ['initialize', 'identify', 'updateOptions', 'pageLoad'];
+                for (w = 0, x = v.length; w < x; ++w)(function(m) {
+                    o[m] = o[m] || function() {
+                        o._q[m === v[0] ? 'unshift' : 'push']([m].concat([].slice.call(arguments, 0)));
+                    };
+                })(v[w]);
+                y = e.createElement(n);
+                y.async = !0;
+                y.src = 'https://cdn.pendo.io/agent/static/' + apiKey + '/pendo.js';
+                z = e.getElementsByTagName(n)[0];
+                z.parentNode.insertBefore(y, z);
+            })(window, document, 'script', 'pendo');
+        })('6be035c3-17cc-4a3e-58ba-ba89a7775b31'); // The Pendo API must stay here with the rest of the Pendo snippet
+    </script>
 </head>
 <body>
   <app-root></app-root>

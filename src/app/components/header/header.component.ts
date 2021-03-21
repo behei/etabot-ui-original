@@ -15,7 +15,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 
 export class HeaderComponent implements OnInit {
-  isLoggedIn = false;
+  isLoggedIn: Boolean;
   loggedOut = false;
   username = '';
   constructor(
@@ -24,35 +24,36 @@ export class HeaderComponent implements OnInit {
       private logInService: AuthService,
       private router: Router,
     ) {
-    logInService.getLoggedIn.subscribe(response => this.changeLogInStatus());
-    //signUpService.getRegisteredStatus.subscribe(response => this.changeLogInStatus());
+    logInService.getLoggedIn.subscribe(response => this.changeLogInStatus(response));
+    // signUpService.getRegisteredStatus.subscribe(response => this.changeLogInStatus());
   }
 
   ngOnInit() {
-    if (localStorage.getItem('username'))
+    if (localStorage.getItem('username')) {
       this.isLoggedIn = true;
       this.username = localStorage.getItem('username');
+   } else {
+       this.isLoggedIn = false;
+   }
   }
 
   redirectHomePage() {
     this.router.navigate(['./']);
   }
-  private changeLogInStatus() {
-    console.log("changing the login status...");
-    this.isLoggedIn = !this.isLoggedIn;
+  private changeLogInStatus(response) {
+    console.log('changing the login status...');
+    this.isLoggedIn = response;
   }
 
 
 
   logout() {
-    console.log("logging out...");
+    console.log('logging out...');
     this.logInService.logout();
-    console.log("log out successful");
-    //window.location.href = "https://etabot.ai";
+    console.log('log out successful');
+    // window.location.href = "https://etabot.ai";
   }
 
-
- 
 
 
 }

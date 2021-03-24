@@ -75,13 +75,14 @@ export class ProjectCardComponent implements OnInit {
 
   try_enable_update_button() {
     console.log('try_enable_update_button');
-    if (this.project_obj.velocity_available) {
-        this.update_eta_tooltip = 'Submit job to update ETAs';
-        this.update_button_disabled = false;
-    } else {
-        this.update_eta_tooltip = 'Need to accumulate velocity data before making ETA predictions.';
-        this.update_button_disabled = true;
-    }
+    this.update_button_disabled = true; // enable button regardless of individual velocity availability.
+    // if (this.project_obj.velocity_available) {
+    //     this.update_eta_tooltip = 'Submit job to update ETAs';
+    //     this.update_button_disabled = false;
+    // } else {
+    //     this.update_eta_tooltip = 'Need to accumulate velocity data before making ETA predictions.';
+    //     this.update_button_disabled = true;
+    // }
   }
 
   estimate(project) {

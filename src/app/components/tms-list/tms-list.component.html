@@ -1,7 +1,7 @@
 <h1 style="text-align: center; font-size: 32px;" class="julius-font">Task Management Systems accounts</h1>
 
 <div class="tms-links-container-wrapper">
-    <div class="tms-links-container" fxLayout="row wrap"  fxLayoutAlign="space-evenly start">
+    <div class="tms-links-container" fxLayout="row wrap"  fxLayoutAlign="space-evenly center">
     <!-- fxLayoutGap="0.5%" -->
         <div class="alert alert-info new-font" style="text-align: center; font-size: 32px;" *ngIf="parsing_projects.size > 0">Great success! New account(s) (id <span *ngFor="let project_tms of parsing_projects">{{project_tms}}</span>) are linked. Discovering projects... This may take a few minutes. Will redirect to projects when done. {{ parsing_logs }}</div>
 
@@ -10,7 +10,10 @@
 
         <div style="text-align: center; font-size: 32px;" *ngIf="loaded_data && c_isEmpty(tmss)">No accounts added yet.</div>
         <div class="add_button_container">
+          <div>
+
             <mat-icon color="primary" [routerLink]="['/tms_connect']" class="add_button"  matTooltip="Connect another account">add_circle</mat-icon>
+          </div>
         </div>
     </div>
 </div>

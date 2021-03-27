@@ -75,13 +75,14 @@ export class ProjectCardComponent implements OnInit {
 
   try_enable_update_button() {
     console.log('try_enable_update_button');
-    if (this.project_obj.velocity_available) {
-        this.update_eta_tooltip = 'Submit job to update ETAs';
-        this.update_button_disabled = false;
-    } else {
-        this.update_eta_tooltip = 'Need to accumulate velocity data before making ETA predictions.';
-        this.update_button_disabled = true;
-    }
+    this.update_button_disabled = true; // enable button regardless of individual velocity availability.
+    // if (this.project_obj.velocity_available) {
+    //     this.update_eta_tooltip = 'Submit job to update ETAs';
+    //     this.update_button_disabled = false;
+    // } else {
+    //     this.update_eta_tooltip = 'Need to accumulate velocity data before making ETA predictions.';
+    //     this.update_button_disabled = true;
+    // }
   }
 
   estimate(project) {
@@ -138,8 +139,9 @@ export class ProjectCardComponent implements OnInit {
   }
 
   show_report(): void {
-      console.log('navigating to report with project_id = ' + this.project.project_id);
-     this.router.navigate(['./report', this.project_obj.project_id]);
+    this.download_report();
+      // console.log('navigating to report with project_id = ' + this.project.project_id);
+     // this.router.navigate(['./report', this.project_obj.project_id]);
      // todo: pass this.project_obj.get_html_report() to html_report
 
     // console.log('showing report in dialog window');
@@ -153,5 +155,17 @@ export class ProjectCardComponent implements OnInit {
     //           }
     //         });
   }
-
+  download_report() {
+    const file = new Blob([this.project_obj.get_html_report()], {type: '.html'});
+    const a = document.createElement('a'),
+      url = URL.createObjectURL(file);
+    a.href = url;
+    a.download = 'report.html';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function() {
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }, 0);
+  }
 }

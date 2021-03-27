@@ -18,6 +18,10 @@ export class TmsListComponent implements OnInit {
     new_tms_ids = [];
     parsing_projects = new Set();
     parsing_logs = '';
+    
+    tutorial_display = 'none';
+    redirect_button_disabled = 'true';
+
 
   constructor(
         private tms_service: JiraService,
@@ -42,22 +46,24 @@ export class TmsListComponent implements OnInit {
                 }
                 console.log('this.new_tms_ids: ');
                 console.log(this.new_tms_ids);
-                if (this.new_tms_ids) {
-                      const remaining_new_tms_celery_jobs = [];
-                      const job_done_callback = (job: Job) => {
-                          const done_job_id = job.get_id();
-                          console.log('deleting ' + done_job_id + 'from: ' + remaining_new_tms_celery_jobs);
-                          delete remaining_new_tms_celery_jobs[done_job_id];
 
-                        const index: number = remaining_new_tms_celery_jobs.indexOf(done_job_id);
-                        if (index !== -1) {
-                            remaining_new_tms_celery_jobs.splice(index, 1);
+                if (this.new_tms_ids) {
+                        const remaining_new_tms_celery_jobs = [];
+                        const job_done_callback = (job: Job) => {
+                            const done_job_id = job.get_id();
+                            console.log('deleting ' + done_job_id + 'from: ' + remaining_new_tms_celery_jobs);
+                            delete remaining_new_tms_celery_jobs[done_job_id];
+
+                            const index: number = remaining_new_tms_celery_jobs.indexOf(done_job_id);
+                            if (index !== -1) {
+                                remaining_new_tms_celery_jobs.splice(index, 1);
+                            }
+                            console.log('updated remaining_new_tms_celery_jobs ' + remaining_new_tms_celery_jobs);
+                            if (remaining_new_tms_celery_jobs.length === 0) {
+                                // Enable button to redirect ./projects
+                                this.redirect_button_disabled = 'false';
+                            }
                         }
-                          console.log('updated remaining_new_tms_celery_jobs ' + remaining_new_tms_celery_jobs);
-                          if (remaining_new_tms_celery_jobs.length === 0) {
-                              this.router.navigate(['/projects']);
-                          }
-                      }
                     for (const new_tms_id of this.new_tms_ids) {
                         console.log('parsing new TMS id ' + new_tms_id);
                         // this.parsing_projects.add(new_tms_id);
@@ -66,7 +72,6 @@ export class TmsListComponent implements OnInit {
 
                                 console.log('started job correctly tms id ' + new_tms_id);
                                 console.log(parse_result);
-
 
                                 console.log(typeof(parse_result));
                                 for (const job of parse_result) {
@@ -99,7 +104,10 @@ export class TmsListComponent implements OnInit {
                               }
                             );
                     }
+                    // Display the tutorial image and disabled redirect button.
+                    this.tutorial_display = 'block';
                 }
+                
                 // TODO: this kicks in prematurely
               this.jobs_service.local_jobs_done_dict.subscribe(
 
@@ -110,17 +118,19 @@ export class TmsListComponent implements OnInit {
 
         });
 
-
     }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  setTmss(data) {
-    console.log('saving TMS data');
-    this.tmss = data;
-    this.loaded_data = true;
-    console.log('is Empty: ' + isEmpty(this.tmss));
+    setTmss(data) {
+        console.log('saving TMS data');
+        this.tmss = data;
+        this.loaded_data = true;
+        console.log('is Empty: ' + isEmpty(this.tmss));
+    }
 
+    hideTutorial() {
+        this.tutorial_display = 'none';
     }
 }

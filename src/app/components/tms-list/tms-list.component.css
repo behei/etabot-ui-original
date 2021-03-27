@@ -23,3 +23,73 @@
     display: flex;
     align-items: middle;
 }
+
+#tutorial-overlay {
+    /* Positioning */
+    display: inline-block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    /* Sizing */
+    width: 100vw;
+    height: 100vh;
+    /* Style */
+    background-color: rgba(200,200,200,0.5);
+    text-align: center;
+}
+
+#tutorial-image {
+    /* Positioning */
+    display: inline-block;
+    /* Style */
+    box-shadow: gray -4px 4px 10px;
+    border-radius: 20px;
+}
+
+.img-wrapper {
+    /* Positioning */
+    position: relative;
+    margin: 0 auto;
+    margin-top: 20%;
+    /* Sizing */
+    width: 70%;
+    min-width: 500px;
+}
+
+.img-responsive {
+    /* Sizing */
+    width: 100%;
+}
+
+#back-button,
+#continue-button {
+    /* Positioning */
+    position: absolute;
+    /* Style */
+    font-size: max(2vw, 1em);
+    padding: 2px;
+}
+
+#back-button {
+    /* Sizing */
+    width: 3vw;
+    height: 3vw;
+    min-width: 30px;
+    min-height: 30px;
+    /* Positioning */
+    top: 2%;
+    right: 2%;
+}
+
+#continue-button {
+    /* Sizing */
+    width: 26vw;
+    height: 4vw;
+    min-width: 200px;
+    min-height: 40px;
+    /* Positioning */
+    margin: 0 0 0 -13vw;
+    bottom: 5%;
+    left: 50%;
+}

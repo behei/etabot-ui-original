@@ -2,8 +2,10 @@
 <mat-toolbar-row fxLayout="row wrap" style="align-items: center;">
        
   <div class="sec1"  [routerLink]="['/']" class="logo-image" alt="etabot homepage"></div>
+  <div class="sec1"  [routerLink]="['/']" class="feedback-image" alt="etabot homepage"></div>
   <div fxShow.lt-md="true" fxHide.gt-sm="true" style="font-size: 20px;" title="This is the alpha version of ETAbot - please expect and report bugs">Alpha version</div>
-  <div  class="sec2" fxHide.lt-md="true" style="font-size: 20px; width: 200px; overflow-wrap: break-word; word-break: break-all;">Alpha version - please <a href="mailto:hello@etabot.ai">report</a> bugs</div>
+  <div class="sec2" fxHide.lt-md="true" style="font-size: 20px; width: 200px; overflow-wrap: break-word; word-break: break-all;">Alpha version - please <a href="mailto:hello@etabot.ai">report</a> bugs</div>
+
   <span class="fill-the-space"></span>
   <div fxLayout="row" fxHide fxShow.gt-sm>
     <a *ngIf="!isLoggedIn" mat-button routerLink="/signup" class="new-font"> Sign Up </a>

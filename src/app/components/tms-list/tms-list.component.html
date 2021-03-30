@@ -1,11 +1,16 @@
 <div [style.display]="tutorial_display" id="tutorial-overlay">
-    <div class="img-wrapper">
-        <img id="tutorial-image" class="img-responsive" src="../../../assets/tutorial_image_sc.png" alt="Tutorial Image" />
-        <div>
-            <button (click)="hideTutorial()" class="new-font" mat-raised-button id="back-button"></button>
-        </div>
-        <div>
-            <button [disabled]='redirect_button_disabled' [routerLink]="['/projects']" mat-raised-button color="primary" class="absolute-center new-font" id="continue-button">Continue to Projects</button>
+    <div class="container overlay-container">
+        <div class="img-wrapper">
+            <img id="tutorial-image" class="img-responsive" src="../../../assets/tutorial_image_sc.png" alt="Tutorial Image" />
+            <div [style.display]="loading_bar_display" class="outer-loader absolute-center progress md-progress">
+                <div class="indeterminate inner-loader"></div>
+            </div>
+            <div>
+                <button (click)="hideTutorial()" class="new-font" mat-raised-button id="back-button"></button>
+            </div>
+            <div>
+                <button [disabled]='redirect_button_disabled' [routerLink]="['/projects']" mat-raised-button color="primary" class="absolute-center new-font" id="continue-button">Continue to Projects</button>
+            </div>
         </div>
     </div>
 </div>

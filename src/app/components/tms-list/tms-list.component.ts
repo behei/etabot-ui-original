@@ -21,6 +21,7 @@ export class TmsListComponent implements OnInit {
     
     tutorial_display = 'none';
     redirect_button_disabled = 'true';
+    loading_bar_display = 'block';
 
 
   constructor(
@@ -62,6 +63,8 @@ export class TmsListComponent implements OnInit {
                     if (remaining_new_tms_celery_jobs.length === 0) {
                         // Enable button to redirect ./projects
                         this.redirect_button_disabled = 'false';
+                        // Hide loading bar when ready
+                        this.loading_bar_display = 'none';
                     }
                 }
                 for (const new_tms_id of this.new_tms_ids) {

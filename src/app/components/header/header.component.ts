@@ -67,8 +67,13 @@ export class HeaderComponent implements OnInit {
     
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log(`Sending feedback about ${result.topic}: ${result.subject}`)
+        console.log(`Sending feedback about ${result.topic}: ${result.subject}`);
+        this.sendFeedback(result.topic, result.subject, result.body);
       }
     });
+  }
+
+  sendFeedback(topic, subject, body) {
+    // TODO: Send feedback
   }
 }

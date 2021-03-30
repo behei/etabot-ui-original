@@ -10,3 +10,17 @@ button {
     margin: 5px;
     width: 100px;
 }
+
+.feedback-image {
+    background-image: url('../../../assets/feedback_icon.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 30px;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+h1 {
+    display: inline-block;
+}

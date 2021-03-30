@@ -62,15 +62,6 @@
     width: 100%;
 }
 
-#back-button,
-#continue-button {
-    /* Positioning */
-    position: absolute;
-    /* Style */
-    font-size: max(2vw, 1em);
-    padding: 2px;
-}
-
 #back-button {
     /* Sizing */
     width: 3vw;
@@ -78,18 +69,32 @@
     min-width: 30px;
     min-height: 30px;
     /* Positioning */
+    position: absolute;
     top: 2%;
     right: 2%;
+
+    /* Style */
+    background-image: url('../../../assets/x_button_150x150.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 15px;
 }
 
 #continue-button {
+    /* Text */
+    font-size: max(2vw, 1em);
     /* Sizing */
-    width: 26vw;
+    width: 40%;
     height: 4vw;
     min-width: 200px;
     min-height: 40px;
     /* Positioning */
-    margin: 0 0 0 -13vw;
+    position: absolute;
     bottom: 5%;
+}
+
+.absolute-center {
     left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
 }

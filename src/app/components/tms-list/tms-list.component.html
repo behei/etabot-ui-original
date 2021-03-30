@@ -12,6 +12,9 @@
                 <button [disabled]='redirect_button_disabled' [routerLink]="['/projects']" mat-raised-button color="primary" class="absolute-center new-font" id="continue-button">Continue to Projects</button>
             </div>
         </div>
+        <div [style.display]="error_display" class="error-wrapper">
+            <div class="alert alert-danger" innerHTML="An error has occurred: {{ error_message }}"></div>
+        </div>
     </div>
 </div>
 

@@ -22,6 +22,8 @@ export class TmsListComponent implements OnInit {
     tutorial_display = 'none';
     redirect_button_disabled = 'true';
     loading_bar_display = 'block';
+    error_display = 'none';
+    error_message = '';
 
 
   constructor(
@@ -97,6 +99,11 @@ export class TmsListComponent implements OnInit {
                             const error_message = 'error in parsing tms id ' + new_tms_id;
                             console.log(error_message);
                             this.parsing_logs += error_message + '\n';
+
+                            // Show error
+                            this.error_display = 'block';
+                            this.error_message = error_message;
+
                             // this.parsing_projects.delete(new_tms_id);
                             // if (this.parsing_projects.size === 0) {
                             //     if (confirm('Redirect to projects screen?')) {

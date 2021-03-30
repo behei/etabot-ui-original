@@ -1,0 +1,29 @@
+
+<h1 mat-dialog-title>Feedback</h1>  
+<div mat-dialog-content [formGroup]="form">
+  <mat-form-field appearance="fill">
+    <mat-label>Topic</mat-label>
+    <mat-select required ngModel class="form-control" formControlName="topic">
+      <mat-option *ngFor="let topic of topics" cdkFocusInitial value={{topic}}>
+        {{topic}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Subject</mat-label>
+    <input type="text" matInput class="form-control" formControlName="subject" placeholder="subject" required/>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill" id="feedback-body">
+    <mat-label>Comments</mat-label>
+    <textarea matInput placeholder="Provide feedback here" cols="50" rows="10" class="form-control" formControlName="body" required></textarea>
+  </mat-form-field>
+
+  <div *ngIf="error_messages" style="font-size: 20" class="alert alert-danger"><div *ngFor="let error of error_messages">{{ error }}</div></div>
+
+  <div mat-dialog-actions align="end">
+    <button (click)="close()" mat-raised-button mat-button-primary color="accent">Cancel</button>
+    <button (click)="send()" mat-raised-button mat-button-primary color="primary" type="submit">Send</button>
+  </div>
+</div>

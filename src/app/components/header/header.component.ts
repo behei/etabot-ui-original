@@ -3,7 +3,8 @@ import { AuthService } from '../../services/auth-service.service';
 import { SignUpService } from '../../services/sign-up.service';
 import { EtabotApiService } from '../../services/etabot-api.service';
 import { Router } from '@angular/router';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material';
+import { FeedbackDialogComponent } from '../feedback-dialog/feedback-dialog.component';
 
 @Component({
   selector: 'app-header',
@@ -18,6 +19,7 @@ export class HeaderComponent implements OnInit {
   isLoggedIn: Boolean;
   loggedOut = false;
   username = '';
+
   constructor(
       private dialog: MatDialog,
       private signUpService: SignUpService,
@@ -54,6 +56,19 @@ export class HeaderComponent implements OnInit {
     // window.location.href = "https://etabot.ai";
   }
 
+  openFeedbackDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '50%';
+    dialogConfig.height = 'auto';
 
-
+    const dialogRef = this.dialog.open(FeedbackDialogComponent, dialogConfig);
+    
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log(`Sending feedback about ${result.topic}: ${result.subject}`)
+      }
+    });
+  }
 }

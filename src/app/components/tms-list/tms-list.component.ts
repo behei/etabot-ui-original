@@ -5,6 +5,8 @@ import { isEmpty } from '../../tools';
 import { Router, ActivatedRoute} from '@angular/router';
 import { JobsServiceService } from '../../services/jobs-service.service';
 import { Job } from '../../job';
+import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { TutorialDialogComponent } from '../tutorial-dialog/tutorial-dialog.component';
 
 @Component({
     selector: 'app-tms-list',
@@ -19,18 +21,16 @@ export class TmsListComponent implements OnInit {
     parsing_projects = new Set();
     parsing_logs = '';
     
-    tutorial_display = 'none';
-    redirect_button_disabled = 'true';
-    loading_bar_display = 'block';
-    error_display = 'none';
-    error_message = '';
+    dialogRef: MatDialogRef<TutorialDialogComponent>;
 
 
   constructor(
         private tms_service: JiraService,
         private jobs_service: JobsServiceService,
         private router: Router,
-        private route: ActivatedRoute) {
+        private route: ActivatedRoute,
+        private dialog: MatDialog
+        ) {
 
     tms_service.get_tms().subscribe();
     tms_service.tmss.subscribe(data => this.setTmss(data));
@@ -63,10 +63,13 @@ export class TmsListComponent implements OnInit {
                     }
                     console.log('updated remaining_new_tms_celery_jobs ' + remaining_new_tms_celery_jobs);
                     if (remaining_new_tms_celery_jobs.length === 0) {
-                        // Enable button to redirect ./projects
-                        this.redirect_button_disabled = 'false';
-                        // Hide loading bar when ready
-                        this.loading_bar_display = 'none';
+                        // Make sure dialog exists
+                        if(this.dialogRef && this.dialogRef.componentInstance) {
+                            // Enable button to redirect ./projects
+                            this.dialogRef.componentInstance.showRedirect();
+                            // Hide loading bar when ready
+                            this.dialogRef.componentInstance.hideLoadingBar();
+                        }
                     }
                 }
                 for (const new_tms_id of this.new_tms_ids) {
@@ -100,9 +103,13 @@ export class TmsListComponent implements OnInit {
                             console.log(error_message);
                             this.parsing_logs += error_message + '\n';
 
-                            // Show error
-                            this.error_display = 'block';
-                            this.error_message = error_message;
+                            // Make sure dialog exists
+                            if(this.dialogRef && this.dialogRef.componentInstance) {
+                                // Show error
+                                this.dialogRef.componentInstance.showError('Unable to connect.<br>Please try again later.<br>If the error pesists report it to hello@etabot.ai.');
+                                // Hide loading bar on error
+                                this.dialogRef.componentInstance.hideLoadingBar();
+                            }
 
                             // this.parsing_projects.delete(new_tms_id);
                             // if (this.parsing_projects.size === 0) {
@@ -114,8 +121,8 @@ export class TmsListComponent implements OnInit {
                         }
                     );
                 }
-                // Display the tutorial image and disabled redirect button.
-                this.tutorial_display = 'block';
+                // Display the tutorial dialog
+                this.openTutorialDialog();
             }
             
             // TODO: this kicks in prematurely
@@ -140,7 +147,18 @@ export class TmsListComponent implements OnInit {
         console.log('is Empty: ' + isEmpty(this.tmss));
     }
 
-    hideTutorial() {
-        this.tutorial_display = 'none';
+    openTutorialDialog() {
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.width = '50%';
+        dialogConfig.height = 'auto';
+        dialogConfig.panelClass = 'panel-class';
+
+        this.dialogRef = this.dialog.open(TutorialDialogComponent, dialogConfig);
+
+        this.dialogRef.afterClosed().subscribe(result => {
+            console.log(`Tutorial Closed: ${result}`);
+        });
     }
 }

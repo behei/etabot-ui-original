@@ -1,0 +1,14 @@
+<div class="img-wrapper">
+  <app-error-box [error_message]=error_message [style.display]="error_display" class="loading-error absolute-center"></app-error-box>
+    
+    <img id="tutorial-image" class="img-responsive" src="../../../assets/tutorial_image_sc.png" alt="Tutorial Image" />
+    
+    <div [style.display]="loading_bar_display" class="outer-loader absolute-center progress md-progress">
+      <div class="indeterminate inner-loader"></div>
+    </div>
+
+    <button (click)="close()" class="new-font" mat-raised-button id="back-button"></button>
+
+    <button (click)="send()" [disabled]='redirect_button_disabled' [routerLink]="['/projects']" cdkFocusInitial mat-raised-button color="primary" class="absolute-center new-font" id="continue-button">Continue to Projects</button>
+
+  </div>

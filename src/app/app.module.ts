@@ -19,7 +19,7 @@ import { JiraService } from './services/jira.service';
 import {MatIconModule} from '@angular/material/icon';
 // import { materialExportModule } from './material-scheme/app.materialExportModule';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -71,6 +71,7 @@ import { TosppComponent } from './components/tospp/tospp.component';
 import { JobsMonitorComponent } from './components/jobs-monitor/jobs-monitor.component';
 import { JobCardComponent } from './components/jobs-monitor/job-card/job-card.component';
 import { ReportComponent } from './components/report/report.component';
+import { FeedbackDialogComponent } from './components/feedback-dialog/feedback-dialog.component';
     // MatProgressBarModule,
 @NgModule({
   declarations: [
@@ -100,12 +101,14 @@ import { ReportComponent } from './components/report/report.component';
     JobsMonitorComponent,
     JobCardComponent,
     ReportComponent,
+    FeedbackDialogComponent
     // EscapeHtmlPipe
   ],
   entryComponents: [
     TermsConditionsFullComponent,
     SettingsWindowComponent,
-    ReportComponent
+    ReportComponent,
+    FeedbackDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -153,7 +156,6 @@ import { ReportComponent } from './components/report/report.component';
     MatIconModule,
     MatRadioModule,
     MatProgressSpinnerModule
-
     ],
   providers: [EtabotApiService, AuthService, SignUpService, AuthGuard, JiraService,
        {

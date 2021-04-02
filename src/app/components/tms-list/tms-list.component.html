@@ -1,17 +1,4 @@
-<div [style.display]="tutorial_display" id="tutorial-overlay">
-    <div class="img-wrapper">
-        <img id="tutorial-image" class="img-responsive" src="../../../assets/tutorial_image_sc.png" alt="Tutorial Image" />
-        <div>
-            <button (click)="hideTutorial()" class="new-font" mat-raised-button color="accent" id="back-button">X</button>
-        </div>
-        <div>
-            <button [disabled]='redirect_button_disabled' [routerLink]="['/projects']" mat-raised-button color="primary" class="new-font" id="continue-button">Continue to Projects</button>
-        </div>
-    </div>
-</div>
-
 <h1 style="text-align: center; font-size: 32px;" class="julius-font">Task Management Systems accounts</h1>
-<h2 id="testing" style="text-align: center; font-size: 20px;" class="julius-font">{{testvar}}</h2>
 
 <div class="tms-links-container-wrapper">
     <div class="tms-links-container" fxLayout="row wrap"  fxLayoutAlign="space-evenly start">

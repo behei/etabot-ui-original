@@ -71,6 +71,7 @@ import { TosppComponent } from './components/tospp/tospp.component';
 import { JobsMonitorComponent } from './components/jobs-monitor/jobs-monitor.component';
 import { JobCardComponent } from './components/jobs-monitor/job-card/job-card.component';
 import { ReportComponent } from './components/report/report.component';
+import { TutorialDialogComponent } from './components/tutorial-dialog/tutorial-dialog.component';
     // MatProgressBarModule,
 @NgModule({
   declarations: [
@@ -100,12 +101,14 @@ import { ReportComponent } from './components/report/report.component';
     JobsMonitorComponent,
     JobCardComponent,
     ReportComponent,
+    TutorialDialogComponent,
     // EscapeHtmlPipe
   ],
   entryComponents: [
     TermsConditionsFullComponent,
     SettingsWindowComponent,
-    ReportComponent
+    ReportComponent,
+    TutorialDialogComponent,
   ],
   imports: [
     BrowserModule,

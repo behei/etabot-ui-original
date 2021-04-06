@@ -75,7 +75,7 @@ export class ProjectCardComponent implements OnInit {
 
   try_enable_update_button() {
     console.log('try_enable_update_button');
-    this.update_button_disabled = true; // enable button regardless of individual velocity availability.
+    this.update_button_disabled = false; // enable button regardless of individual velocity availability.
     // if (this.project_obj.velocity_available) {
     //     this.update_eta_tooltip = 'Submit job to update ETAs';
     //     this.update_button_disabled = false;

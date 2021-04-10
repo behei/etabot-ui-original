@@ -1,40 +1,39 @@
 ::ng-deep .panel-class > mat-dialog-container {
     background-color: var(--background);
-    box-shadow: none
+    box-shadow: none;
 }
 
 ::ng-deep .panel-class {
-    box-shadow: none;
     min-width: 600px;
 }
 
-#tutorial-image {
-    /* Style */
+.img-wrapper {
+    width: 100%;
+    height: 25vw;
+    min-height: 300px;
+    
+    position: relative;
+
+    background-image: url('../../../assets/tutorial_image_sc.png');
+    background-color: white;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
     box-shadow: gray -4px 4px 10px;
     border-radius: 20px;
 }
 
-.img-wrapper {
-    /* Positioning */
-    position: relative;
-}
-
-.img-responsive {
-    /* Sizing */
-    width: 100%;
-}
-
 #back-button {
-    /* Sizing */
+    
     width: 3vw;
     height: 3vw;
     min-width: 40px;
     min-height: 40px;
-    /* Positioning */
+    
     position: absolute;
     top: 2%;
     right: 2%;
-    /* Style */
+    
     background-image: url('../../../assets/x_button_150x150.png');
     background-color: transparent;
     background-repeat: no-repeat;
@@ -43,51 +42,46 @@
 }
 
 #continue-button {
-    /* Text */
     font-size: 25px;
-    /* Sizing */
+    
     padding: 1% 4%;
-    /* Positioning */
+    
     position: absolute;
     bottom: 5%;
 }
 
 .absolute-center {
-    /* Positioning */
+
     left: 50%;
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
 }
 
 .outer-loader {
-    /* Sizing */
     width: 60%;
-    height: 2%;
-    /* Positioning */
+    height: 4%;
+    
     position: absolute;
-    top: 11%;
-    /* Style */
+    top: 15%;
+    
     background-color: #C5CAE9;
     border-radius: 5px;
 }
 
 .inner-loader {
-    /* Style */
     background-color: #3F51B5;
 }
 
 .loading-error {
-    /* Positioning */
     position: absolute;
-    /* Sizing */
+    
     width: 80%;
     height: 5%;
     top: 2.5%;
 }
 
 ::ng-deep .alert {
-    /* Text */
     text-align: center;
-    /* Sizing */
+    
     padding: .5% 10%;
 }

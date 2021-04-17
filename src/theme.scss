@@ -214,24 +214,39 @@ h1 {
 }
 
 .gear-image {
-   background-image: url('assets/gear.png');
-    background-size: cover;
-    width: 30px;
-    height: 30px;
-  }
+  background-image: url('assets/gear.png');
+  background-size: cover;
+  width: 30px;
+  height: 30px;
+}
 
 .logo-image {
-   background-image: url('assets/cropped-ETAbot-1.png');
-   background-size: cover;
-   width: 50px;
-   height: 50px;
-   margin-right: 10px;
-  }
+  background-image: url('assets/cropped-ETAbot-1.png');
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
 
 .jira-logo-image {
-   background-image: url('assets/Jira_Software-blue-short.png');
-   width: 213px;
-   height: 76px;
-   background-size: cover;
-   margin-right: 10px;
-  }
+  background-image: url('assets/Jira_Software-blue-short.png');
+  width: 213px;
+  height: 76px;
+  background-size: cover;
+  margin-right: 10px;
+}
+
+.back-button-image {
+  background-image: url('assets/x_button_150x150.png');
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: none;
+}
+
+.tutorial-image {
+  background-image: url('assets/tutorial_image_sc.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}

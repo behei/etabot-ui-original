@@ -71,11 +71,8 @@ import { TosppComponent } from './components/tospp/tospp.component';
 import { JobsMonitorComponent } from './components/jobs-monitor/jobs-monitor.component';
 import { JobCardComponent } from './components/jobs-monitor/job-card/job-card.component';
 import { ReportComponent } from './components/report/report.component';
-<<<<<<< HEAD
-import { FeedbackDialogComponent } from './components/feedback-dialog/feedback-dialog.component';
-=======
 import { TutorialDialogComponent } from './components/tutorial-dialog/tutorial-dialog.component';
->>>>>>> dev
+import { FeedbackDialogComponent } from './components/feedback-dialog/feedback-dialog.component';
     // MatProgressBarModule,
 @NgModule({
   declarations: [

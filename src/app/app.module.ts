@@ -71,7 +71,11 @@ import { TosppComponent } from './components/tospp/tospp.component';
 import { JobsMonitorComponent } from './components/jobs-monitor/jobs-monitor.component';
 import { JobCardComponent } from './components/jobs-monitor/job-card/job-card.component';
 import { ReportComponent } from './components/report/report.component';
+<<<<<<< HEAD
 import { FeedbackDialogComponent } from './components/feedback-dialog/feedback-dialog.component';
+=======
+import { TutorialDialogComponent } from './components/tutorial-dialog/tutorial-dialog.component';
+>>>>>>> dev
     // MatProgressBarModule,
 @NgModule({
   declarations: [
@@ -101,6 +105,7 @@ import { FeedbackDialogComponent } from './components/feedback-dialog/feedback-d
     JobsMonitorComponent,
     JobCardComponent,
     ReportComponent,
+    TutorialDialogComponent,
     FeedbackDialogComponent
     // EscapeHtmlPipe
   ],
@@ -108,6 +113,7 @@ import { FeedbackDialogComponent } from './components/feedback-dialog/feedback-d
     TermsConditionsFullComponent,
     SettingsWindowComponent,
     ReportComponent,
+    TutorialDialogComponent,
     FeedbackDialogComponent
   ],
   imports: [

@@ -18,84 +18,84 @@ export class EtabotApiService {
   @Output() projectsReceived: EventEmitter<boolean> = new EventEmitter();
 
   constructor(
-      private http: Http,
-      private jobs_service: JobsServiceService,
-      private authService: AuthService) {
+    private http: Http,
+    private jobs_service: JobsServiceService,
+    private authService: AuthService) {
     // depending on the environment (e.g. production or local) api end point could be different
     // this.service_api_end_point = environment.apiUrl;
 
-    authService.getLoggedIn.subscribe(
-        response => this.logInChange(response));
-   }
+  authService.getLoggedIn.subscribe(
+    response => this.logInChange(response));
+  }
 
-   logInChange(response) {
-     this.loginCheck = true;
-     console.log('logInChange response: ' + response);
-     console.log('authService.token: ' + this.authService.token);
-   }
+  logInChange(response) {
+    this.loginCheck = true;
+    console.log('logInChange response: ' + response);
+    console.log('authService.token: ' + this.authService.token);
+  }
 
 
-   get_real_projects() {
+  get_real_projects() {
 
-     return this.http.get(environment.apiUrl + 'projects/', this.authService.construct_options())
-       .subscribe((response: Response) => {
-         if (response.status === 200) {
-           console.log('get_real_projects response: ');
-           console.log(response);
-           const res = response.json();
-          Object.entries(res).forEach(
-              ([key, value]) => {
-                  console.log(key);
-                  console.log(value);
-                  }
-              );
-          // Object.entries(res).forEach(
-          //     ([key, value]) => {
-          //         // value['velocities'] = value['velocities']['mean'];
-          //         console.log(typeof(value['velocities']) + value['velocities']);
-          //         console.log(typeof(value['work_hours']) + value['work_hours']);
-          //         // console.log(key + typeof(JSON.parse(value['velocities'].replace("'","\""))));
-          //     });
-           console.log(
-               'get_real_projects 200 response status: '
-               + response.status
-               + 'json type: '
-               + typeof(res)
-               + 'json: '
-               + JSON.stringify(res));
-           // console.log(res['scope_field_name_message']);
-           // console.log(res['scope_field_name_message']['scope_field_name']);
-           this.projects.emit(res);
-           this.projectsReceived.emit(true);
-           return true;
-         } else {
-           console.log('get_real_projects non-200 response status ' + response.status);
-           return false;
-         }
-       });
-   }
+    return this.http.get(environment.apiUrl + 'projects/', this.authService.construct_options())
+      .subscribe((response: Response) => {
+        if (response.status === 200) {
+          console.log('get_real_projects response: ');
+          console.log(response);
+          const res = response.json();
+        Object.entries(res).forEach(
+            ([key, value]) => {
+                console.log(key);
+                console.log(value);
+                }
+            );
+        // Object.entries(res).forEach(
+        //     ([key, value]) => {
+        //         // value['velocities'] = value['velocities']['mean'];
+        //         console.log(typeof(value['velocities']) + value['velocities']);
+        //         console.log(typeof(value['work_hours']) + value['work_hours']);
+        //         // console.log(key + typeof(JSON.parse(value['velocities'].replace("'","\""))));
+        //     });
+          console.log(
+              'get_real_projects 200 response status: '
+              + response.status
+              + 'json type: '
+              + typeof(res)
+              + 'json: '
+              + JSON.stringify(res));
+          // console.log(res['scope_field_name_message']);
+          // console.log(res['scope_field_name_message']['scope_field_name']);
+          this.projects.emit(res);
+          this.projectsReceived.emit(true);
+          return true;
+        } else {
+          console.log('get_real_projects non-200 response status ' + response.status);
+          return false;
+        }
+    });
+  }
 
-    vote(vote_choice) {
-        console.log('etabot api service vote started');
-         const url = environment.apiUrl + 'vote/';
-         const params = {
-              'choice': vote_choice
-            };
-         console.log('params');
-         console.log(params);
+  vote(vote_choice) {
+      console.log('etabot api service vote started');
+        const url = environment.apiUrl + 'vote/';
+        const params = {
+            'choice': vote_choice
+          };
+        console.log('params');
+        console.log(params);
 
-         const json_params = JSON.stringify(params);
-         console.log('json_params');
-         console.log(json_params);
-         return this.http.post(
-            url,
-            json_params,
-            this.authService.construct_options()).pipe(
-                map((response: Response) => {
-                  console.log('Response: ' + response);
-                  return response.status;
-                     }
-               ));
+        const json_params = JSON.stringify(params);
+        console.log('json_params');
+        console.log(json_params);
+        return this.http.post(
+          url,
+          json_params,
+          this.authService.construct_options()).pipe(
+              map((response: Response) => {
+                console.log('Response: ' + response);
+                return response.status;
+              }
+        ));
    }
 
   estimate(project) {
@@ -168,7 +168,7 @@ export class EtabotApiService {
                 console.log('estimate get returns not 201');
               }
               return jobs;
-             }));
+      }));
   }
 
 }

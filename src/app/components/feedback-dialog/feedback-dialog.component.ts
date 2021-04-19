@@ -1,7 +1,7 @@
 import { Component, NgModule, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogActions, MatDialogRef } from '@angular/material/dialog';
-
+import { EtabotApiService } from 'src/app/services/etabot-api.service';
 
 @NgModule({
   declarations: [
@@ -28,9 +28,9 @@ export class FeedbackDialogComponent implements OnInit {
 
   constructor(
       private fb: FormBuilder, 
-      private dialogRef: MatDialogRef<FeedbackDialogComponent>
-    ) { 
-  }
+      private dialogRef: MatDialogRef<FeedbackDialogComponent>,
+      private etabot_api_service: EtabotApiService
+    ) { }
 
   ngOnInit() {
     this.form = this.fb.group( {
@@ -56,6 +56,19 @@ export class FeedbackDialogComponent implements OnInit {
     return this.form.get('body');
   }
 
+  sendFeedback(topic, subject, body) {
+    const data = {
+      'subject' : `${topic.value} | ${subject.value}`,
+      'body'    : body.value
+    };
+    
+    this.etabot_api_service.userCommunication(data).subscribe(
+      res => {
+        console.log("Feedback sent");
+      }
+    );
+  }
+
   send() {
     this.error_messages = [];
 
@@ -71,6 +84,8 @@ export class FeedbackDialogComponent implements OnInit {
     if (this.error_messages.length == 0) {
       this.dialogRef.close(this.form.value); 
     }
+
+    this.sendFeedback(this.topic, this.subject, this.body);
   }
 
   close() {

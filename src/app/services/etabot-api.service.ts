@@ -8,6 +8,7 @@ import { AuthService } from './auth-service.service';
 import { Job } from '../job';
 import { JobStatus } from '../job';
 import { JobsServiceService } from './jobs-service.service';
+import { copyStyles } from '@angular/animations/browser/src/util';
 
 @Injectable()
 export class EtabotApiService {
@@ -43,12 +44,12 @@ export class EtabotApiService {
           console.log('get_real_projects response: ');
           console.log(response);
           const res = response.json();
-        Object.entries(res).forEach(
+          Object.entries(res).forEach(
             ([key, value]) => {
-                console.log(key);
-                console.log(value);
-                }
-            );
+              console.log(key);
+              console.log(value);
+            }
+          );
         // Object.entries(res).forEach(
         //     ([key, value]) => {
         //         // value['velocities'] = value['velocities']['mean'];
@@ -76,27 +77,50 @@ export class EtabotApiService {
   }
 
   vote(vote_choice) {
-      console.log('etabot api service vote started');
-        const url = environment.apiUrl + 'vote/';
-        const params = {
-            'choice': vote_choice
-          };
-        console.log('params');
-        console.log(params);
+    console.log('etabot api service vote started');
+    const url = environment.apiUrl + 'vote/';
+    const params = {
+        'choice': vote_choice
+      };
+    console.log('params');
+    console.log(params);
 
-        const json_params = JSON.stringify(params);
-        console.log('json_params');
-        console.log(json_params);
-        return this.http.post(
-          url,
-          json_params,
-          this.authService.construct_options()).pipe(
-              map((response: Response) => {
-                console.log('Response: ' + response);
-                return response.status;
-              }
-        ));
-   }
+    const json_params = JSON.stringify(params);
+    console.log('json_params');
+    console.log(json_params);
+    return this.http.post(
+      url,
+      json_params,
+      this.authService.construct_options()
+    )
+    .pipe(
+      map((response: Response) => {
+        console.log('Response: ' + response);
+        return response.status;
+      })
+    );
+  }
+
+  userCommunication(params) {
+    console.log('etabot api service userCommunication started');
+    const url = environment.apiUrl + 'user_communication/';
+    console.log(`User Communication Params ${params}`);
+
+    const json_params = JSON.stringify(params);
+    console.log(`User Communication JSON Params ${json_params}`);
+
+    return this.http.post(
+      url,
+      json_params,
+      this.authService.construct_options()
+    )
+    .pipe(
+      map((response: Response) => {
+        console.log('Response: ' + response);
+        return response.status;
+      })
+    );
+  }
 
   estimate(project) {
     let url = environment.apiUrl + 'estimate/';

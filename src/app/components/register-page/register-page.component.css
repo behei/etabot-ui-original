@@ -50,4 +50,8 @@ h1 {
 
 .alert {
   white-space: pre-wrap;
-} 
+}
+
+.pop-up-link {
+  cursor: pointer;
+}

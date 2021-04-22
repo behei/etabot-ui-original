@@ -77,9 +77,10 @@ export class EtabotApiService {
   }
 
   /*
-  Takes in an object params {}
-    Must have values: subject, body
-    optional values : to, from
+  Takes in an object with the following parameters
+    { subject, body, to, from }
+    if to is not included the default is hello@etabot.ai
+    if from is not included the default is 
   */
   userCommunication(params) {
     console.log('etabot api service userCommunication started');

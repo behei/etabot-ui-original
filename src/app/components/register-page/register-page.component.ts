@@ -18,6 +18,7 @@ import { Title } from '@angular/platform-browser';
 export class RegisterPageComponent implements OnInit {
     newUser: any;
     isAcceptedTerms: boolean;
+    isAcceptedPrivacyPolicy: boolean;
     passwordMatched: boolean;
     isNotGDRPCountry: boolean;
     userFailure: boolean;
@@ -34,6 +35,7 @@ export class RegisterPageComponent implements OnInit {
         private route: ActivatedRoute,
         private titleService: Title) {
         this.isAcceptedTerms = true;
+        this.isAcceptedPrivacyPolicy = true;
         this.passwordMatched = false;
         this.userFailure = false;
         this.isNotGDRPCountry = true;

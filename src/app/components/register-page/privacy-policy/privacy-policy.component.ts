@@ -129,7 +129,7 @@ export class PrivacyPolicyComponent {
   constructor(
     public dialogRef: MatDialogRef<PrivacyPolicyComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-      // console.log("data " + data.isAcceptedTerms);
+      // console.log("data " + data.isAcceptedPrivacyPolicy);
   }
 
   onNoClick(): void {

@@ -50,4 +50,13 @@ h1 {
 
 .alert {
   white-space: pre-wrap;
-} 
+}
+
+.pop-up-link {
+  cursor: pointer;
+}
+
+.pop-up-text {
+  cursor: pointer;
+  color: inherit;
+}

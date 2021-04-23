@@ -55,3 +55,8 @@ h1 {
 .pop-up-link {
   cursor: pointer;
 }
+
+.pop-up-text {
+  cursor: pointer;
+  color: inherit;
+}

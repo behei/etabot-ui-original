@@ -19,6 +19,10 @@
     white-space: normal;
 }
 
+.tms-links-container {
+  width: 100%;
+}
+
 ::ng-deep .tms-links-container mat-card-content mat-radio-group mat-radio-button label {
     white-space: normal;
 }
@@ -85,13 +89,14 @@ div:hover .hidden-text {
   display: inline-block;
 }
 
+.etabot-connect-card {
+  max-width: 450px;
+  margin-bottom: 30px;
+  min-height: 400px;
+  text-align: center;
+}
+
 @media only screen and (min-width: 768px) {
-  .etabot-connect-card {
-    max-width: 450px;
-    margin-left: 30px;
-    min-height: 400px;
-    text-align: center;
-  }
   .etabot-different-service {
     max-width: 450px;
     margin-right: 30px;

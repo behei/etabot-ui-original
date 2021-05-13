@@ -7,6 +7,7 @@ import { JiraService } from '../../services/jira.service';
 import { throwError } from 'rxjs';
 import { Router, ActivatedRoute} from '@angular/router';
 import { TermsConditionsFullComponent } from './terms-conditions-full/terms-conditions-full.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -17,6 +18,7 @@ import { Title } from '@angular/platform-browser';
 export class RegisterPageComponent implements OnInit {
     newUser: any;
     isAcceptedTerms: boolean;
+    isAcceptedPrivacyPolicy: boolean;
     passwordMatched: boolean;
     isNotGDRPCountry: boolean;
     userFailure: boolean;
@@ -33,6 +35,7 @@ export class RegisterPageComponent implements OnInit {
         private route: ActivatedRoute,
         private titleService: Title) {
         this.isAcceptedTerms = true;
+        this.isAcceptedPrivacyPolicy = true;
         this.passwordMatched = false;
         this.userFailure = false;
         this.isNotGDRPCountry = true;
@@ -60,9 +63,18 @@ export class RegisterPageComponent implements OnInit {
     this.titleService.setTitle('ETAbot Sign Up');
   }
 
-  openDialog(): void {
+  openTosDialog(): void {
     const dialogRef = this.dialog.open(
         TermsConditionsFullComponent,
+            {
+              width: '800px',
+              height: '500px',
+            });
+  }
+
+  openPpDialog(): void {
+    const dialogRef = this.dialog.open(
+        PrivacyPolicyComponent,
             {
               width: '800px',
               height: '500px',

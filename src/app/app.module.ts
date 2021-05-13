@@ -73,6 +73,7 @@ import { JobCardComponent } from './components/jobs-monitor/job-card/job-card.co
 import { ReportComponent } from './components/report/report.component';
 import { TutorialDialogComponent } from './components/tutorial-dialog/tutorial-dialog.component';
 import { FeedbackDialogComponent } from './components/feedback-dialog/feedback-dialog.component';
+import { PrivacyPolicyComponent } from './components/register-page/privacy-policy/privacy-policy.component';
     // MatProgressBarModule,
 @NgModule({
   declarations: [
@@ -104,6 +105,7 @@ import { FeedbackDialogComponent } from './components/feedback-dialog/feedback-d
     ReportComponent,
     TutorialDialogComponent,
     FeedbackDialogComponent
+    PrivacyPolicyComponent,
     // EscapeHtmlPipe
   ],
   entryComponents: [
@@ -112,6 +114,7 @@ import { FeedbackDialogComponent } from './components/feedback-dialog/feedback-d
     ReportComponent,
     TutorialDialogComponent,
     FeedbackDialogComponent
+    PrivacyPolicyComponent
   ],
   imports: [
     BrowserModule,

@@ -14,11 +14,7 @@
     
     position: relative;
 
-    background-image: url('../../../assets/tutorial_image_sc.png');
     background-color: white;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
     box-shadow: gray -4px 4px 10px;
     border-radius: 20px;
 }
@@ -34,11 +30,6 @@
     top: 2%;
     right: 2%;
     
-    background-image: url('../../../assets/x_button_150x150.png');
-    background-color: transparent;
-    background-repeat: no-repeat;
-    background-size: cover;
-    box-shadow: none;
 }
 
 #continue-button {
@@ -51,7 +42,6 @@
 }
 
 .absolute-center {
-
     left: 50%;
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);

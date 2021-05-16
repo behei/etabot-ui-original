@@ -70,3 +70,7 @@ a.mat-button:hover {
   /*min-width: 300px;*/
   /*height: 400px;*/
 }
+
+.active-link {
+  text-decoration: underline;
+}

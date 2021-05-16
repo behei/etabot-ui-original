@@ -159,8 +159,12 @@ export class ProjectCardComponent implements OnInit {
     const file = new Blob([this.project_obj.get_html_report()], {type: '.html'});
     const a = document.createElement('a'),
       url = URL.createObjectURL(file);
+    const now = new Date();
+    const date = now.toLocaleDateString().split("/").join("-");
+    // const date = new Date().toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
+    const time = now.toLocaleTimeString().split(":").join("-");
     a.href = url;
-    a.download = 'report.html';
+    a.download = `report_${date}_${time}.html`;
     document.body.appendChild(a);
     a.click();
     setTimeout(function() {

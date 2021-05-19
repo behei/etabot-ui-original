@@ -73,4 +73,7 @@ a.mat-button:hover {
 
 .active-link {
   text-decoration: underline;
+  background: #534bae;
+  color: #fff;
+  text-decoration: none;
 }

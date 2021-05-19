@@ -71,9 +71,19 @@ a.mat-button:hover {
   /*height: 400px;*/
 }
 
+.mat-button, .mat-menu-item {
+  -webkit-transiition: background ease-in-out 250ms;
+  -moz-transition: background ease-in-out 250ms;
+  -o-transition: background ease-in-out 250ms;
+  transition: background ease-in-out 250ms;
+}
+
 .active-link {
-  text-decoration: underline;
   background: #534bae;
   color: #fff;
   text-decoration: none;
+}
+
+.active-menu-link {
+  background: #f2f2f2;
 }

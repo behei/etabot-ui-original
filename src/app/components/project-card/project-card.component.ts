@@ -156,11 +156,15 @@ export class ProjectCardComponent implements OnInit {
     //         });
   }
   download_report() {
+    const report = this.project_obj.get_html_report();
     const file = new Blob([this.project_obj.get_html_report()], {type: '.html'});
+    console.log(report);
     const a = document.createElement('a'),
       url = URL.createObjectURL(file);
     const now = new Date();
     const date = now.toLocaleDateString().split("/").join("-");
+    // ETAbot_ETA-Report_yyyy-mm-dd_24-mm-ss.html
+    // this.project_obj.name_ETA-Report_
     // const date = new Date().toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
     const time = now.toLocaleTimeString().split(":").join("-");
     a.href = url;

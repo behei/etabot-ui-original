@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
   isLoggedIn: Boolean;
   loggedOut = false;
   username = '';
+  currentPage = 'signup';
   constructor(
       private dialog: MatDialog,
       private signUpService: SignUpService,
@@ -55,5 +56,7 @@ export class HeaderComponent implements OnInit {
   }
 
 
-
+  newRoute() {
+    this.currentPage = this.router.url.match('[a-z]+')[0];
+  }
 }

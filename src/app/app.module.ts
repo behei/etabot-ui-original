@@ -104,7 +104,7 @@ import { PrivacyPolicyComponent } from './components/register-page/privacy-polic
     JobCardComponent,
     ReportComponent,
     TutorialDialogComponent,
-    FeedbackDialogComponent
+    FeedbackDialogComponent,
     PrivacyPolicyComponent,
     // EscapeHtmlPipe
   ],
@@ -113,7 +113,7 @@ import { PrivacyPolicyComponent } from './components/register-page/privacy-polic
     SettingsWindowComponent,
     ReportComponent,
     TutorialDialogComponent,
-    FeedbackDialogComponent
+    FeedbackDialogComponent,
     PrivacyPolicyComponent
   ],
   imports: [

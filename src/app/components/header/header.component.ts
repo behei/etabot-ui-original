@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
   isLoggedIn: Boolean;
   loggedOut = false;
   username = '';
+  currentPage = 'signup';
 
   constructor(
       private dialog: MatDialog,
@@ -62,7 +63,6 @@ export class HeaderComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.width = '50%';
     dialogConfig.height = 'auto';
-
     const dialogRef = this.dialog.open(FeedbackDialogComponent, dialogConfig);
     
     dialogRef.afterClosed().subscribe(result => {
@@ -70,5 +70,9 @@ export class HeaderComponent implements OnInit {
         console.log(`Sending feedback about ${result.topic}: ${result.subject}`);
       }
     });
+  }
+  
+  newRoute() {
+    this.currentPage = this.router.url.match('[a-z]+')[0];
   }
 }

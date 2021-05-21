@@ -8,19 +8,21 @@
 
   <span class="fill-the-space"></span>
   <div fxLayout="row" fxHide fxShow.gt-sm>
-    <a *ngIf="!isLoggedIn" mat-button routerLink="/signup" class="new-font"> Sign Up </a>
-    <a *ngIf="!isLoggedIn" mat-button routerLink="/login" class="new-font"> Log In </a>
-    <a *ngIf="isLoggedIn" mat-button routerLink="/projects" class="new-font"> Projects </a>
-    <a *ngIf="isLoggedIn" mat-button routerLink="/tmss" class="new-font"> Accounts </a>
-    <a *ngIf="isLoggedIn" mat-button routerLink="/projects" class="new-font" color="accent" (click)="logout()"> Log out </a>
+    <a *ngIf="!isLoggedIn" mat-button routerLink="/signup" routerLinkActive="active-link" class="new-font"> Sign Up </a>
+    <a *ngIf="!isLoggedIn" mat-button routerLink="/login" routerLinkActive="active-link" class="new-font"> Log In </a>
+    <a *ngIf="isLoggedIn" mat-button routerLink="/projects" routerLinkActive="active-link" class="new-font"> Projects </a>
+    <a *ngIf="isLoggedIn" mat-button routerLink="/tmss" routerLinkActive="active-link" class="new-font"> Accounts </a>
+    <a *ngIf="isLoggedIn" mat-button routerLink="/login" class="new-font" color="accent" (click)="logout()"> Log out </a>
   </div>
   <a mat-button [mat-menu-trigger-for]="menu" fxShow fxHide.gt-sm><mat-icon>menu</mat-icon></a>
 </mat-toolbar-row>
 </mat-toolbar>
 <mat-menu x-position="before" #menu>
-  <a *ngIf="!isLoggedIn" mat-menu-item routerLink="/signup">Sign Up</a>
-  <a *ngIf="!isLoggedIn" mat-menu-item routerLink="/login">Log In</a>
-  <a *ngIf="isLoggedIn" mat-menu-item routerLink="/projects" class="new-font"> Projects </a>
-  <a *ngIf="isLoggedIn" mat-menu-item routerLink="/tmss" class="new-font"> Accounts </a>
+  <a *ngIf="!isLoggedIn" mat-menu-item routerLink="/signup" class="new-font" [ngClass]="{'active-menu-link': currentPage=='signup'}" >Sign Up</a>
+  <a *ngIf="!isLoggedIn" mat-menu-item routerLink="/login" class="new-font" [ngClass]="{'active-menu-link': currentPage=='login'}">Log In</a>
+  <a *ngIf="isLoggedIn" mat-menu-item routerLink="/projects" class="new-font" [ngClass]="{'active-menu-link': currentPage=='projects'}"> Projects </a>
+  <a *ngIf="isLoggedIn" mat-menu-item routerLink="/tmss"  class="new-font" [ngClass]="{'active-menu-link': currentPage=='tmss'}"> Accounts </a>
   <a *ngIf="isLoggedIn" mat-menu-item routerLink="/projects" class="new-font" style="color: #ff5252;" (click)="logout()"> Log out </a>
 </mat-menu>
+
+<router-outlet  (activate)="newRoute()"></router-outlet>

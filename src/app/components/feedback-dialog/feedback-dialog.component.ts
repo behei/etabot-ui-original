@@ -58,8 +58,9 @@ export class FeedbackDialogComponent implements OnInit {
 
   sendFeedback(topic, subject, body) {
     const data = {
-      'subject' : `${topic.value} | ${subject.value}`,
-      'body'    : body.value
+      'subject' : `${topic.value} Feedback | ${subject.value}`,
+      'body'    : body.value,
+      'send_confirmation': true
     };
     
     this.etabot_api_service.userCommunication(data).subscribe(
@@ -84,7 +85,7 @@ export class FeedbackDialogComponent implements OnInit {
     if (this.error_messages.length == 0) {
       this.dialogRef.close(this.form.value); 
     }
-
+    
     this.sendFeedback(this.topic, this.subject, this.body);
   }
 

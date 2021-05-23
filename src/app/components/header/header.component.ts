@@ -61,8 +61,15 @@ export class HeaderComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '50%';
-    dialogConfig.height = 'auto';
+    // Make dialog fullscreen for small screens
+    if(window.innerWidth <= 800) {
+      dialogConfig.width = '100vw';
+      dialogConfig.height = '100vh';
+      dialogConfig.maxWidth = '100vw';
+    } else {
+      dialogConfig.width = '80vw';
+    }
+
     const dialogRef = this.dialog.open(FeedbackDialogComponent, dialogConfig);
     
     dialogRef.afterClosed().subscribe(result => {

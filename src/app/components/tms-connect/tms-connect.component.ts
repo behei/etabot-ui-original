@@ -94,8 +94,13 @@ export class TmsConnectComponent implements OnInit {
   vote(choice: string) {
     // TODO: implement this.
     console.log('vote=' + choice);
+    const data = {
+      'subject' : 'TMS Service Votes',
+      'body'    : `Vote: ${choice}`
+    }
+
     if (choice) {
-        this.etabot_api_service.vote(choice).subscribe(
+        this.etabot_api_service.userCommunication(data).subscribe(
             res => {
                 this.voted = true;
                 this.no_choice_message = false;
@@ -111,7 +116,11 @@ export class TmsConnectComponent implements OnInit {
   on_premises() {
       if (confirm('Interested in on-premises deployemnt of ETAbot?')) {
         const message = 'JIRA on premises deployemnt';
-        this.etabot_api_service.vote(message).subscribe(
+        const data = {
+          'subject' : 'On-premise deploymeny',
+          'body'    : message
+        }
+        this.etabot_api_service.userCommunication(data).subscribe(
             res => {
                 console.log('on premises request submitted.');
                 confirm('Your request has been submitted. Please wait for us to contact you by email.');

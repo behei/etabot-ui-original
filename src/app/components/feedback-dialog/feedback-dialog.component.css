@@ -1,0 +1,16 @@
+mat-form-field {
+    width: 100%;
+}
+
+textarea {
+    min-height: 150px;
+}
+
+button {
+    margin: 5px;
+    width: 100px;
+}
+
+h1 {
+    display: inline-block;
+}

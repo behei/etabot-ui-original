@@ -27,7 +27,7 @@ export class FeedbackDialogComponent implements OnInit {
 
 
   constructor(
-      private fb: FormBuilder, 
+      private fb: FormBuilder,
       private dialogRef: MatDialogRef<FeedbackDialogComponent>,
       private etabot_api_service: EtabotApiService
     ) { }
@@ -62,10 +62,10 @@ export class FeedbackDialogComponent implements OnInit {
       'body'    : body.value,
       'send_confirmation': true
     };
-    
+
     this.etabot_api_service.userCommunication(data).subscribe(
       res => {
-        console.log("Feedback sent");
+        console.log('Feedback sent');
       }
     );
   }
@@ -74,18 +74,18 @@ export class FeedbackDialogComponent implements OnInit {
     this.error_messages = [];
 
     if (this.topic.invalid) {
-      this.error_messages.push("Topic is empty.");
+      this.error_messages.push('Topic is empty.');
     }
     if (this.subject.invalid) {
-      this.error_messages.push("Subject is empty.");
+      this.error_messages.push('Subject is empty.');
     }
     if (this.body.invalid) {
-      this.error_messages.push("Body is empty.");
+      this.error_messages.push('Body is empty.');
     }
-    if (this.error_messages.length == 0) {
-      this.dialogRef.close(this.form.value); 
+    if (this.error_messages.length === 0) {
+      this.dialogRef.close(this.form.value);
     }
-    
+
     this.sendFeedback(this.topic, this.subject, this.body);
   }
 

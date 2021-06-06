@@ -19,7 +19,7 @@ import { JiraService } from './services/jira.service';
 import {MatIconModule} from '@angular/material/icon';
 // import { materialExportModule } from './material-scheme/app.materialExportModule';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -72,6 +72,7 @@ import { JobsMonitorComponent } from './components/jobs-monitor/jobs-monitor.com
 import { JobCardComponent } from './components/jobs-monitor/job-card/job-card.component';
 import { ReportComponent } from './components/report/report.component';
 import { TutorialDialogComponent } from './components/tutorial-dialog/tutorial-dialog.component';
+import { FeedbackDialogComponent } from './components/feedback-dialog/feedback-dialog.component';
 import { PrivacyPolicyComponent } from './components/register-page/privacy-policy/privacy-policy.component';
     // MatProgressBarModule,
 @NgModule({
@@ -103,6 +104,7 @@ import { PrivacyPolicyComponent } from './components/register-page/privacy-polic
     JobCardComponent,
     ReportComponent,
     TutorialDialogComponent,
+    FeedbackDialogComponent,
     PrivacyPolicyComponent,
     // EscapeHtmlPipe
   ],
@@ -111,6 +113,7 @@ import { PrivacyPolicyComponent } from './components/register-page/privacy-polic
     SettingsWindowComponent,
     ReportComponent,
     TutorialDialogComponent,
+    FeedbackDialogComponent,
     PrivacyPolicyComponent
   ],
   imports: [
@@ -159,7 +162,6 @@ import { PrivacyPolicyComponent } from './components/register-page/privacy-polic
     MatIconModule,
     MatRadioModule,
     MatProgressSpinnerModule
-
     ],
   providers: [EtabotApiService, AuthService, SignUpService, AuthGuard, JiraService,
        {

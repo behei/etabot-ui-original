@@ -1,0 +1,12 @@
+.project-select {
+    list-style: none;
+    flex-direction: column;
+    display: flex;
+    justify-content: left;
+    max-height: 10em;
+}
+
+.project {
+    text-align: left;
+    width: 10em;
+}

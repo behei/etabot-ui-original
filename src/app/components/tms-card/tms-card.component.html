@@ -53,7 +53,36 @@
          <div align="center" *ngIf="!username_not_null()">
             <button mat-raised-button [routerLink]="['/tms_connect']"  color="accent" style="margin-right: 10px; margin-bottom: 5px; font-size: 20px; height: 44px;" class="new-font">Reconnect</button>        
         </div>
-        <br>
+      
+      <div align="center">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <!-- <input type="checkbox" name="all-projects" class="all-projects"> -->
+              Select projects to import
+            </mat-panel-title>
+            <mat-panel-description></mat-panel-description>
+          </mat-expansion-panel-header>
+          <div align="center">
+            <button mat-raised-button (click)="select_all_projects(true)" color="primary" style="margin: 5px">Select All</button>
+            <button mat-raised-button (click)="select_all_projects(false)" color="primary" style="margin: 5px">Deselect All</button>
+          </div>
+          <ul class="project-select">
+            <!-- <li class="project">
+              <mat-checkbox></mat-checkbox> All
+            </li>
+            <li class="project">
+              <mat-checkbox></mat-checkbox> None
+            </li> -->
+            <li *ngFor="let project of projects" class="project">
+               <mat-checkbox [checked]="project.import" (change)="update_selected_projects(project)"></mat-checkbox> {{project.name}}
+            </li>
+          </ul>
+        </mat-expansion-panel>
+      </div>
+
+      <br>
+
       <div align="center">
         <button mat-raised-button (click)="parse_projects(tms.id)" color="accent" style="margin-right: 10px; margin-bottom: 5px; font-size: 20px; height: 44px;" class="new-font">Import projects</button>        
       </div>

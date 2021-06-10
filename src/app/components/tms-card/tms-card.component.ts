@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { JiraService } from '../../services/jira.service';
 import { Router, ActivatedRoute} from '@angular/router';
 import { ErrorBoxComponent } from '../error-box/error-box.component';
+import { NONE_TYPE } from '@angular/compiler/src/output/output_ast';
 
 // import { Job } from '../../job';
 // import { EtabotApiService } from '../../services/etabot-api.service';
@@ -23,14 +24,36 @@ export class TmsCardComponent implements OnInit {
   tms_status: any;
   message: string;
 
+  projects: Array<Object>;
+  import_all: boolean;
+
   constructor(
       private jiraService: JiraService,
-      private router: Router
+      private router: Router,
       // private etabotAPI: EtabotApiService
     ) {
     this.updating_tms = false;
     this.error = false;
 
+    // this.projects = ['ETABot', 'ETABot-Demo', 'JobeasyQA', 'ETABot Algo'];
+    this.projects = [
+      {
+        name: 'ETAbot',
+        import: false
+      },
+      {
+        name: 'ETAbot-Demo',
+        import: true
+      },
+      {
+        name: 'JobeasyQA',
+        import: false
+      },
+      {
+        name: 'ETAbot Algo',
+        import: false
+      },
+    ]
   }
 
   ngOnInit() {
@@ -81,7 +104,12 @@ export class TmsCardComponent implements OnInit {
 
 
   parse_projects(tms_id) {
-      // console.log('updating tms id ' + tms_id + ' with new password: ' + this.new_password);
+    // console.log('updating tms id ' + tms_id + ' with new password: ' + this.new_password);
+
+    let projects_to_parse = this.projects.filter(_ => { return _.import }).map(_ => { return _.name });
+
+    console.log(projects_to_parse);
+
     this.updating_tms = true;
     this.jiraService.parse_projects(tms_id)
     .subscribe(
@@ -131,5 +159,13 @@ export class TmsCardComponent implements OnInit {
     }
   }
 
-
+  select_all_projects(select) {
+    this.projects.forEach(project => {
+      project.import = select;
+    });
+  }
+  
+  update_selected_projects(project) {
+    project.import = !project.import;
+  }
 }

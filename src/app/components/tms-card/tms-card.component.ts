@@ -25,7 +25,6 @@ export class TmsCardComponent implements OnInit {
   message: string;
 
   projects: Array<Object>;
-  import_all: boolean;
 
   constructor(
       private jiraService: JiraService,
@@ -35,7 +34,6 @@ export class TmsCardComponent implements OnInit {
     this.updating_tms = false;
     this.error = false;
 
-    // this.projects = ['ETABot', 'ETABot-Demo', 'JobeasyQA', 'ETABot Algo'];
     this.projects = [
       {
         name: 'ETAbot',

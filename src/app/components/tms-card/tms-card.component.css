@@ -1,9 +1,8 @@
 .project-select {
     list-style: none;
-    flex-direction: column;
     display: flex;
+    flex-direction: column;
     justify-content: left;
-    max-height: 10em;
 }
 
 .project {

@@ -24,7 +24,7 @@ export class TmsCardComponent implements OnInit {
   tms_status: any;
   message: string;
 
-  projects: Array<Object>;
+  projects: Array<{name: String; import: Boolean}>;
 
   constructor(
       private jiraService: JiraService,
@@ -41,7 +41,7 @@ export class TmsCardComponent implements OnInit {
       },
       {
         name: 'ETAbot-Demo',
-        import: true
+        import: false
       },
       {
         name: 'JobeasyQA',

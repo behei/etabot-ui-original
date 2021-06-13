@@ -3,6 +3,7 @@ import { JiraService } from '../../services/jira.service';
 import { Router, ActivatedRoute} from '@angular/router';
 import { ErrorBoxComponent } from '../error-box/error-box.component';
 import { NONE_TYPE } from '@angular/compiler/src/output/output_ast';
+import { MatTableDataSource } from '@angular/material/table';
 
 // import { Job } from '../../job';
 // import { EtabotApiService } from '../../services/etabot-api.service';
@@ -24,7 +25,29 @@ export class TmsCardComponent implements OnInit {
   tms_status: any;
   message: string;
 
-  projects: Array<{name: String; import: Boolean}>;
+  // projects: Array<{name: String; import: Boolean}>;
+
+  projects = [
+    {
+      name: 'ETAbot',
+      import: false
+    },
+    {
+      name: 'ETAbot-Demo',
+      import: false
+    },
+    {
+      name: 'JobeasyQA',
+      import: false
+    },
+    {
+      name: 'ETAbot Algo',
+      import: false
+    },
+  ];
+  
+  displayColumns = ['projects'];
+  dataSource = new MatTableDataSource(this.projects);
 
   constructor(
       private jiraService: JiraService,
@@ -34,24 +57,9 @@ export class TmsCardComponent implements OnInit {
     this.updating_tms = false;
     this.error = false;
 
-    this.projects = [
-      {
-        name: 'ETAbot',
-        import: false
-      },
-      {
-        name: 'ETAbot-Demo',
-        import: false
-      },
-      {
-        name: 'JobeasyQA',
-        import: false
-      },
-      {
-        name: 'ETAbot Algo',
-        import: false
-      },
-    ]
+    for (let i = 0; i < 500; i++) {
+      this.projects.push({name: `Mock Project #${i}`, import: false});
+    }
   }
 
   ngOnInit() {
@@ -165,5 +173,10 @@ export class TmsCardComponent implements OnInit {
   
   update_selected_projects(project) {
     project.import = !project.import;
+  }
+
+  applyFilter(event: Event) {
+    const filter = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filter.trim().toLowerCase();
   }
 }

@@ -40,7 +40,8 @@ import {
     MatTooltipModule,
     MatMenuModule,
     MatRadioModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatTableModule
 } from '@angular/material';
 
     // MatProgressBarModule,
@@ -143,7 +144,8 @@ import { PrivacyPolicyComponent } from './components/register-page/privacy-polic
     MatRadioModule,
     FormsModule,
     ReactiveFormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatTableModule
   ],
   exports: [
     RouterModule,

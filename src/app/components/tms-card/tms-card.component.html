@@ -54,30 +54,44 @@
             <button mat-raised-button [routerLink]="['/tms_connect']"  color="accent" style="margin-right: 10px; margin-bottom: 5px; font-size: 20px; height: 44px;" class="new-font">Reconnect</button>        
         </div>
       
-      <div align="center">
+      <div>
         <mat-expansion-panel>
+          
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <!-- <input type="checkbox" name="all-projects" class="all-projects"> -->
               Select projects to import
             </mat-panel-title>
             <mat-panel-description></mat-panel-description>
           </mat-expansion-panel-header>
+
           <div align="center">
             <button mat-raised-button (click)="select_all_projects(true)" color="primary" style="margin: 5px">Select All</button>
             <button mat-raised-button (click)="select_all_projects(false)" color="primary" style="margin: 5px">Deselect All</button>
           </div>
-          <ul class="project-select">
-            <!-- <li class="project">
-              <mat-checkbox></mat-checkbox> All
-            </li>
-            <li class="project">
-              <mat-checkbox></mat-checkbox> None
-            </li> -->
-            <li *ngFor="let project of projects" class="project">
-               <mat-checkbox [checked]="project.import" (change)="update_selected_projects(project)"></mat-checkbox> {{project.name}}
-            </li>
-          </ul>
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Filter</mat-label>
+            <input type="text" matInput (keyup)="applyFilter($event)" placeholder="Search projects" #filterInput>
+          </mat-form-field>
+
+          <div class="table-container">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+              <ng-container matColumnDef="projects">
+                <th mat-header-cell *matHeaderCellDef> Your projects </th>
+                <td mat-cell *matCellDef="let project"><mat-checkbox [checked]="project.import" (change)="update_selected_projects(project)"></mat-checkbox> {{project.name}}</td>
+              </ng-container>
+              
+              <!-- Display Columns -->
+              <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
+
+              <!-- Row when no match is found (Only works in Angular 10.*) -->
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="1">No projects matching "{{filterInput.value}}"</td>
+              </tr>
+            </table>
+          </div>
+
         </mat-expansion-panel>
       </div>
 

@@ -114,10 +114,10 @@ export class TmsCardComponent implements OnInit {
 
     let projects_to_parse = this.projects.filter(_ => { return _.import }).map(_ => { return _.name });
 
-    console.log(projects_to_parse);
+    console.log("Parsing projects:", projects_to_parse);
 
     this.updating_tms = true;
-    this.jiraService.parse_projects(tms_id)
+    this.jiraService.parse_projects(tms_id, projects_to_parse)
     .subscribe(
       parse_result => {
 

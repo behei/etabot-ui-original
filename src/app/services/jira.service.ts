@@ -91,7 +91,7 @@ export class JiraService {
         }));
   }
 
-  parse_projects(tms_id, job_callback?) {
+  parse_projects(tms_id, selected_projects, job_callback?) {
     console.log('started parse_projects with tms_id ' + tms_id);
     // const params = JSON.stringify(
     //     {tms: tms_id});

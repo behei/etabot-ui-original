@@ -157,17 +157,21 @@ export class ProjectCardComponent implements OnInit {
   }
   download_report() {
     const report = this.project_obj.get_html_report();
-    const file = new Blob([this.project_obj.get_html_report()], {type: '.html'});
+    const file = new Blob([report], {type: '.html'});
+    const reportDate = this.project_obj.get_report_date();
     console.log('Report: \n', report);
+    console.log('Date: \n', reportDate);
     console.log('File: \n', file);
+
+    
+    const reportDateTimeSplit = reportDate.match(/([0-9-]+)/g);
+
     const a = document.createElement('a'),
       url = URL.createObjectURL(file);
-    const now = new Date();
-    const date = now.toLocaleDateString().split("/").join("-");
-    // ETAbot_ETA-Report_yyyy-mm-dd_24-mm-ss.html
-    // this.project_obj.name_ETA-Report_
-    // const date = new Date().toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
-    const time = now.toLocaleTimeString().split(":").join("-");
+
+    const date = reportDateTimeSplit[0];
+    const time = reportDateTimeSplit.slice(1, 4).join('-') + '_' + UTCOffset();
+    
     a.href = url;
     a.download = `report_${date}_${time}.html`;
     document.body.appendChild(a);
@@ -177,4 +181,13 @@ export class ProjectCardComponent implements OnInit {
       window.URL.revokeObjectURL(url);
     }, 0);
   }
+}
+
+function UTCOffset() {
+  const now = new Date();
+  const offsetMinutes = now.getTimezoneOffset();
+  const offsetHours = offsetMinutes * (100/60);
+  const offsetHoursLeadingZero = Math.abs(offsetHours) < 1000 ? '0' + offsetHours : offsetHours
+  const offsetFormatted = offsetHours <= 0 ? '+' + String(offsetHoursLeadingZero) : '-' + String(offsetHoursLeadingZero);
+  return offsetFormatted;
 }

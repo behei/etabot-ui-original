@@ -163,12 +163,10 @@ export class ProjectCardComponent implements OnInit {
     console.log('Date: \n', reportDate);
     console.log('File: \n', file);
 
+    const a = document.createElement('a'),
+      url = URL.createObjectURL(file)
     
     const reportDateTimeSplit = reportDate.match(/([0-9-]+)/g);
-
-    const a = document.createElement('a'),
-      url = URL.createObjectURL(file);
-
     const date = reportDateTimeSplit[0];
     const time = reportDateTimeSplit.slice(1, 4).join('-') + '_' + UTCOffset();
     

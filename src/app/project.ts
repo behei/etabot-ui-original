@@ -84,9 +84,9 @@ export class Project {
 
   get_report_date() {
     if (!! this.settings &&
-        !! this.settings.date) {
+        !! this.settings.report_date) {
         console.log("Date: \n", this.settings);
-        return this.settings.date;
+        return this.settings.report_date;
     } else {
         console.log('No date available');
         return null;

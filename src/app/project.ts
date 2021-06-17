@@ -89,7 +89,8 @@ export class Project {
         return this.settings.date;
         // return this.settings.report.slice(605);
     } else {
-        return 'No date available';
+        console.log('No date available');
+        return null;
     }
   }
 }

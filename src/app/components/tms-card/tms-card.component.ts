@@ -57,9 +57,9 @@ export class TmsCardComponent implements OnInit {
     this.updating_tms = false;
     this.error = false;
 
-    for (let i = 0; i < 500; i++) {
-      this.projects.push({name: `Mock Project #${i}`, import: false});
-    }
+    // for (let i = 0; i < 500; i++) {
+    //   this.projects.push({name: `Mock Project #${i}`, import: false});
+    // }
   }
 
   ngOnInit() {

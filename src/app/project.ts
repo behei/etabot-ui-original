@@ -87,7 +87,6 @@ export class Project {
         !! this.settings.date) {
         console.log("Date: \n", this.settings);
         return this.settings.date;
-        // return this.settings.report.slice(605);
     } else {
         console.log('No date available');
         return null;

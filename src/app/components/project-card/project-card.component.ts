@@ -164,21 +164,17 @@ export class ProjectCardComponent implements OnInit {
     const a = document.createElement('a'),
       url = URL.createObjectURL(file)
 
-    let filename = 'Report.html';
+    let filename = 'Report';
     
     if (this.project_obj.get_report_date()) {
       const reportDate = this.project_obj.get_report_date();
-      const reportDateTimeSplit = reportDate.match(/([0-9-]+)/g);
-      const date = reportDateTimeSplit[0];
-      const time = reportDateTimeSplit.slice(1, 4).join('-') + '_' + UTCOffset();
-      
-      console.log('Date: \n', reportDate);
+      const date = formatTimeUTC(`${reportDate.split(".")[0]} UTC`);
     
-      filename = `Report_${date}_${time}.html`;
+      filename = `${filename}_${date}`;
     }
     
     a.href = url;
-    a.download = filename;
+    a.download = filename + '.html';
     document.body.appendChild(a);
     a.click();
     setTimeout(function() {
@@ -188,11 +184,25 @@ export class ProjectCardComponent implements OnInit {
   }
 }
 
+function formatTimeUTC(dateTime) {
+  const dateTimeSplit = dateTime.split(" ");
+  const convertedDateTime = `${dateTimeSplit[0]}T${dateTimeSplit[1]}.000000Z`;
+
+  const date = new Date(convertedDateTime)
+  const time = `${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
+  const dateTimeFormatted = `${date.toLocaleDateString().split('/').join('-')}_${time}_TZ${UTCOffset()}`;
+
+  return dateTimeFormatted;
+}
+
 function UTCOffset() {
   const now = new Date();
+
   const offsetMinutes = now.getTimezoneOffset();
   const offsetHours = offsetMinutes * (100/60);
+
   const offsetHoursLeadingZero = Math.abs(offsetHours) < 1000 ? '0' + offsetHours : offsetHours
   const offsetFormatted = offsetHours <= 0 ? '+' + String(offsetHoursLeadingZero) : '-' + String(offsetHoursLeadingZero);
+  
   return offsetFormatted;
 }

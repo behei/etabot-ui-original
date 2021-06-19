@@ -24,30 +24,9 @@ export class TmsCardComponent implements OnInit {
   error: boolean;
   tms_status: any;
   message: string;
-
-  // projects: Array<{name: String; import: Boolean}>;
-
-  projects = [
-    {
-      name: 'ETAbot',
-      import: false
-    },
-    {
-      name: 'ETAbot-Demo',
-      import: false
-    },
-    {
-      name: 'JobeasyQA',
-      import: false
-    },
-    {
-      name: 'ETAbot Algo',
-      import: false
-    },
-  ];
-  
-  displayColumns = ['projects'];
-  dataSource = new MatTableDataSource(this.projects);
+  projects: Array<{name: string, import: boolean}>
+  displayColumns: Array<string>;
+  dataSource: MatTableDataSource<Object>;
 
   constructor(
       private jiraService: JiraService,
@@ -56,20 +35,22 @@ export class TmsCardComponent implements OnInit {
     ) {
     this.updating_tms = false;
     this.error = false;
-
-    // for (let i = 0; i < 500; i++) {
-    //   this.projects.push({name: `Mock Project #${i}`, import: false});
-    // }
   }
 
   ngOnInit() {
-
     console.log('TmsCardComponent Init tms: ' + this.tms.id + this.tms.connectivity_status + this.tms);
     if (this.tms.connectivity_status !== null) {
           this.tms_status = this.tms.connectivity_status;
-      } else {
-          this.tms_status = {'status': 'unknown', 'descrtiption': ''};
-      }
+    } else {
+        this.tms_status = {'status': 'unknown', 'descrtiption': ''};
+    }
+
+    if (this.tms.params.projects_available) {
+      this.projects = this.tms.params.projects_available.map(project => { return {name: project, import: false} });
+    }
+
+    this.displayColumns = ['projects'];
+    this.dataSource = new MatTableDataSource(this.projects);
   }
 
   remove_protocol_from_string(url) {

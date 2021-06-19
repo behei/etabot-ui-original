@@ -93,7 +93,7 @@ export class TmsCardComponent implements OnInit {
   parse_projects(tms_id) {
     // console.log('updating tms id ' + tms_id + ' with new password: ' + this.new_password);
 
-    let projects_to_parse = this.projects.filter(_ => { return _.import }).map(_ => { return _.name });
+    let projects_to_parse = this.projects.filter(project => { return project.import }).map(project => { return project.name });
 
     console.log("Parsing projects:", projects_to_parse);
 

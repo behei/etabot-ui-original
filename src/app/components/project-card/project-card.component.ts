@@ -166,6 +166,7 @@ export class ProjectCardComponent implements OnInit {
 
     let filename = 'Report';
     
+    console.log('169: ', this.project_obj.get_report_date());
     if (this.project_obj.get_report_date()) {
       const reportDate = this.project_obj.get_report_date();
       const date = formatTimeUTC(`${reportDate.split(".")[0]} UTC`);
@@ -189,8 +190,16 @@ function formatTimeUTC(dateTime) {
   const convertedDateTime = `${dateTimeSplit[0]}T${dateTimeSplit[1]}.000000Z`;
 
   const date = new Date(convertedDateTime)
-  const time = `${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
-  const dateTimeFormatted = `${date.toLocaleDateString().split('/').join('-')}_${time}_TZ${UTCOffset()}`;
+  const hours = date.getHours() < 10 ? '0'+date.getHours() : date.getHours();
+  const minutes = date.getMinutes() < 10 ? '0'+date.getMinutes() : date.getMinutes();
+  const seconds = date.getSeconds() < 10 ? '0'+date.getSeconds() : date.getSeconds();
+  const time = `${hours}-${minutes}-${seconds}`;
+
+  const dateLeadingZeros = date.toLocaleDateString().split('/').map(num => {
+    return parseInt(num) < 10 ? '0'+num : num;
+  });
+
+  const dateTimeFormatted = `${dateLeadingZeros.join('-')}_${time}_TZ${UTCOffset()}`;
 
   return dateTimeFormatted;
 }

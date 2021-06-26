@@ -130,16 +130,18 @@ export class JiraService {
     updated_params.projects_available = selected_projects;
     console.log("Updated Params: ", updated_params);
 
-    const paramsJSON = JSON.stringify(updated_params);
+    const params = {params: updated_params};
+    console.log("Param Params: ", params);
+    const paramsJSON = JSON.stringify(params);
     console.log("JSON Params: ", paramsJSON);
 
+    console.log("TMS_ID_FOR_PATCH", tms_id)
 
     return this.http.patch(this.service_api_end_point + 'tms/'+ tms_id + '/', paramsJSON, this.authService.construct_options())
       .pipe(map((response: Response) => {
               const res = response.json();
-              console.log("Response:", res);
+              console.log("Patch-Response:", res);
       }));
-
   }
 
   patch_username_password_tms(tms_id, username, password) {

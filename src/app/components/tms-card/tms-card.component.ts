@@ -94,10 +94,24 @@ export class TmsCardComponent implements OnInit {
     // console.log('updating tms id ' + tms_id + ' with new password: ' + this.new_password);
 
     let projects_to_parse = this.projects.filter(project => { return project.import }).map(project => { return project.name });
-    this.jiraService.patch_imported_projects(tms_id, this.tms.params, projects_to_parse);
+    this.jiraService.patch_imported_projects(tms_id, this.tms.params, projects_to_parse)
+      .subscribe(
+        parse_result => {
+          // for (const job of parse_result) {
+          //   console.log(job)
+          // }
+          console.log("PARSE RESULT: ", parse_result);
+        },
+        error => {
+          this.error_message = error;
+          this.error_message = this.jiraService.parse_error(error);
+          console.log(error);
+          this.error = true;
+        }
+      );
     // return;
     console.log("Parsing projects:", projects_to_parse);
-
+    return;
     this.updating_tms = true;
     this.jiraService.parse_projects(tms_id, projects_to_parse)
     .subscribe(

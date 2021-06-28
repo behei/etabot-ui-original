@@ -123,19 +123,15 @@ export class JiraService {
         }));
   }
 
-  patch_imported_projects(tms_id, old_params, selected_projects) {
-    let updated_params = old_params;
-    console.log("Old Params: ", old_params);
+  patch_imported_projects(tms_id, params, selected_projects) {
+  
+    params.projects_user_selected = selected_projects;
+    params.projects_available = selected_projects;
 
-    updated_params.projects_available = selected_projects;
-    console.log("Updated Params: ", updated_params);
+    console.log("Updated Params: ", params);
 
-    const params = {params: updated_params};
-    console.log("Param Params: ", params);
-    const paramsJSON = JSON.stringify(params);
-    console.log("JSON Params: ", paramsJSON);
-
-    console.log("TMS_ID_FOR_PATCH", tms_id)
+    const updatedParams = {params: params};
+    const paramsJSON = JSON.stringify(updatedParams);
 
     return this.http.patch(this.service_api_end_point + 'tms/'+ tms_id + '/', paramsJSON, this.authService.construct_options())
       .pipe(map((response: Response) => {

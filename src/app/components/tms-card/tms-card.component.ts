@@ -47,7 +47,7 @@ export class TmsCardComponent implements OnInit {
 
     if (this.tms.params.projects_available) {
       this.projects = this.tms.params.projects_available.map(project => {
-        return {name: project, import: this.tms.params.projects_user_selected.includes(project)} 
+        return {name: project, import: this.tms.params.projects_user_selected.includes(project)};
       });
     }
 

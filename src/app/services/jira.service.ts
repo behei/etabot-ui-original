@@ -126,7 +126,6 @@ export class JiraService {
   patch_imported_projects(tms_id, params, selected_projects) {
   
     params.projects_user_selected = selected_projects;
-    params.projects_available = selected_projects;
 
     console.log("Updated Params: ", params);
 

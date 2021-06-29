@@ -156,11 +156,26 @@ export class ProjectCardComponent implements OnInit {
     //         });
   }
   download_report() {
-    const file = new Blob([this.project_obj.get_html_report()], {type: '.html'});
+    const report = this.project_obj.get_html_report();
+    const file = new Blob([report], {type: '.html'});
+    console.log('Report: \n', report);
+    console.log('File: \n', file);
+
     const a = document.createElement('a'),
-      url = URL.createObjectURL(file);
+      url = URL.createObjectURL(file)
+
+    let filename = 'Report';
+    
+    console.log('169: ', this.project_obj.get_report_date());
+    if (this.project_obj.get_report_date()) {
+      const reportDate = this.project_obj.get_report_date();
+      const date = formatTimeUTC(`${reportDate.split(".")[0]} UTC`);
+    
+      filename = `${filename}_${date}`;
+    }
+    
     a.href = url;
-    a.download = 'report.html';
+    a.download = filename + '.html';
     document.body.appendChild(a);
     a.click();
     setTimeout(function() {
@@ -168,4 +183,35 @@ export class ProjectCardComponent implements OnInit {
       window.URL.revokeObjectURL(url);
     }, 0);
   }
+}
+
+function formatTimeUTC(dateTime) {
+  const dateTimeSplit = dateTime.split(" ");
+  const convertedDateTime = `${dateTimeSplit[0]}T${dateTimeSplit[1]}.000000Z`;
+
+  const date = new Date(convertedDateTime)
+  const hours = date.getHours() < 10 ? '0'+date.getHours() : date.getHours();
+  const minutes = date.getMinutes() < 10 ? '0'+date.getMinutes() : date.getMinutes();
+  const seconds = date.getSeconds() < 10 ? '0'+date.getSeconds() : date.getSeconds();
+  const time = `${hours}-${minutes}-${seconds}`;
+
+  const dateLeadingZeros = date.toLocaleDateString().split('/').map(num => {
+    return parseInt(num) < 10 ? '0'+num : num;
+  });
+
+  const dateTimeFormatted = `${dateLeadingZeros.join('-')}_${time}_TZ${UTCOffset()}`;
+
+  return dateTimeFormatted;
+}
+
+function UTCOffset() {
+  const now = new Date();
+
+  const offsetMinutes = now.getTimezoneOffset();
+  const offsetHours = offsetMinutes * (100/60);
+
+  const offsetHoursLeadingZero = Math.abs(offsetHours) < 1000 ? '0' + offsetHours : offsetHours
+  const offsetFormatted = offsetHours <= 0 ? '+' + String(offsetHoursLeadingZero) : '-' + String(offsetHoursLeadingZero);
+  
+  return offsetFormatted;
 }

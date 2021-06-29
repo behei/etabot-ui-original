@@ -53,13 +53,60 @@
          <div align="center" *ngIf="!username_not_null()">
             <button mat-raised-button [routerLink]="['/tms_connect']"  color="accent" style="margin-right: 10px; margin-bottom: 5px; font-size: 20px; height: 44px;" class="new-font">Reconnect</button>        
         </div>
+      
+        <div>
+
+          <mat-expansion-panel *ngIf="projects.length > 0">
+            
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Select projects to import
+              </mat-panel-title>
+              <mat-panel-description></mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <div align="center">
+              <button mat-raised-button (click)="select_all_projects(true)" color="primary" style="margin: 5px">Select All</button>
+              <button mat-raised-button (click)="select_all_projects(false)" color="primary" style="margin: 5px">Deselect All</button>
+            </div>
+            <br>
+            <mat-form-field appearance="fill">
+              <mat-label>Filter</mat-label>
+              <input type="text" matInput (keyup)="applyFilter($event)" placeholder="Search projects" #filterInput>
+            </mat-form-field>
+
+            <div class="table-container">
+              <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <ng-container matColumnDef="projects">
+                  <th mat-header-cell *matHeaderCellDef> Your projects </th>
+                  <td mat-cell *matCellDef="let project">
+                    <mat-checkbox [checked]="project.import" (change)="update_selected_projects(project)"></mat-checkbox>
+                    {{project.name}}
+                  </td>
+                </ng-container>
+                
+                <!-- Display Columns -->
+                <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
+
+                <!-- Row when no match is found (Only works in Angular 10.*) -->
+                <tr class="mat-row" *matNoDataRow>
+                  <td class="mat-cell" colspan="1">No projects matching "{{filterInput.value}}"</td>
+                </tr>
+              </table>
+            </div>
+
+          </mat-expansion-panel>
+        </div>
+
         <br>
-      <div align="center">
-        <button mat-raised-button (click)="parse_projects(tms.id)" color="accent" style="margin-right: 10px; margin-bottom: 5px; font-size: 20px; height: 44px;" class="new-font">Import projects</button>        
-      </div>
-      <div align="center">
+
+        <div align="center">
+          <button mat-raised-button (click)="parse_projects(tms.id)" color="accent" style="margin-right: 10px; margin-bottom: 5px; font-size: 20px; height: 44px;" class="new-font" [disabled]="projects.length == 0">Import projects</button>        
+        </div>
+        <div align="center">
           <span mat-raised-button (click)="delete_tms(tms.id)" matTooltip="This will also remove all projects associated with this JIRA account" color="accent" style="margin-right: 10px; margin-bottom: 5px; font-size: 12px; width: 340px; height: 44px;" class="new-font">Remove this JIRA account</span>
-          </div>
+        </div>
 
       </div>
       <!-- <div align="right">TMS ETAbot ID {{ tms.id }}</div> -->

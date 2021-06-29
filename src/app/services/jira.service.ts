@@ -123,6 +123,22 @@ export class JiraService {
         }));
   }
 
+  patch_imported_projects(tms_id, params, selected_projects) {
+  
+    params.projects_user_selected = selected_projects;
+
+    console.log("Updated Params: ", params);
+
+    const updatedParams = {params: params};
+    const paramsJSON = JSON.stringify(updatedParams);
+
+    return this.http.patch(this.service_api_end_point + 'tms/'+ tms_id + '/', paramsJSON, this.authService.construct_options())
+      .pipe(map((response: Response) => {
+              const res = response.json();
+              console.log("Patch-Response:", res);
+      }));
+  }
+
   patch_username_password_tms(tms_id, username, password) {
     const jiraObject = JSON.stringify(
         {  username: username,
@@ -134,7 +150,6 @@ export class JiraService {
                 console.log(res);
         }));
   }
-
 
   parse_error(error) {
       let error_message = String(error._body);

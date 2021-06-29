@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { JiraService } from '../../services/jira.service';
 import { Router, ActivatedRoute} from '@angular/router';
 import { ErrorBoxComponent } from '../error-box/error-box.component';
+import { NONE_TYPE } from '@angular/compiler/src/output/output_ast';
+import { MatTableDataSource } from '@angular/material/table';
 
 // import { Job } from '../../job';
 // import { EtabotApiService } from '../../services/etabot-api.service';
@@ -22,25 +24,35 @@ export class TmsCardComponent implements OnInit {
   error: boolean;
   tms_status: any;
   message: string;
+  projects: Array<{name: string, import: boolean}>
+  displayColumns: Array<string>;
+  dataSource: MatTableDataSource<Object>;
 
   constructor(
       private jiraService: JiraService,
-      private router: Router
+      private router: Router,
       // private etabotAPI: EtabotApiService
     ) {
     this.updating_tms = false;
     this.error = false;
-
   }
 
   ngOnInit() {
-
     console.log('TmsCardComponent Init tms: ' + this.tms.id + this.tms.connectivity_status + this.tms);
     if (this.tms.connectivity_status !== null) {
           this.tms_status = this.tms.connectivity_status;
-      } else {
-          this.tms_status = {'status': 'unknown', 'descrtiption': ''};
-      }
+    } else {
+        this.tms_status = {'status': 'unknown', 'descrtiption': ''};
+    }
+
+    if (this.tms.params.projects_available) {
+      this.projects = this.tms.params.projects_available.map(project => {
+        return {name: project, import: this.tms.params.projects_user_selected.includes(project)};
+      });
+    }
+
+    this.displayColumns = ['projects'];
+    this.dataSource = new MatTableDataSource(this.projects);
   }
 
   remove_protocol_from_string(url) {
@@ -81,9 +93,12 @@ export class TmsCardComponent implements OnInit {
 
 
   parse_projects(tms_id) {
-      // console.log('updating tms id ' + tms_id + ' with new password: ' + this.new_password);
+    // console.log('updating tms id ' + tms_id + ' with new password: ' + this.new_password);
+
+    let projects_to_parse = this.projects.filter(project => { return project.import }).map(project => { return project.name });
+    
     this.updating_tms = true;
-    this.jiraService.parse_projects(tms_id)
+    this.jiraService.parse_projects(tms_id, projects_to_parse)
     .subscribe(
       parse_result => {
 
@@ -131,5 +146,36 @@ export class TmsCardComponent implements OnInit {
     }
   }
 
+  select_all_projects(select) {
+    this.projects.forEach(project => {
+      project.import = select;
+    });
+  }
+  
+  update_selected_projects(project) {
+    project.import = !project.import;
 
+    let projects_to_parse = this.projects.filter(project => { return project.import }).map(project => { return project.name });
+    this.jiraService.patch_imported_projects(this.tms.id, this.tms.params, projects_to_parse)
+      .subscribe(
+        parse_result => {
+          // for (const job of parse_result) {
+          //   console.log(job)
+          // }
+          console.log("Patch Resultss: ", parse_result);
+        },
+        error => {
+          this.error_message = error;
+          this.error_message = this.jiraService.parse_error(error);
+          console.log(error);
+          this.error = true;
+        }
+      );
+    console.log("Updating Selected Projects:", projects_to_parse);
+  }
+
+  applyFilter(event: Event) {
+    const filter = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filter.trim().toLowerCase();
+  }
 }

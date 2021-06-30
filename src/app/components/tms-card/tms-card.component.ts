@@ -131,6 +131,7 @@ export class TmsCardComponent implements OnInit {
         this.updating_tms = false;
       }
     );
+    // this.openTutorialDialog(); # todo: make this work (needs migrating from tms-list)
   }
 
   delete_tms(tms_id) {

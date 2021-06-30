@@ -31,14 +31,15 @@ export class TmsListComponent implements OnInit {
         private dialog: MatDialog
         ) {
 
-    tms_service.get_tms().subscribe();
-    tms_service.tmss.subscribe(data => this.setTmss(data));
 
     this.route.queryParams.subscribe(params => {
         console.log('got route params: ');
         console.log(params);
-        this.handleRouteParamsChange(params)
-        });
+        this.handleRouteParamsChange(params);
+        tms_service.get_tms().subscribe();
+        tms_service.tmss.subscribe(data => this.setTmss(data));
+
+      });
 
     }
 
@@ -46,6 +47,7 @@ export class TmsListComponent implements OnInit {
     }
 
     handleRouteParamsChange(params) {
+      const auto_parse = false;
       if ('new_tms_ids' in params) {
         if (typeof(params['new_tms_ids']) === 'string') {
           this.new_tms_ids.push(Number(params['new_tms_ids']));
@@ -57,7 +59,7 @@ export class TmsListComponent implements OnInit {
         console.log('this.new_tms_ids: ');
         console.log(this.new_tms_ids);
 
-        if (this.new_tms_ids) {
+        if (this.new_tms_ids && auto_parse) {
           const remaining_new_tms_celery_jobs = [];
           const job_done_callback = (job: Job) => {
             const done_job_id = job.get_id();
@@ -71,14 +73,14 @@ export class TmsListComponent implements OnInit {
             console.log('updated remaining_new_tms_celery_jobs ' + remaining_new_tms_celery_jobs);
             if (remaining_new_tms_celery_jobs.length === 0) {
               // Make sure dialog exists
-              if(this.dialogRef && this.dialogRef.componentInstance) {
+              if (this.dialogRef && this.dialogRef.componentInstance) {
                 // Enable button to redirect ./projects
                 this.dialogRef.componentInstance.showRedirect();
                 // Hide loading bar when ready
                 this.dialogRef.componentInstance.hideLoadingBar();
               }
             }
-          }
+          };
           for (const new_tms_id of this.new_tms_ids) {
             console.log('parsing new TMS id ' + new_tms_id);
             // this.parsing_projects.add(new_tms_id);
@@ -111,9 +113,10 @@ export class TmsListComponent implements OnInit {
                 this.parsing_logs += error_message + '\n';
 
                 // Make sure dialog exists
-                if(this.dialogRef && this.dialogRef.componentInstance) {
+                if (this.dialogRef && this.dialogRef.componentInstance) {
                   // Show error
-                  this.dialogRef.componentInstance.showError('Unable to connect.<br>Please try again later.<br>If the error pesists report it to hello@etabot.ai.');
+                  this.dialogRef.componentInstance.showError(
+                    'Unable to connect.<br>Please try again later.<br>If the error persists report it to hello@etabot.ai.');
                   // Hide loading bar on error
                   this.dialogRef.componentInstance.hideLoadingBar();
                 }
@@ -143,6 +146,10 @@ export class TmsListComponent implements OnInit {
     setTmss(data) {
         console.log('saving TMS data');
         this.tmss = data;
+        for (const tms of this.tmss) {
+          tms.new = this.new_tms_ids.includes(tms.id);
+          console.log('setting tms ' + tms.id + 'as new: ' + tms.new);
+        }
         this.loaded_data = true;
         console.log('is Empty: ' + isEmpty(this.tmss));
     }

@@ -43,5 +43,13 @@
         <app-tms-card [tms]="tms" [tms_service]="tms_service" style="align-self: center"></app-tms-card>
     </div>
   </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      Remove project <app-attention-icon></app-attention-icon>
+    </ng-template>
+    <div style="text-align: center; height: 100%; padding-top: 125px;">
+        <button mat-raised-button color="accent">Remove Project</button>
+    </div>
+  </mat-tab>
 </mat-tab-group>
 

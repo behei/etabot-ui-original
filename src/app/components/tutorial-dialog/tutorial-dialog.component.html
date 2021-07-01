@@ -5,7 +5,8 @@
       <div class="indeterminate inner-loader"></div>
     </div>
 
-    <button (click)="close()" class="new-font back-button-image" mat-raised-button id="back-button"></button>
+    <!-- <button (click)="close()" class="new-font" id="back-button"><mat-icon aria-hidden="false" aria-label="Report download icon">close</mat-icon></button> -->
+    <mat-icon aria-hidden="false" (click)="close()" class="new-font" id="back-button" aria-label="Report download icon">close</mat-icon>
 
     <button (click)="send()" [disabled]='redirect_button_disabled' [routerLink]="['/projects']" cdkFocusInitial mat-raised-button color="primary" class="absolute-center new-font" id="continue-button">Continue to Projects</button>
 

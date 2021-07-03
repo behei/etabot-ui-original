@@ -20,16 +20,11 @@
 }
 
 #back-button {
-    
-    width: 3vw;
-    height: 3vw;
-    min-width: 40px;
-    min-height: 40px;
-    
     position: absolute;
     top: 2%;
     right: 2%;
-    
+
+    cursor: pointer;
 }
 
 #continue-button {

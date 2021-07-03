@@ -19,7 +19,7 @@
             URL {{ tms.endpoint }} <br>
             {{ tms_status.description | slice:0:200 }}
         </mat-expansion-panel>
-      </mat-accordion>      
+      </mat-accordion>
         <div>
           <app-error-box *ngIf="error == true" [error_message]="error_message"></app-error-box>
           <div *ngIf="updating_tms == true" class="alert alert-info">Hold tight! We are verifying your info with Atlassian...</div>
@@ -31,33 +31,33 @@
             </mat-panel-title>
             <mat-panel-description></mat-panel-description>
           </mat-expansion-panel-header>
-            <div style="margin-top: 35px;">              
+            <div style="margin-top: 35px;">
               <form #f="ngForm" (ngSubmit)="update_password(tms.id)">
                 <div class="form-group">
-                  
+
                     <label for="username" style="font-size: 16px;">Username</label>
                   <input type="text" class="form-control" id="username" name="username" required [(ngModel)]="new_username" #email="ngModel" style="font-size: 16px;" placeholder="{{ tms.username }}" />
-                </div>                
+                </div>
                 <div>
                   <label for="password" style="font-size: 16px;">Password</label>
                   <input type="password" id="password"  name="password" required [(ngModel)]="new_password" #password="ngModel" style="font-size: 16px;" />
                 </div>
                 <div class="form-group">
                   <button mat-raised-button color="accent" style="margin-right: 10px; margin-bottom: 5px; font-size: 20px; width: 120px; height: 44px;" class="new-font">Update</button>
-                </div>                  
-              </form>   
-            </div>   
+                </div>
+              </form>
+            </div>
         </mat-expansion-panel>
-      </mat-accordion>      
+      </mat-accordion>
         <br>
          <div align="center" *ngIf="!username_not_null()">
-            <button mat-raised-button [routerLink]="['/tms_connect']"  color="accent" style="margin-right: 10px; margin-bottom: 5px; font-size: 20px; height: 44px;" class="new-font">Reconnect</button>        
+            <button mat-raised-button [routerLink]="['/tms_connect']"  color="accent" style="margin-right: 10px; margin-bottom: 5px; font-size: 20px; height: 44px;" class="new-font">Reconnect</button>
         </div>
-      
+
         <div>
 
-          <mat-expansion-panel *ngIf="projects.length > 0">
-            
+          <mat-expansion-panel *ngIf="projects.length > 0" [expanded]="tms.new">
+
             <mat-expansion-panel-header>
               <mat-panel-title>
                 Select projects to import
@@ -84,7 +84,7 @@
                     {{project.name}}
                   </td>
                 </ng-container>
-                
+
                 <!-- Display Columns -->
                 <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
@@ -102,7 +102,7 @@
         <br>
 
         <div align="center">
-          <button mat-raised-button (click)="parse_projects(tms.id)" color="accent" style="margin-right: 10px; margin-bottom: 5px; font-size: 20px; height: 44px;" class="new-font" [disabled]="projects.length == 0">Import projects</button>        
+          <button mat-raised-button (click)="parse_projects(tms.id)" color="accent" style="margin-right: 10px; margin-bottom: 5px; font-size: 20px; height: 44px;" class="new-font" [disabled]="projects.length == 0">Import projects</button>
         </div>
         <div align="center">
           <span mat-raised-button (click)="delete_tms(tms.id)" matTooltip="This will also remove all projects associated with this JIRA account" color="accent" style="margin-right: 10px; margin-bottom: 5px; font-size: 12px; width: 340px; height: 44px;" class="new-font">Remove this JIRA account</span>

@@ -24,7 +24,7 @@ export class TmsCardComponent implements OnInit {
   error: boolean;
   tms_status: any;
   message: string;
-  projects: Array<{name: string, import: boolean}>
+  projects: Array<{name: string, import: boolean}>;
   displayColumns: Array<string>;
   dataSource: MatTableDataSource<Object>;
 
@@ -42,13 +42,23 @@ export class TmsCardComponent implements OnInit {
     if (this.tms.connectivity_status !== null) {
           this.tms_status = this.tms.connectivity_status;
     } else {
-        this.tms_status = {'status': 'unknown', 'descrtiption': ''};
+        this.tms_status = {'status': 'unknown', 'description': ''};
     }
-
+    if (this.tms.params.projects_user_selected) {
+      console.log('this.tms.params.projects_user_selected: ' + this.tms.params.projects_user_selected);
+    } else {
+      this.tms.params.projects_user_selected = [];
+    }
     if (this.tms.params.projects_available) {
+      console.log('this.tms.params.projects_available: ' + this.tms.params.projects_available);
       this.projects = this.tms.params.projects_available.map(project => {
+        console.log('mapping project ' + project);
         return {name: project, import: this.tms.params.projects_user_selected.includes(project)};
       });
+      console.log('set this.projects to ' + this.projects );
+    } else {
+      console.log('no "projects_available" in tms params');
+      this.projects = [];
     }
 
     this.displayColumns = ['projects'];
@@ -95,8 +105,10 @@ export class TmsCardComponent implements OnInit {
   parse_projects(tms_id) {
     // console.log('updating tms id ' + tms_id + ' with new password: ' + this.new_password);
 
-    let projects_to_parse = this.projects.filter(project => { return project.import }).map(project => { return project.name });
-    
+    const projects_to_parse = this.projects.filter(
+      project => { return project.import }).map(
+        project => { return project.name });
+
     this.updating_tms = true;
     this.jiraService.parse_projects(tms_id, projects_to_parse)
     .subscribe(
@@ -119,6 +131,7 @@ export class TmsCardComponent implements OnInit {
         this.updating_tms = false;
       }
     );
+    // this.openTutorialDialog(); # todo: make this work (needs migrating from tms-list)
   }
 
   delete_tms(tms_id) {
@@ -151,18 +164,20 @@ export class TmsCardComponent implements OnInit {
       project.import = select;
     });
   }
-  
+
   update_selected_projects(project) {
     project.import = !project.import;
 
-    let projects_to_parse = this.projects.filter(project => { return project.import }).map(project => { return project.name });
+    const projects_to_parse = this.projects.filter(
+      project => { return project.import }).map(
+        project => { return project.name });
     this.jiraService.patch_imported_projects(this.tms.id, this.tms.params, projects_to_parse)
       .subscribe(
         parse_result => {
           // for (const job of parse_result) {
           //   console.log(job)
           // }
-          console.log("Patch Resultss: ", parse_result);
+          console.log('Patch Results: ', parse_result);
         },
         error => {
           this.error_message = error;
@@ -171,7 +186,7 @@ export class TmsCardComponent implements OnInit {
           this.error = true;
         }
       );
-    console.log("Updating Selected Projects:", projects_to_parse);
+    console.log('Updating Selected Projects:', projects_to_parse);
   }
 
   applyFilter(event: Event) {

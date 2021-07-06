@@ -4,6 +4,8 @@ import { Router, ActivatedRoute} from '@angular/router';
 import { ErrorBoxComponent } from '../error-box/error-box.component';
 import { NONE_TYPE } from '@angular/compiler/src/output/output_ast';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
+import { TutorialDialogComponent } from '../tutorial-dialog/tutorial-dialog.component';
 
 // import { Job } from '../../job';
 // import { EtabotApiService } from '../../services/etabot-api.service';
@@ -24,13 +26,15 @@ export class TmsCardComponent implements OnInit {
   error: boolean;
   tms_status: any;
   message: string;
-  projects: Array<{name: string, import: boolean}>
+  projects: Array<{name: string, import: boolean}>;
   displayColumns: Array<string>;
   dataSource: MatTableDataSource<Object>;
+  dialogRef: MatDialogRef<TutorialDialogComponent>;
 
   constructor(
       private jiraService: JiraService,
       private router: Router,
+      private dialog: MatDialog
       // private etabotAPI: EtabotApiService
     ) {
     this.updating_tms = false;
@@ -42,13 +46,23 @@ export class TmsCardComponent implements OnInit {
     if (this.tms.connectivity_status !== null) {
           this.tms_status = this.tms.connectivity_status;
     } else {
-        this.tms_status = {'status': 'unknown', 'descrtiption': ''};
+        this.tms_status = {'status': 'unknown', 'description': ''};
     }
-
+    if (this.tms.params.projects_user_selected) {
+      console.log('this.tms.params.projects_user_selected: ' + this.tms.params.projects_user_selected);
+    } else {
+      this.tms.params.projects_user_selected = [];
+    }
     if (this.tms.params.projects_available) {
+      console.log('this.tms.params.projects_available: ' + this.tms.params.projects_available);
       this.projects = this.tms.params.projects_available.map(project => {
+        console.log('mapping project ' + project);
         return {name: project, import: this.tms.params.projects_user_selected.includes(project)};
       });
+      console.log('set this.projects to ' + this.projects );
+    } else {
+      console.log('no "projects_available" in tms params');
+      this.projects = [];
     }
 
     this.displayColumns = ['projects'];
@@ -95,10 +109,18 @@ export class TmsCardComponent implements OnInit {
   parse_projects(tms_id) {
     // console.log('updating tms id ' + tms_id + ' with new password: ' + this.new_password);
 
-    let projects_to_parse = this.projects.filter(project => { return project.import }).map(project => { return project.name });
-    
+    const finishedImportCallback = () => {
+      // Make sure dialog exists
+      if (this.dialogRef && this.dialogRef.componentInstance) {
+        // Enable button to redirect ./projects
+        this.dialogRef.componentInstance.showRedirect();
+        // Hide loading bar when ready
+        this.dialogRef.componentInstance.hideLoadingBar();
+      }
+    };
+
     this.updating_tms = true;
-    this.jiraService.parse_projects(tms_id, projects_to_parse)
+    this.jiraService.parse_projects(tms_id, finishedImportCallback)
     .subscribe(
       parse_result => {
 
@@ -117,8 +139,20 @@ export class TmsCardComponent implements OnInit {
         console.log(error);
         this.error = true;
         this.updating_tms = false;
+        
+        // Make sure dialog exists
+        if (this.dialogRef && this.dialogRef.componentInstance) {
+          // Show error
+          this.dialogRef.componentInstance.showError(
+            'Unable to connect.<br>Please try again later.<br>If the error persists report it to hello@etabot.ai.');
+          // Hide loading bar on error
+          this.dialogRef.componentInstance.hideLoadingBar();
+        }
       }
     );
+
+    // Display the tutorial dialog
+    this.openTutorialDialog();
   }
 
   delete_tms(tms_id) {
@@ -151,18 +185,20 @@ export class TmsCardComponent implements OnInit {
       project.import = select;
     });
   }
-  
+
   update_selected_projects(project) {
     project.import = !project.import;
 
-    let projects_to_parse = this.projects.filter(project => { return project.import }).map(project => { return project.name });
+    const projects_to_parse = this.projects.filter(
+      project => { return project.import }).map(
+        project => { return project.name });
     this.jiraService.patch_imported_projects(this.tms.id, this.tms.params, projects_to_parse)
       .subscribe(
         parse_result => {
           // for (const job of parse_result) {
           //   console.log(job)
           // }
-          console.log("Patch Resultss: ", parse_result);
+          console.log('Patch Results: ', parse_result);
         },
         error => {
           this.error_message = error;
@@ -171,11 +207,26 @@ export class TmsCardComponent implements OnInit {
           this.error = true;
         }
       );
-    console.log("Updating Selected Projects:", projects_to_parse);
+    console.log('Updating Selected Projects:', projects_to_parse);
   }
 
   applyFilter(event: Event) {
     const filter = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filter.trim().toLowerCase();
+  }
+
+  openTutorialDialog() {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      dialogConfig.width = '50%';
+      dialogConfig.height = 'auto';
+      dialogConfig.panelClass = 'panel-class';
+
+      this.dialogRef = this.dialog.open(TutorialDialogComponent, dialogConfig);
+
+      this.dialogRef.afterClosed().subscribe(result => {
+          console.log(`Tutorial Closed: ${result}`);
+      });
   }
 }

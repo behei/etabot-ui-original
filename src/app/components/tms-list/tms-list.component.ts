@@ -5,8 +5,6 @@ import { isEmpty } from '../../tools';
 import { Router, ActivatedRoute} from '@angular/router';
 import { JobsServiceService } from '../../services/jobs-service.service';
 import { Job } from '../../job';
-import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { TutorialDialogComponent } from '../tutorial-dialog/tutorial-dialog.component';
 
 @Component({
     selector: 'app-tms-list',
@@ -20,25 +18,24 @@ export class TmsListComponent implements OnInit {
     new_tms_ids = [];
     parsing_projects = new Set();
     parsing_logs = '';
-    dialogRef: MatDialogRef<TutorialDialogComponent>;
 
 
   constructor(
         private tms_service: JiraService,
         private jobs_service: JobsServiceService,
         private router: Router,
-        private route: ActivatedRoute,
-        private dialog: MatDialog
+        private route: ActivatedRoute
         ) {
 
-    tms_service.get_tms().subscribe();
-    tms_service.tmss.subscribe(data => this.setTmss(data));
 
     this.route.queryParams.subscribe(params => {
         console.log('got route params: ');
         console.log(params);
-        this.handleRouteParamsChange(params)
-        });
+        this.handleRouteParamsChange(params);
+        tms_service.get_tms().subscribe();
+        tms_service.tmss.subscribe(data => this.setTmss(data));
+
+      });
 
     }
 
@@ -46,6 +43,7 @@ export class TmsListComponent implements OnInit {
     }
 
     handleRouteParamsChange(params) {
+      const auto_parse = false;
       if ('new_tms_ids' in params) {
         if (typeof(params['new_tms_ids']) === 'string') {
           this.new_tms_ids.push(Number(params['new_tms_ids']));
@@ -57,7 +55,7 @@ export class TmsListComponent implements OnInit {
         console.log('this.new_tms_ids: ');
         console.log(this.new_tms_ids);
 
-        if (this.new_tms_ids) {
+        if (this.new_tms_ids && auto_parse) {
           const remaining_new_tms_celery_jobs = [];
           const job_done_callback = (job: Job) => {
             const done_job_id = job.get_id();
@@ -69,16 +67,7 @@ export class TmsListComponent implements OnInit {
               remaining_new_tms_celery_jobs.splice(index, 1);
             }
             console.log('updated remaining_new_tms_celery_jobs ' + remaining_new_tms_celery_jobs);
-            if (remaining_new_tms_celery_jobs.length === 0) {
-              // Make sure dialog exists
-              if(this.dialogRef && this.dialogRef.componentInstance) {
-                // Enable button to redirect ./projects
-                this.dialogRef.componentInstance.showRedirect();
-                // Hide loading bar when ready
-                this.dialogRef.componentInstance.hideLoadingBar();
-              }
-            }
-          }
+          };
           for (const new_tms_id of this.new_tms_ids) {
             console.log('parsing new TMS id ' + new_tms_id);
             // this.parsing_projects.add(new_tms_id);
@@ -110,14 +99,6 @@ export class TmsListComponent implements OnInit {
                 console.log(error_message);
                 this.parsing_logs += error_message + '\n';
 
-                // Make sure dialog exists
-                if(this.dialogRef && this.dialogRef.componentInstance) {
-                  // Show error
-                  this.dialogRef.componentInstance.showError('Unable to connect.<br>Please try again later.<br>If the error pesists report it to hello@etabot.ai.');
-                  // Hide loading bar on error
-                  this.dialogRef.componentInstance.hideLoadingBar();
-                }
-
                 // this.parsing_projects.delete(new_tms_id);
                 // if (this.parsing_projects.size === 0) {
                 //     if (confirm('Redirect to projects screen?')) {
@@ -128,8 +109,6 @@ export class TmsListComponent implements OnInit {
               }
             );
           }
-          // Display the tutorial dialog
-          this.openTutorialDialog();
         }
 
         // TODO: this kicks in prematurely
@@ -143,22 +122,11 @@ export class TmsListComponent implements OnInit {
     setTmss(data) {
         console.log('saving TMS data');
         this.tmss = data;
+        for (const tms of this.tmss) {
+          tms.new = this.new_tms_ids.includes(tms.id);
+          console.log('setting tms ' + tms.id + 'as new: ' + tms.new);
+        }
         this.loaded_data = true;
         console.log('is Empty: ' + isEmpty(this.tmss));
-    }
-
-    openTutorialDialog() {
-        const dialogConfig = new MatDialogConfig();
-        dialogConfig.disableClose = true;
-        dialogConfig.autoFocus = true;
-        dialogConfig.width = '50%';
-        dialogConfig.height = 'auto';
-        dialogConfig.panelClass = 'panel-class';
-
-        this.dialogRef = this.dialog.open(TutorialDialogComponent, dialogConfig);
-
-        this.dialogRef.afterClosed().subscribe(result => {
-            console.log(`Tutorial Closed: ${result}`);
-        });
     }
 }

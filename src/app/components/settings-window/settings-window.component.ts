@@ -13,6 +13,7 @@ export class SettingsWindowComponent implements OnInit {
   tms: any;
   project_obj: Project;
   tms_service: any;
+  confirmDelete: boolean;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any
     ) { }
@@ -23,6 +24,14 @@ export class SettingsWindowComponent implements OnInit {
     this.project_obj = this.data['project'];
     this.tms_service = this.data['tms_service'];
     console.log('settings window inited.');
+    console.log("THIS.DATA: ", this.data);
   }
 
+  removeProject() {
+    console.log("Removing project");
+    // TODO: Add patch request here 
+    // -> this.project.tms.id
+    // -> Somehow get the account settings (projects available, projects selected)
+    // -> Reload projects with new selections
+  }
 }

@@ -60,10 +60,13 @@ export class TmsCardComponent implements OnInit {
       this.jiraService.patch_username_password_tms(this.tms.id, this.tms.username, this.tms.password)
         .subscribe(
           success => {
-            console.log("Missing params, patchinig: ", success);
+            console.log("Missing params, patchinig");
+            this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+              this.router.navigate(["./tmss"]);
+            });
           },
           error => {
-            console.log("Missing params, Ffailed to patch: ", error);
+            console.log("Missing params, failed to patch: ", error);
           }
         );
     }

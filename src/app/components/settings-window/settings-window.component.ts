@@ -28,10 +28,24 @@ export class SettingsWindowComponent implements OnInit {
   }
 
   removeProject() {
-    console.log("Removing project");
-    // TODO: Add patch request here 
-    // -> this.project.tms.id
-    // -> Somehow get the account settings (projects available, projects selected)
-    // -> Reload projects with new selections
+    let updatedProjects = this.tms.params.projects_user_selected.filter(project => project != this.project_obj.name);
+    this.tms_service.patch_imported_projects(this.tms.id, this.tms.params, updatedProjects)
+      .subscribe(
+        success => {
+          console.log(`Successfully removed prroject ${this.project_obj.name}`);
+          this.tms_service.parse_projects(this.tms.id)
+            .subscribe(
+              success => {
+                console.log(`Succesfully parsed projects with TMS ID: ${this.tms.id}`)
+              },
+              error => {
+                console.log(`Failed to parse projects with TMS ID: ${this.tms.id}: ${error}`)
+              }
+            );
+        },
+        error => {
+          console.log(`Error removing project ${this.project_obj.name}: ${error}`);
+        }
+      );
   }
 }

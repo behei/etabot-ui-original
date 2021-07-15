@@ -55,12 +55,12 @@ export class TmsCardComponent implements OnInit {
       this.tms.params.projects_user_selected = [];
     }
 
-    // Check if old tms-card never had projects importe
+    // Check if old tms-card never had projects import
     if (Object.keys(this.tms.params).length <= 1 || !('projects_available' in this.tms.params)) {
       this.jiraService.patch_username_password_tms(this.tms.id, this.tms.username, this.tms.password)
         .subscribe(
           success => {
-            console.log("Missing params, patchinig");
+            console.log("Missing params, patching");
             this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
               this.router.navigate(["./tmss"]);
             });

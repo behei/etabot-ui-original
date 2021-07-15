@@ -4,7 +4,6 @@ import { Inject } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { Project } from '../../project';
 import { Router } from '@angular/router';
-import { Settings } from 'http2';
 
 @Component({
   selector: 'app-settings-window',

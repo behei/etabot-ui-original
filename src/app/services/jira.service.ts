@@ -70,6 +70,7 @@ export class JiraService {
     console.log('started get_tms');
     return this.http.get(this.service_api_end_point + 'tms/', this.authService.construct_options())
         .pipe(map((response: Response) => {
+            console.log("HERE RES: ", response.json());
             const res = response.json();
             console.log('get_tms response: ' + res);
             console.log('number of TMS accounts found: ' + res.length);

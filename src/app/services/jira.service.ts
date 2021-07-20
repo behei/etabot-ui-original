@@ -115,6 +115,9 @@ export class JiraService {
                     JobStatus.in_progress,
                     api_call,
                     {'tms_id': tms_id});
+                setTimeout(() => {
+                  new_job.set_title(`${new_job.get_title()} | This may take some time, feel free to close the window, we will email you when the projects are imported.`);
+                }, 30*1000);
                 new_job.callback = job_callback;
                 jobs.push(new_job);
                 this.jobs_service.add_job(new_job);

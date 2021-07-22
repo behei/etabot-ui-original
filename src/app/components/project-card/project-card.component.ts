@@ -124,7 +124,7 @@ export class ProjectCardComponent implements OnInit {
                     console.log('estimate job submission error' + error);
                     project['error_message'] = error;
                     this.try_enable_update_button();
-                    project['result_message'] = 'Error occured: ' + error;
+                    project['result_message'] = 'Error occurred: ' + error;
                 }
             );
   }
@@ -165,15 +165,15 @@ export class ProjectCardComponent implements OnInit {
       url = URL.createObjectURL(file)
 
     let filename = 'Report';
-    
+
     console.log('169: ', this.project_obj.get_report_date());
     if (this.project_obj.get_report_date()) {
       const reportDate = this.project_obj.get_report_date();
       const date = formatTimeUTC(`${reportDate.split(".")[0]} UTC`);
-    
+
       filename = `${filename}_${date}`;
     }
-    
+
     a.href = url;
     a.download = filename + '.html';
     document.body.appendChild(a);
@@ -212,6 +212,6 @@ function UTCOffset() {
 
   const offsetHoursLeadingZero = Math.abs(offsetHours) < 1000 ? '0' + offsetHours : offsetHours
   const offsetFormatted = offsetHours <= 0 ? '+' + String(offsetHoursLeadingZero) : '-' + String(offsetHoursLeadingZero);
-  
+
   return offsetFormatted;
 }

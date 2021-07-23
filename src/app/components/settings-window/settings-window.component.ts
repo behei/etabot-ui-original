@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class SettingsWindowComponent implements OnInit {
   tms: any;
+  text: any;
   project_obj: Project;
   tms_service: any;
   api_service: any;
@@ -26,7 +27,7 @@ export class SettingsWindowComponent implements OnInit {
     this.tms = this.data['tms'];
     this.project_obj = this.data['project'];
     this.tms_service = this.data['tms_service'];
-    this.api_service = this.data['api_service']
+    this.api_service = this.data['api_service'];
     console.log('settings window inited.');
   }
 

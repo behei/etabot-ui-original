@@ -42,21 +42,8 @@ export class TmsCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('TmsCardComponent Init tms: ' + this.tms.id + this.tms.connectivity_status + this.tms);
-    if (this.tms.connectivity_status !== null) {
-          this.tms_status = this.tms.connectivity_status;
-    } else {
-        this.tms_status = {'status': 'unknown', 'description': ''};
-    }
-
-    if (this.tms.params.projects_user_selected) {
-      console.log('this.tms.params.projects_user_selected: ' + this.tms.params.projects_user_selected);
-    } else {
-      this.tms.params.projects_user_selected = [];
-    }
-
     // Check if old tms-card never had projects import
-    if (Object.keys(this.tms.params).length <= 1 || !('projects_available' in this.tms.params)) {
+    if (this.tms.params == null || Object.keys(this.tms.params).length <= 1 || !('projects_available' in this.tms.params)) {
       this.jiraService.patch_username_password_tms(this.tms.id, this.tms.username, this.tms.password)
         .subscribe(
           success => {
@@ -69,6 +56,19 @@ export class TmsCardComponent implements OnInit {
             console.log("Missing params, failed to patch: ", error);
           }
         );
+    }
+
+    console.log('TmsCardComponent Init tms: ' + this.tms.id + this.tms.connectivity_status + this.tms);
+    if (this.tms.connectivity_status !== null) {
+          this.tms_status = this.tms.connectivity_status;
+    } else {
+        this.tms_status = {'status': 'unknown', 'description': ''};
+    }
+
+    if (this.tms.params.projects_user_selected) {
+      console.log('this.tms.params.projects_user_selected: ' + this.tms.params.projects_user_selected);
+    } else {
+      this.tms.params.projects_user_selected = [];
     }
 
     if (this.tms.params.projects_available) {

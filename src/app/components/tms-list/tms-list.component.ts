@@ -34,29 +34,6 @@ export class TmsListComponent implements OnInit {
         this.handleRouteParamsChange(params);
         tms_service.get_tms().subscribe();
         tms_service.tmss.subscribe(data => {
-          for (let tms of data) {
-            if (tms.params == null) {
-              console.log(`Project id ${tms.id} missing params, deleting and re-adding`);
-              tms_service.delete_tms(tms.id).subscribe(
-                success => {
-                  console.log(`Successfully delete tms id ${tms.id}, re-adding.`);
-                  tms_service.add_tms(tms.owner, tms.endpoint, tms.username, tms.password).subscribe(
-                    success => {
-                      console.log(`Successfully added back tms id ${tms.id}. Reloading page.`);
-                      this.router.navigateByUrl('/,', {skipLocationChange: true}).then(() => {
-                        this.router.navigate(["./tmss"]);
-                      })
-                    },
-                    error => {
-                      console.log(`Failed to re-add tms id ${tms.id}`, error);
-                    });
-                },
-                error => {
-                  console.log(`Failed to delete tms id ${tms.id}`, error);
-                }
-              );
-            }
-          }
           this.setTmss(data)
         });
 
@@ -145,10 +122,6 @@ export class TmsListComponent implements OnInit {
     }
 
     setTmss(data) {
-      console.log("HERE: ", data);
-      if (data.params == null) {
-        console.log("HERE: null params");
-      }
       console.log('saving TMS data');
       this.tmss = data;
       for (const tms of this.tmss) {

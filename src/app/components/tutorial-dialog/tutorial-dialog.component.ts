@@ -21,6 +21,7 @@ export class TutorialDialogComponent implements OnInit {
   error_display = 'none';
   error_message = '';
   time_message_display = 'none';
+  show_time_message = true;
 
   constructor(
       private dialogRef: MatDialogRef<TutorialDialogComponent>
@@ -28,7 +29,9 @@ export class TutorialDialogComponent implements OnInit {
 
   ngOnInit() {
     setTimeout(() => {
-      this.time_message_display = 'block';
+      if (this.show_time_message) {
+        this.time_message_display = 'block';
+      }
     }, 30*1000);
   }
 
@@ -37,12 +40,15 @@ export class TutorialDialogComponent implements OnInit {
   }
 
   hideLoadingBar() {
+    this.show_time_message = false;
+    this.time_message_display = 'none';
     this.loading_bar_display = 'none';
   }
 
   showError(error_message) {
     this.error_display = 'block'
     this.error_message = error_message;
+    this.show_time_message = false;
     this.time_message_display = 'none';
   }
 

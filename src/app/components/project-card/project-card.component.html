@@ -16,6 +16,8 @@
 
     <!-- </mat-card-header> -->
       <mat-card-content>
+        <app-project-summary [project]="project_obj"></app-project-summary>
+
         <div fxLayout="row wrap" class="update_button_spinner_container">
           <div fxFlex class="card-update-button new-font" matTooltip="{{update_eta_tooltip}}">
               <button [disabled]="update_button_disabled" (click)="estimate(project)" mat-raised-button color="primary" class="update_eta_button new-font julius-font">Update ETAs</button>

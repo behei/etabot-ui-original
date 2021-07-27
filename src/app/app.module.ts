@@ -75,6 +75,7 @@ import { ReportComponent } from './components/report/report.component';
 import { TutorialDialogComponent } from './components/tutorial-dialog/tutorial-dialog.component';
 import { FeedbackDialogComponent } from './components/feedback-dialog/feedback-dialog.component';
 import { PrivacyPolicyComponent } from './components/register-page/privacy-policy/privacy-policy.component';
+import { ProjectSummaryComponent } from './components/project-card/project-summary/project-summary.component';
     // MatProgressBarModule,
 @NgModule({
   declarations: [
@@ -107,6 +108,7 @@ import { PrivacyPolicyComponent } from './components/register-page/privacy-polic
     TutorialDialogComponent,
     FeedbackDialogComponent,
     PrivacyPolicyComponent,
+    ProjectSummaryComponent,
     // EscapeHtmlPipe
   ],
   entryComponents: [

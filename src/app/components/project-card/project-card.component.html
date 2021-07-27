@@ -41,7 +41,7 @@
 
         </div>
         <div class="eta_update_status">
-           <div *ngIf="project.eta_in_progress">ETAs will be updated soon. This could take a few minutes (and will continue even if the browser is closed).</div>
+           <div *ngIf="project.eta_in_progress">ETAs will be updated soon. This could take a few minutes (and will continue even if the browser is closed). We will email you the report when it is updated.</div>
            <div *ngIf="project.error_message" class="alert-danger">Error: {{ project.error_message }}.</div>
            <!-- <div *ngIf="project.result_message" class="alert-success">{{ project.result_message }}</div> -->
         </div>

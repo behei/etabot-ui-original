@@ -1,10 +1,33 @@
+.summary-container {
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
 .summary_table {
     border-collapse: collapse;
     border: 1px solid silver;
+    margin-bottom: 10px;
+    box-shadow: rgba(143, 143, 143, 0.25) 3px 3px 3px;
 }
+
 .summary_table td, th, tr {
     padding: 5px;
     border-collapse: collapse;
     border: 1px solid silver;
     text-align: center;
+}
+
+.mat-icon-button {
+    width: 0;
+    height: 0;
+    color: black;
+    position: relative;
+    top: 0px;
+    left: 100%;
+    transition: all 100ms ease-in-out;
+}
+
+.mat-icon-button:hover {
+    top: -1px;
 }

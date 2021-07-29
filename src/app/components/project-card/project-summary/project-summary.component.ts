@@ -9,14 +9,21 @@ export class ProjectSummaryComponent implements OnInit {
 
   @Input() project: Object;
   keys: any[];
-  summary: Object;
+  dueDatesSummary: Object;
+  sprintSummary: Object;
 
   constructor() { }
 
   ngOnInit() {
-    console.log("PROJECT SUMMARY ", this.project);
     // this.keys = Object.keys(this.project);
-    this.summary = this.project.settings.hierarchical_report.sprint_stats.counts
+    this.dueDatesSummary = this.project.settings.hierarchical_report.due_dates_stats.counts;
+    this.sprintSummary = this.project.settings.hierarchical_report.sprint_stats.counts;
+    console.log("PROJECT SUMMARY ", this.project.settings.hierarchical_report);
+
+  }
+
+  more() {
+    console.log("DISPLAY SOME MORE")
   }
 
 }

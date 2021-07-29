@@ -1,0 +1,10 @@
+.summary_table {
+    border-collapse: collapse;
+    border: 1px solid silver;
+}
+.summary_table td, th, tr {
+    padding: 5px;
+    border-collapse: collapse;
+    border: 1px solid silver;
+    text-align: center;
+}

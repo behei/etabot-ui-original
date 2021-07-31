@@ -1,9 +1,16 @@
 <div class="summary-container">
 
+  <a class="mat-icon-button" href="javascript:void(0)" (click)="more()" target="_blank">
+    <mat-icon aria-hidden="false" class="new-font" id="back-button" aria-label="Full report button" matTooltip="Full report" matTooltipPosition="right">description</mat-icon>
+  </a>
   <table class="summary_table">
     <tbody>
       <tr>
-        <td colspan="4">{{dueDatesSummary.total}} Total due dates</td>
+        <td colspan="4">{{dueDatesSummary.total}} Total due dates
+          <a class="mat-icon-button manage-button" href="javascript:void(0)" (click)="more()">
+            <mat-icon aria-hidden="false" class="new-font" id="back-button" aria-label="Manage button" matTooltip="Manage" matTooltipPosition="right">menu_open</mat-icon>
+          </a>
+        </td>
       </tr>
       <tr>
         <td style="background-color:#e9a2ad">{{dueDatesSummary.overdue}} </td>
@@ -23,24 +30,30 @@
   <table class="summary_table">
     <tbody>
       <tr>
-        <td colspan="4">{{sprintSummary.total}} Total tasks in active sprint</td>
+        <td colspan="4">{{sprintSummary.total}} Total tasks in active sprint
+          <a class="mat-icon-button manage-button" href="javascript:void(0)" (click)="more()">
+            <mat-icon aria-hidden="false" class="new-font" id="back-button" aria-label="More opttions" matTooltip="Manage" matTooltipPosition="right">menu_open</mat-icon>
+          </a>
+        </td>
       </tr>
       <tr>
         <td style="background-color:#e9a2ad">{{sprintSummary.overdue}} </td>
         <td style="background-color:#f3c19d">{{sprintSummary.off_track}}</td>
         <td style="background-color:#fbe192">{{sprintSummary.at_risk}}</td>
         <td style="background-color:#8dd7cf">{{sprintSummary.on_track}}</td>
+        <td *ngIf="sprintSummary.unknown > 0">{{sprintSummary.unknown}}</td>
       </tr>
       <tr>
         <td> overdue  </td>
         <td> off track  </td>
         <td> at risk  </td>
         <td> on track  </td>
+        <td *ngIf="sprintSummary.unknown > 0">?</td>
       </tr>
     </tbody>
   </table>
-  <a class="mat-icon-button" href="javascript:void(0)" (click)="more()">
-    <mat-icon aria-hidden="false" class="new-font" id="back-button" aria-label="Report download icon" matTooltip="More" matTooltipPosition="right">arrow_circle_up</mat-icon>
+  <a class="mat-icon-button more-button" href="javascript:void(0)" (click)="more()">
+    <mat-icon aria-hidden="false" class="new-font" id="back-button" aria-label="Report download icon" matTooltip="More" matTooltipPosition="right">more_horiz</mat-icon>
   </a>
   </div>
-<!-- Potential Material Icons: gear, analytics, open_in_new, open_in_full, close_fullscreen, arrow_circle_up, outbound, north_east, clear, crop_free, expand  -->
+<!-- Potential Material Icons: gear, analytics, open_in_new, open_in_full, close_fullscreen, arrow_circle_up, outbound, north_east, clear, crop_free, expand, construction, menu_open, more_horiz  -->

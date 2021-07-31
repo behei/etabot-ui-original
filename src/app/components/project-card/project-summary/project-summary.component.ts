@@ -7,8 +7,9 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ProjectSummaryComponent implements OnInit {
 
-  @Input() project: Object;
+  @Input() project: any;
   keys: any[];
+  fullReport: String;
   dueDatesSummary: Object;
   sprintSummary: Object;
 
@@ -16,6 +17,7 @@ export class ProjectSummaryComponent implements OnInit {
 
   ngOnInit() {
     // this.keys = Object.keys(this.project);
+    this.fullReport = this.project.settings.reports
     this.dueDatesSummary = this.project.settings.hierarchical_report.due_dates_stats.counts;
     this.sprintSummary = this.project.settings.hierarchical_report.sprint_stats.counts;
     console.log("PROJECT SUMMARY ", this.project.settings.hierarchical_report);

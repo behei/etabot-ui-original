@@ -25,8 +25,8 @@
     position: relative;
     top: -.75px;
     transition: all 100ms ease-in-out;
-}
-
+  }
+  
 .mat-icon-button:hover {
     color: darkblue;
     top: -1.5px;
@@ -39,4 +39,45 @@
 .manage-button {
     right: 10%;
     float: right;
+}
+
+.mat-icon-group > .mat-icon-button {
+    width: auto;
+    margin: 3px;
+}
+
+.user-select {
+    height: 60px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.user {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    position: relative;
+    top: 0px;
+    background-color: rgb(180, 180, 180);
+    border: 3px solid white;
+    border-radius: 50px;
+    line-height: 45px;
+    font-size: 1.25em;
+    transition: all 100ms ease-in-out;
+    margin-right: -10px;
+    overflow: hidden;
+}
+
+.user:hover {
+    top: -5px;
+}
+
+.selected-user {
+    border-color: rgb(41, 41, 175);
+}
+
+.more-users {
+    z-index: 1;
 }

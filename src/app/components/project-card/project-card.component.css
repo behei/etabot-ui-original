@@ -65,3 +65,26 @@
   border: 1px solid silver;
   text-align: center;
 }*/
+
+.mat-icon-button {
+  width: 0;
+  height: 0;
+  color: black;
+  position: relative;
+  top: -.75px;
+  transition: all 100ms ease-in-out;
+}
+
+.mat-icon-button:hover {
+  color: darkblue;
+  top: -1.5px;
+}
+
+.more-button {
+  left: 100%;
+}
+
+.manage-button {
+  right: 10%;
+  float: right;
+}

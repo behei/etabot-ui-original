@@ -32,6 +32,10 @@ export class Job {
 
     }
 
+    set_title(title) {
+        this.title = title;
+    }
+
     set_status(status) {
         this.status = status;
         this.status_timestamp = Date.now();

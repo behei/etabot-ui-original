@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ElementRef, Renderer2, ViewChild} from '@angular/core';
+import { MatSelect } from '@angular/material';
 
 @Component({
   selector: 'app-project-summary',
@@ -8,7 +9,8 @@ import { Component, OnInit, Input, ElementRef, Renderer2, ViewChild} from '@angu
 export class ProjectSummaryComponent implements OnInit {
 
   @Input() project: any;
-  @ViewChild('userSelect') userSelect:ElementRef;
+  @ViewChild('extraUserSelect') extraUserSelect: MatSelect;
+  @ViewChild('userSelect') userSelect: ElementRef;
   keys: any[];
   fullReport: String;
   dueDatesSummary: Object;
@@ -36,8 +38,46 @@ export class ProjectSummaryComponent implements OnInit {
         name: 'Zach Elkins',
         avatar: 'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/604192c2c58c7200714eeda8/c5495077-983e-45fd-99cf-23a860fefe50/48'
       },
+      {
+        name: 'Chad Lewis',
+      },
+      {
+        name: 'Alex Radnaev',
+        avatar: 'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:5e8ff89e-5f83-48cd-b787-fd0bd83ce3c2/eb3fdfb5-0e51-4995-9d7a-11df45e07e5b/48'
+      },
+      {
+        name: 'Zach Elkins',
+        avatar: 'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/604192c2c58c7200714eeda8/c5495077-983e-45fd-99cf-23a860fefe50/48'
+      },
+      {
+        name: 'Chad Lewis',
+      },
+      {
+        name: 'Alex Radnaev',
+        avatar: 'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:5e8ff89e-5f83-48cd-b787-fd0bd83ce3c2/eb3fdfb5-0e51-4995-9d7a-11df45e07e5b/48'
+      },
+      {
+        name: 'Zach Elkins',
+        avatar: 'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/604192c2c58c7200714eeda8/c5495077-983e-45fd-99cf-23a860fefe50/48'
+      },
+      {
+        name: 'Chad Lewis',
+      },
+      {
+        name: 'Alex Radnaev',
+        avatar: 'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:5e8ff89e-5f83-48cd-b787-fd0bd83ce3c2/eb3fdfb5-0e51-4995-9d7a-11df45e07e5b/48'
+      },
+      {
+        name: 'Zach Elkins',
+        avatar: 'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/604192c2c58c7200714eeda8/c5495077-983e-45fd-99cf-23a860fefe50/48'
+      }
     ];
 
+    // this.team = this.team.sort((a, b) => {
+    //   return compareNamesAlphabetical(a.name, b.name);
+    // });
+
+    console.log("TEAM", this.team);
     console.log("PROJECT SUMMARY ", this.project.settings);
   }
 
@@ -57,4 +97,20 @@ export class ProjectSummaryComponent implements OnInit {
     console.log("DISPLAY SOME MORE")
   }
 
+  openSelect() {
+    this.extraUserSelect.open()
+  }
+}
+
+function compareNamesAlphabetical(name1: string, name2: string) {
+  if (name1[0] > name2[0]) {
+    return 1;
+  } else if (name1[0] > name2[0]) {
+    return -1;
+  } else {
+    if(name1.split(' ')[1][0] > name2.split(' ')[1][0]) {
+      return 1;
+    } 
+    return -1;
+  }
 }

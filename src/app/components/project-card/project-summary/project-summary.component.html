@@ -1,30 +1,42 @@
 <div class="summary-container">
   <div #userSelect class="user-select">
-    <div class="user more-users">
-      +10
+    
+    <div *ngIf="team.length > 6" class="more-users user" (click)="openSelect()">
+      +{{team.length - 6}}
+      <mat-form-field class="no-arrow" appearance="fill">
+        <mat-label style="width: 100%;"></mat-label>
+        <!-- style="width: 100%;" -->
+        <!-- <mat-select #extraUserSelect [formControl]="extraUserSelect" multiple> -->
+        <mat-select #extraUserSelect multiple>
+            <mat-option *ngFor="let member of team.slice(6)" [value]="member">{{member.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
-    <div *ngFor="let member of team" class="user">
+
+
+    <div *ngFor="let member of team.slice(0, 6)" class="user">
       <span *ngIf="member.avatar"><img src="{{member.avatar}}" alt="{{member.name}}'s avatar" class="avatar"></span>
       <span *ngIf="!member.avatar">{{member.name.split(' ')[0][0]}}{{member.name.split(' ')[1][0]}}</span>
     </div>
   </div>
+
   <table class="summary_table">
     <tbody>
       <tr>
         <td colspan="4">{{dueDatesSummary.total}} Total due dates
-          <a class="mat-icon-button manage-button" href="javascript:void(0)" (click)="more()">
+          <a class="mat-icon-button manage-button" href="javascript:void(0)" (click)="openSelect()">
             <mat-icon aria-hidden="false" class="new-font" id="back-button" aria-label="Manage button" matTooltip="Manage" matTooltipPosition="right">menu_open</mat-icon>
           </a>
         </td>
       </tr>
       <tr>
-        <td style="background-color:#e9a2ad">{{dueDatesSummary.overdue}} </td>
-        <td style="background-color:#f3c19d">{{dueDatesSummary.off_track}}</td>
-        <td style="background-color:#fbe192">{{dueDatesSummary.at_risk}}</td>
-        <td style="background-color:#8dd7cf">{{dueDatesSummary.on_track}}</td>
+        <td style="background-color:var(--color-overdue)">{{dueDatesSummary.overdue}} </td>
+        <td style="background-color:var(--color-off-track)">{{dueDatesSummary.off_track}}</td>
+        <td style="background-color:var(--color-at-risk)">{{dueDatesSummary.at_risk}}</td>
+        <td style="background-color:var(--color-on-track)">{{dueDatesSummary.on_track}}</td>
       </tr>
       <tr>
-        <td> overdue  </td>
+        <td #test> overdue  </td>
         <td> off track  </td>
         <td> at risk  </td>
         <td> on track  </td>
@@ -42,10 +54,10 @@
         </td>
       </tr>
       <tr>
-        <td style="background-color:#e9a2ad">{{sprintSummary.overdue}} </td>
-        <td style="background-color:#f3c19d">{{sprintSummary.off_track}}</td>
-        <td style="background-color:#fbe192">{{sprintSummary.at_risk}}</td>
-        <td style="background-color:#8dd7cf">{{sprintSummary.on_track}}</td>
+        <td style="background-color:var(--color-overdue)">{{sprintSummary.overdue}} </td>
+        <td style="background-color:var(--color-off-track)">{{sprintSummary.off_track}}</td>
+        <td style="background-color:var(--color-at-risk)">{{sprintSummary.at_risk}}</td>
+        <td style="background-color:var(--color-on-track)">{{sprintSummary.on_track}}</td>
         <td *ngIf="sprintSummary.unknown > 0">{{sprintSummary.unknown}}</td>
       </tr>
       <tr>

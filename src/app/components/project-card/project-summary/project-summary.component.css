@@ -1,3 +1,10 @@
+::ng-deep :root {
+    --color-overdue: #e9a2ad;
+    --color-off-track: #f3c19d;
+    --color-at-risk: #fbe192;
+    --color-on-track: #8dd7cf;
+}
+
 .summary-container {
     width: 90%;
     margin: 0 auto;
@@ -68,6 +75,7 @@
     transition: all 100ms ease-in-out;
     margin-right: -10px;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .user:hover {
@@ -81,3 +89,32 @@
 .more-users {
     z-index: 1;
 }
+
+.more-users > mat-form-field {
+    width: 50px;
+    visibility: hidden;
+}
+
+:ng-deep .mat-form-field-flex {
+    padding: 0px;
+}
+
+.mat-select {
+    text-align: center;
+    width: 100%;   
+    font-size: 20px;
+}
+
+/* .mat-select-arrow-wrapper {
+    display: none;
+    border: none;
+} */
+
+mat-select-panel {
+    width: 100%;
+    font-size: 10em;
+}
+
+/* ::ng-deep mat-label {
+    width: 100%;
+} */

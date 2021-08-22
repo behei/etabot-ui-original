@@ -5,6 +5,10 @@
       <div class="indeterminate inner-loader"></div>
     </div>
 
+    <div id="time-message-container">
+      <p id="time-message" [style.display]="time_message_display">This may take some time, feel free to close the window, we will email you when the projects are imported.</p>
+    </div>
+
     <!-- <button (click)="close()" class="new-font" id="back-button"><mat-icon aria-hidden="false" aria-label="Report download icon">close</mat-icon></button> -->
     <mat-icon aria-hidden="false" (click)="close()" class="new-font" id="back-button" aria-label="Report download icon">close</mat-icon>
 

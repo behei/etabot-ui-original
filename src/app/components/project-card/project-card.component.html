@@ -51,8 +51,8 @@
               <td>Your Velocity</td>
               <td>
                 <div style="display: flex; align-items: center;">
-                    {{ (project_obj.velocity_available) ? (project.velocities.mean | number:'1.0-2') : "TBD" }}
-                    <div *ngIf="project_obj.velocity_available" matTooltip="points per hour of work">&nbsp;pph</div>
+                    {{ (project_obj.velocity_available ) ? (project.velocities.mean * 40. | number:'1.0-1') : "TBD" }}
+                    <div *ngIf="project_obj.velocity_available" matTooltip="storypoints per week, assuming 40 hours week">&nbsp;sppw</div>
                 </div>
               </td>
             </tr>

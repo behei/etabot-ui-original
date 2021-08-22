@@ -12,8 +12,6 @@ export class AppComponent {
   ngOnInit() {
   	if (environment.production) {
           console.log('prod env');
-  		// localStorage.removeItem('username');
-  		// localStorage.removeItem('currentUser');
   	}
   }
 }

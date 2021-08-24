@@ -48,7 +48,7 @@ export class ProjectSummaryComponent implements OnInit {
         } else {
           this.rd.addClass(element, 'selected-user');
         }
-        this.updateCharts()
+        this.updateCharts();
       });
     });
   }
@@ -58,28 +58,28 @@ export class ProjectSummaryComponent implements OnInit {
   }
 
   openSelect() {
-    this.extraUserSelect.open()
+    this.extraUserSelect.open();
   }
 
-  selectUser(evt, target, child) {
+  selectUser(evt, target) {
     if (!evt.value.length) {
       this.rd.removeClass(target, 'selected-user');
     } else if (!target.classList.contains('selected-user')) {
       this.rd.addClass(target, 'selected-user');
     }
-    this.updateCharts()
+    this.updateCharts();
   }
 
   getSelectedUserIds() {
     let ids = []
-    let elements = this.userSelect.nativeElement.querySelectorAll('.user')
+    let elements = this.userSelect.nativeElement.querySelectorAll('.user');
     for (let i = 0; i < elements.length; i++) {
       if (elements[i].classList.contains('selected-user')) {
-        ids.push(parseInt(elements[i].getAttribute('value')))
+        ids.push(parseInt(elements[i].getAttribute('value')));
       }
     }
     if (this.extraUserSelect) {
-      elements = this.extraUserSelect.options.toArray()
+      elements = this.extraUserSelect.options.toArray();
   
       for (let i = 0; i < elements.length; i++) {
         if (elements[i].selected) {
@@ -92,35 +92,35 @@ export class ProjectSummaryComponent implements OnInit {
   }
 
   sumObjects(objs) {
-    let sum = {}
+    let sum = {};
 
     objs.forEach(user => {
       for (let [key, value] of Object.entries(user)) {
         if (sum[key]) {
-          sum[key] += value
+          sum[key] += value;
         } else {
-          sum[key] = value
+          sum[key] = value;
         }
       }
     })
 
-    return sum
+    return sum;
   }
 
   updateCharts() {
-    let selectedIds = this.getSelectedUserIds()
-    let selectedUsers = this.teamSummary.filter(user => selectedIds.includes(user.id))
+    let selectedIds = this.getSelectedUserIds();
+    let selectedUsers = this.teamSummary.filter(user => selectedIds.includes(user.id));
     
     if (selectedUsers.length) {
       this.summaryValues = {
         dueDate: this.sumObjects(selectedUsers.map(user => user.due_dates_stats.counts)),
         sprint: this.sumObjects(selectedUsers.map(user => user.sprint_stats.counts))
-      }
+      };
     } else {
       this.summaryValues = {
         dueDate: this.dueDatesSummary,
         sprint: this.sprintSummary,
-      }
+      };
     }
   }
 }

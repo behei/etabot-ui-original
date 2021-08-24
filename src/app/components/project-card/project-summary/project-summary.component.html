@@ -4,7 +4,7 @@
     <div *ngIf="teamSummary.length > 6" class="more-users" #moreUsersButton (click)="openSelect()">
       +{{teamSummary.length - 6}}
       <mat-form-field appearance="fill">
-        <mat-select #extraUserSelect multiple (selectionChange)="selectUser($event, moreUsersButton, $event.value)">
+        <mat-select #extraUserSelect multiple (selectionChange)="selectUser($event, moreUsersButton)">
             <mat-option *ngFor="let member of teamSummary.slice(6)" [value]="member.id">{{member.entity_display_name}}</mat-option>
         </mat-select>
       </mat-form-field>

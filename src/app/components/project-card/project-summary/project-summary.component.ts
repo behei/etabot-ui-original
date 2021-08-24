@@ -28,6 +28,7 @@ export class ProjectSummaryComponent implements OnInit {
     this.sprintSummary = this.project.settings.hierarchical_report.sprint_stats.counts;
     this.teamSummary = this.project.settings.hierarchical_report.children;
 
+    this.teamSummary.forEach((member, i) => member.id = i);
     // console.log("TEAM", this.teamSummary);
     // console.log("PROJECT SUMMARY ", this.project.settings);
     // console.log("PROJECT ", this.project);
@@ -77,11 +78,13 @@ export class ProjectSummaryComponent implements OnInit {
         ids.push(parseInt(elements[i].getAttribute('value')))
       }
     }
-    elements = this.extraUserSelect.options.toArray()
-
-    for (let i = 0; i < elements.length; i++) {
-      if (elements[i].selected) {
-        ids.push(elements[i].value);
+    if (this.extraUserSelect) {
+      elements = this.extraUserSelect.options.toArray()
+  
+      for (let i = 0; i < elements.length; i++) {
+        if (elements[i].selected) {
+          ids.push(elements[i].value);
+        }
       }
     }
 

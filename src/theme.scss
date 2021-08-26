@@ -250,3 +250,12 @@ h1 {
   background-size: contain;
   background-position: center;
 }
+
+// Use this class on mat-form-field to set
+// mat-select inputs from showing the 
+// dropdown arrow
+.no-arrow {
+  .mat-select-arrow-wrapper {
+    display: none;
+  }
+}

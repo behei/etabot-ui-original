@@ -1,0 +1,79 @@
+<div class="summary-container">
+  <div #userSelect class="user-select">
+    
+    <div *ngIf="teamSummary.length > 6" class="more-users" #moreUsersButton (click)="openSelect()">
+      +{{teamSummary.length - 6}}
+      <mat-form-field appearance="fill">
+        <mat-select #extraUserSelect multiple (selectionChange)="selectUser($event, moreUsersButton)">
+            <mat-option *ngFor="let member of teamSummary.slice(6)" [value]="member.id">{{member.entity_display_name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+
+    <div *ngFor="let member of teamSummary.slice(0, 6)" class="user" [attr.value]="member.id">
+      <span *ngIf="member.avatar"><img src="{{member.avatar}}" alt="{{member.entity_display_name}}'s avatar" class="avatar"></span>
+      <span *ngIf="!member.avatar">{{member.entity_display_name.split(' ')[0][0]}}{{member.entity_display_name.split(' ')[1][0]}}</span>
+    </div>
+  </div>
+
+  <table class="summary_table">
+    <tbody>
+      <tr>
+        <td colspan="4">{{summaryValues.dueDate.total}} Total due dates
+          <a class="mat-icon-button manage-button" href="javascript:void(0)" (click)="more()">
+            <mat-icon aria-hidden="false" class="new-font" id="back-button" aria-label="Manage button" matTooltip="Manage" matTooltipPosition="right">menu_open</mat-icon>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td style="background-color:var(--color-overdue)">{{summaryValues.dueDate.overdue}} </td>
+        <td style="background-color:var(--color-off-track)">{{summaryValues.dueDate.off_track}}</td>
+        <td style="background-color:var(--color-at-risk)">{{summaryValues.dueDate.at_risk}}</td>
+        <td style="background-color:var(--color-on-track)">{{summaryValues.dueDate.on_track}}</td>
+      </tr>
+      <tr>
+        <td #test> overdue  </td>
+        <td> off track  </td>
+        <td> at risk  </td>
+        <td> on track  </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="summary_table">
+    <tbody>
+      <tr>
+        <td colspan="4">{{summaryValues.sprint.total}} Total tasks in active sprint
+          <a class="mat-icon-button manage-button" href="javascript:void(0)" (click)="more()">
+            <mat-icon aria-hidden="false" class="new-font" id="back-button" aria-label="More opttions" matTooltip="Manage" matTooltipPosition="right">menu_open</mat-icon>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td style="background-color:var(--color-overdue)">{{summaryValues.sprint.overdue}} </td>
+        <td style="background-color:var(--color-off-track)">{{summaryValues.sprint.off_track}}</td>
+        <td style="background-color:var(--color-at-risk)">{{summaryValues.sprint.at_risk}}</td>
+        <td style="background-color:var(--color-on-track)">{{summaryValues.sprint.on_track}}</td>
+        <td *ngIf="sprintSummary.unknown > 0">{{summaryValues.sprint.unknown}}</td>
+      </tr>
+      <tr>
+        <td> overdue  </td>
+        <td> off track  </td>
+        <td> at risk  </td>
+        <td> on track  </td>
+        <td *ngIf="sprintSummary.unknown > 0">?</td>
+      </tr>
+    </tbody>
+  </table>
+ 
+  <div class="mat-icon-group">
+    <a class="mat-icon-button" href="javascript:void(0)" (click)="more()" target="_blank">
+      <mat-icon aria-hidden="false" class="new-font" id="back-button" aria-label="Full report button" matTooltip="Full report" matTooltipPosition="right">description</mat-icon>
+    </a>
+    <a class="mat-icon-button" href="javascript:void(0)" (click)="more()">
+      <mat-icon aria-hidden="false" class="new-font" id="back-button" aria-label="More opttions" matTooltip="More" matTooltipPosition="right">more_horiz</mat-icon>
+    </a>
+  </div>
+  </div>
+<!-- Potential Material Icons: gear, analytics, open_in_new, open_in_full, close_fullscreen, arrow_circle_up, outbound, north_east, clear, crop_free, expand, construction, menu_open, more_horiz  -->

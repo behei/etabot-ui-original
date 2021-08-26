@@ -15,10 +15,10 @@ export class ProjectSummaryComponent implements OnInit {
   @ViewChild('userSelect') userSelect: ElementRef;
   keys: any[];
   fullReport: String;
-  dueDatesSummary: TargetDatesSummary;
-  sprintSummary: TargetDatesSummary;
+  dueDatesSummary: any;
+  sprintSummary: any;
   teamSummary: any[];
-  summaryValues: {dueDate: TargetDatesSummary, sprint: TargetDatesSummary};
+  summaryValues: {dueDate: any, sprint: any};
 
   constructor(
     private rd: Renderer2

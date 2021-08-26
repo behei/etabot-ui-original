@@ -1,11 +1,13 @@
 import { Component, OnInit, Input, ElementRef, Renderer2, ViewChild} from '@angular/core';
 import { MatSelect } from '@angular/material';
-
+import { TargetDatesSummary} from '../../../target_dates_summary';
 @Component({
   selector: 'app-project-summary',
   templateUrl: './project-summary.component.html',
   styleUrls: ['./project-summary.component.css']
 })
+
+
 export class ProjectSummaryComponent implements OnInit {
 
   @Input() project: any;
@@ -13,10 +15,10 @@ export class ProjectSummaryComponent implements OnInit {
   @ViewChild('userSelect') userSelect: ElementRef;
   keys: any[];
   fullReport: String;
-  dueDatesSummary: Object;
-  sprintSummary: Object;
+  dueDatesSummary: TargetDatesSummary;
+  sprintSummary: TargetDatesSummary;
   teamSummary: any[];
-  summaryValues: {dueDate: Object, sprint: Object};
+  summaryValues: {dueDate: TargetDatesSummary, sprint: TargetDatesSummary};
 
   constructor(
     private rd: Renderer2
@@ -37,7 +39,7 @@ export class ProjectSummaryComponent implements OnInit {
     this.summaryValues = {
       dueDate: this.dueDatesSummary,
       sprint: this.sprintSummary,
-    }
+    };
   }
 
   ngAfterViewInit() {
@@ -80,7 +82,7 @@ export class ProjectSummaryComponent implements OnInit {
     }
     if (this.extraUserSelect) {
       elements = this.extraUserSelect.options.toArray();
-  
+
       for (let i = 0; i < elements.length; i++) {
         if (elements[i].selected) {
           ids.push(elements[i].value);
@@ -110,7 +112,7 @@ export class ProjectSummaryComponent implements OnInit {
   updateCharts() {
     let selectedIds = this.getSelectedUserIds();
     let selectedUsers = this.teamSummary.filter(user => selectedIds.includes(user.id));
-    
+
     if (selectedUsers.length) {
       this.summaryValues = {
         dueDate: this.sumObjects(selectedUsers.map(user => user.due_dates_stats.counts)),
@@ -133,7 +135,7 @@ function compareNamesAlphabetical(name1: string, name2: string) {
   } else {
     if(name1.split(' ')[1][0] > name2.split(' ')[1][0]) {
       return 1;
-    } 
+    }
     return -1;
   }
 }

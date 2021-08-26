@@ -13,10 +13,10 @@ export class ProjectSummaryComponent implements OnInit {
   @ViewChild('userSelect') userSelect: ElementRef;
   keys: any[];
   fullReport: String;
-  dueDatesSummary: Object;
-  sprintSummary: Object;
+  dueDatesSummary: any;
+  sprintSummary: any;
   teamSummary: any[];
-  summaryValues: {dueDate: Object, sprint: Object};
+  summaryValues: {dueDate: any, sprint: any};
 
   constructor(
     private rd: Renderer2

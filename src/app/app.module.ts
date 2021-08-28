@@ -108,7 +108,7 @@ import { ProjectSummaryComponent } from './components/project-card/project-summa
     TutorialDialogComponent,
     FeedbackDialogComponent,
     PrivacyPolicyComponent,
-    ProjectSummaryComponent,
+    ProjectSummaryComponent
     // EscapeHtmlPipe
   ],
   entryComponents: [

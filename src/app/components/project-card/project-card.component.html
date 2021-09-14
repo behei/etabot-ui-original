@@ -1,5 +1,5 @@
 
-  <mat-card class="project-card" >
+  <mat-card class="project-card" *ngIf="this.project">
     <!-- <mat-card-header > -->
       <mat-card-title-group style="margin-bottom: 28px; margin-top: 8px; font-size: 24px;" class="julius-font">
             <span>{{ project.name }}</span>
@@ -72,4 +72,8 @@
         <div *ngIf="project.last_updated">ETAs last triggered {{ project.last_updated | date:'short' }}.</div>
     </mat-card-content>
 
+  </mat-card>
+
+  <mat-card class="project-card" *ngIf="!this.project">
+    <div class="alert-danger">Error: Project not loaded properly</div>
   </mat-card>

@@ -43,7 +43,7 @@ export class TmsCardComponent implements OnInit {
 
   ngOnInit() {
     // Check if old tms-card never had projects import
-    if (this.tms.params == null || Object.keys(this.tms.params).length <= 1 || !('projects_available' in this.tms.params)) {
+    if (this.tms.params == null || !('projects_available' in this.tms.params)) {
       this.jiraService.patch_username_password_tms(this.tms.id, this.tms.username, this.tms.password)
         .subscribe(
           success => {
@@ -209,7 +209,9 @@ export class TmsCardComponent implements OnInit {
 
     const projects_to_parse = this.projects.filter(
       project => { return project.import }).map(
-        project => { return project.name });
+        project => { return project.name }
+      );
+    
     this.jiraService.patch_imported_projects(this.tms.id, this.tms.params, projects_to_parse)
       .subscribe(
         parse_result => {
